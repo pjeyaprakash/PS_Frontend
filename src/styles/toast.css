@@ -1,0 +1,41 @@
+.my-toast {
+  background: rgba(255,255,255,0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+}
+
+/* .sonner-toast .my-toast {
+  border-radius: 12px;
+  padding: 16px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  background: rgba(20,20,20,0.9);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.sonner-description .my-toast-desc {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.dark .sonner-toast .my-toast {
+  background: #111;
+  color: white;
+}
+
+.light .sonner-toast .my-toast {
+  background: white;
+  color: black;
+} */
+
+
+/* .my-toast {
+  background: red !important;
+  color: white !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+} */

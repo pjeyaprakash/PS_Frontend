@@ -1,0 +1,218 @@
+/* ─── Sidebar ─────────────────────────────────────────────── */
+
+.dark {
+   --border: rgba(255, 255, 255, 0.09);
+   --bg-sidebar: rgba(10, 12, 22, 0.95);
+   --card-border: 1px solid rgba(255, 255, 255, 0.15);
+   --box-border: rgba(255,255,255,0.6);
+   --text-primary: #ffffff;
+     --text-muted: #7880a1;
+     --bg: rgba(0, 18, 98, 0.075);
+     --text-secondary:  #ffffff;
+  --bg-card-hover:   rgba(255, 255, 255, 0.08);
+  --glow:            rgba(107, 159, 255, 0.14);
+  --accent:          #c5fcff;
+
+
+
+}
+
+.light {
+    --border: rgba(100, 130, 255, 0.13);
+    --bg-sidebar: rgba(238, 242, 255, 0.97);
+    --card-border: 1px solid rgba(0, 44, 146, 0.15);
+    --box-border: rgba(0, 48, 161, 0.306);
+     --text-primary:    #000e5e;
+       --text-muted:      #6576ad;
+       --bg: rgba(124, 238, 255, 0.166);
+    --text-secondary:  #001457;
+    --bg-card-hover:   rgb(219, 247, 255);
+      --glow:            rgba(206, 251, 255, 0.92);
+  --accent:          #5366be;
+}
+
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-right: var(--card-border);
+
+box-shadow:
+  inset -1px 0 0 var(--box-border),
+  10px 0 32px rgba(118,157,255,0.25);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+/* Logo */
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 26px 20px 22px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #4f82f7, #a78bfa);
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  box-shadow: 0 4px 14px rgba(107, 159, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.logoName {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+/* Section */
+.section {
+  padding: 18px 10px 6px;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 10px 8px;
+  display: block;
+}
+
+/* Nav Item */
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  position: relative;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.navItem:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.navItem.active {
+  background: var(--glow);
+  border-color: var(--accent);
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+
+.navIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.60;
+}
+
+.navBadge {
+  margin-left: auto;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* Bottom user section */
+.bottom {
+  margin-top: auto;
+  padding: 14px 10px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.userChip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition);
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.userChip:hover { background: var(--bg-card-hover); }
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f82f7, #a78bfa);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.userInfo { flex: 1; min-width: 0; }
+
+.userName {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.dotsIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}

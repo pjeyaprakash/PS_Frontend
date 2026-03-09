@@ -1,0 +1,20 @@
+{
+  "nested": {
+    "auth": {
+      "nested": {
+        "LoginRequest": {
+          "fields": {
+            "email": {
+              "type": "string",
+              "id": 1
+            },
+            "password": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

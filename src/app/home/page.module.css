@@ -1,0 +1,49 @@
+.dark {
+  --bg-color: #08091a;
+  --bg-orb: rgba(30, 229, 255, 0.4);
+}
+
+/* LIGHT THEME */
+.light {
+  --bg-color: #ffffff;
+  --bg-orb: rgba(224, 47, 255, 0.4);
+}
+
+.main {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.orb1, .orb2, .orb3 {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  animation: orbDrift 15s ease-in-out infinite alternate;
+}
+
+.orb1 {
+  width: 520px; height: 520px;
+  top: -140px; left: -20px;
+  background: rgba(72, 118, 230, 0.38);
+  
+}
+.orb2 {  
+  width: 440px; height: 440px;
+  bottom: -110px; right: -90px;
+  background: rgba(150, 72, 210, 0.35);
+}
+.orb3 {
+  filter: blur(100px);
+  width: 220px; height: 220px;
+  top: 60%; left: 28%;
+  background: var(--bg-orb)
+}
+
+.home {
+  flex: 1;
+  overflow-y: auto;
+}

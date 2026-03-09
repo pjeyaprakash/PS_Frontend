@@ -1,0 +1,36 @@
+.toggle {
+  width: 54px;
+  height: 29px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.toggle:hover {
+  border-color: var(--border-focus);
+}
+
+.thumb {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--accent-btn);
+  transition: transform var(--transition);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+
+.thumbDark {
+  transform: translateX(0);
+}
+
+.thumbLight {
+  transform: translateX(25px);
+}
