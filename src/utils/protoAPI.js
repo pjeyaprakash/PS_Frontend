@@ -18,11 +18,12 @@ export async function protoPost(url, RequestType, ResponseType, payload) {
 }
 
 
-export async function protoGet(url, ResponseType) {
+export async function protoGet(url, ResponseType, controller) {
   const response = await axiosInstance.get(
     url,
     {
       responseType: "arraybuffer",
+      signal : controller.signal
     }
   )
   return ResponseType.decode(new Uint8Array(response.data))

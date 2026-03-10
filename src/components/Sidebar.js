@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import styles from '@/styles/sidebar.module.css';
 import { useTheme } from 'next-themes';
+import { useRouter } from "next/navigation";
+
 
 
 const navGroups = [
@@ -18,6 +20,18 @@ const navGroups = [
             <rect x="14" y="3" width="7" height="7" rx="1.5" />
             <rect x="3" y="14" width="7" height="7" rx="1.5" />
             <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        ),
+      },
+      {
+        id: 'stock',
+        label: 'Stock',
+        badge: 'New',
+        icon: (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M3 7l9-4 9 4-9 4-9-4z" />
+            <path d="M3 7v10l9 4 9-4V7" />
+            <path d="M12 11v10" />
           </svg>
         ),
       },
@@ -104,6 +118,8 @@ export default function Sidebar() {
   const { resolvedTheme , setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -126,7 +142,9 @@ export default function Sidebar() {
             <button
               key={item.id}
               className={`${styles.navItem} ${active === item.id ? styles.active : ''}`}
-              onClick={() => setActive(item.id)}
+              onClick={() => {
+                router.push(`home/${item.id}`);
+                setActive(item.id)}}
             >
               <span className={styles.navIcon}>{item.icon}</span>
               {item.label}
@@ -135,12 +153,7 @@ export default function Sidebar() {
           ))}
         </div>
       ))}
-      {/* <div
-        className={styles.theme}
-        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      >
-        {resolvedTheme}
-      </div> */}
+
       {/* User */}
       <div className={styles.bottom}>
         <button className={styles.userChip}>

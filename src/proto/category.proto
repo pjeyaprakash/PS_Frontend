@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package category;
+
+message category {
+  int32 id = 1;
+  string name = 2;
+  repeated string value = 3;
+}
+
+message CategoryGetResponse {
+  repeated category categories = 1;
+}
