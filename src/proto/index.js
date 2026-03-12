@@ -7,6 +7,428 @@ const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.
 // Exported root namespace
 const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
+export const api = $root.api = (() => {
+
+    /**
+     * Namespace api.
+     * @exports api
+     * @namespace
+     */
+    const api = {};
+
+    api.PostResponse = (function() {
+
+        /**
+         * Properties of a PostResponse.
+         * @memberof api
+         * @interface IPostResponse
+         * @property {number|null} [id] PostResponse id
+         */
+
+        /**
+         * Constructs a new PostResponse.
+         * @memberof api
+         * @classdesc Represents a PostResponse.
+         * @implements IPostResponse
+         * @constructor
+         * @param {api.IPostResponse=} [properties] Properties to set
+         */
+        function PostResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PostResponse id.
+         * @member {number} id
+         * @memberof api.PostResponse
+         * @instance
+         */
+        PostResponse.prototype.id = 0;
+
+        /**
+         * Creates a new PostResponse instance using the specified properties.
+         * @function create
+         * @memberof api.PostResponse
+         * @static
+         * @param {api.IPostResponse=} [properties] Properties to set
+         * @returns {api.PostResponse} PostResponse instance
+         */
+        PostResponse.create = function create(properties) {
+            return new PostResponse(properties);
+        };
+
+        /**
+         * Encodes the specified PostResponse message. Does not implicitly {@link api.PostResponse.verify|verify} messages.
+         * @function encode
+         * @memberof api.PostResponse
+         * @static
+         * @param {api.IPostResponse} message PostResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PostResponse message, length delimited. Does not implicitly {@link api.PostResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof api.PostResponse
+         * @static
+         * @param {api.IPostResponse} message PostResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PostResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof api.PostResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {api.PostResponse} PostResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.api.PostResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PostResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof api.PostResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {api.PostResponse} PostResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PostResponse message.
+         * @function verify
+         * @memberof api.PostResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PostResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a PostResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof api.PostResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {api.PostResponse} PostResponse
+         */
+        PostResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.api.PostResponse)
+                return object;
+            let message = new $root.api.PostResponse();
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PostResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof api.PostResponse
+         * @static
+         * @param {api.PostResponse} message PostResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PostResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                object.id = 0;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this PostResponse to JSON.
+         * @function toJSON
+         * @memberof api.PostResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PostResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PostResponse
+         * @function getTypeUrl
+         * @memberof api.PostResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PostResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/api.PostResponse";
+        };
+
+        return PostResponse;
+    })();
+
+    api.PutResponse = (function() {
+
+        /**
+         * Properties of a PutResponse.
+         * @memberof api
+         * @interface IPutResponse
+         * @property {boolean|null} [success] PutResponse success
+         */
+
+        /**
+         * Constructs a new PutResponse.
+         * @memberof api
+         * @classdesc Represents a PutResponse.
+         * @implements IPutResponse
+         * @constructor
+         * @param {api.IPutResponse=} [properties] Properties to set
+         */
+        function PutResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PutResponse success.
+         * @member {boolean} success
+         * @memberof api.PutResponse
+         * @instance
+         */
+        PutResponse.prototype.success = false;
+
+        /**
+         * Creates a new PutResponse instance using the specified properties.
+         * @function create
+         * @memberof api.PutResponse
+         * @static
+         * @param {api.IPutResponse=} [properties] Properties to set
+         * @returns {api.PutResponse} PutResponse instance
+         */
+        PutResponse.create = function create(properties) {
+            return new PutResponse(properties);
+        };
+
+        /**
+         * Encodes the specified PutResponse message. Does not implicitly {@link api.PutResponse.verify|verify} messages.
+         * @function encode
+         * @memberof api.PutResponse
+         * @static
+         * @param {api.IPutResponse} message PutResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PutResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.success != null && Object.hasOwnProperty.call(message, "success"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.success);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PutResponse message, length delimited. Does not implicitly {@link api.PutResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof api.PutResponse
+         * @static
+         * @param {api.IPutResponse} message PutResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PutResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PutResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof api.PutResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {api.PutResponse} PutResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PutResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.api.PutResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.success = reader.bool();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PutResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof api.PutResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {api.PutResponse} PutResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PutResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PutResponse message.
+         * @function verify
+         * @memberof api.PutResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PutResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.success != null && message.hasOwnProperty("success"))
+                if (typeof message.success !== "boolean")
+                    return "success: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a PutResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof api.PutResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {api.PutResponse} PutResponse
+         */
+        PutResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.api.PutResponse)
+                return object;
+            let message = new $root.api.PutResponse();
+            if (object.success != null)
+                message.success = Boolean(object.success);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PutResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof api.PutResponse
+         * @static
+         * @param {api.PutResponse} message PutResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PutResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                object.success = false;
+            if (message.success != null && message.hasOwnProperty("success"))
+                object.success = message.success;
+            return object;
+        };
+
+        /**
+         * Converts this PutResponse to JSON.
+         * @function toJSON
+         * @memberof api.PutResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PutResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PutResponse
+         * @function getTypeUrl
+         * @memberof api.PutResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PutResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/api.PutResponse";
+        };
+
+        return PutResponse;
+    })();
+
+    return api;
+})();
+
 export const auth = $root.auth = (() => {
 
     /**
@@ -1429,6 +1851,440 @@ export const category = $root.category = (() => {
         };
 
         return AddCategoryResponse;
+    })();
+
+    category.AddCategoryValueRequest = (function() {
+
+        /**
+         * Properties of an AddCategoryValueRequest.
+         * @memberof category
+         * @interface IAddCategoryValueRequest
+         * @property {number|null} [id] AddCategoryValueRequest id
+         * @property {string|null} [value] AddCategoryValueRequest value
+         */
+
+        /**
+         * Constructs a new AddCategoryValueRequest.
+         * @memberof category
+         * @classdesc Represents an AddCategoryValueRequest.
+         * @implements IAddCategoryValueRequest
+         * @constructor
+         * @param {category.IAddCategoryValueRequest=} [properties] Properties to set
+         */
+        function AddCategoryValueRequest(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AddCategoryValueRequest id.
+         * @member {number} id
+         * @memberof category.AddCategoryValueRequest
+         * @instance
+         */
+        AddCategoryValueRequest.prototype.id = 0;
+
+        /**
+         * AddCategoryValueRequest value.
+         * @member {string} value
+         * @memberof category.AddCategoryValueRequest
+         * @instance
+         */
+        AddCategoryValueRequest.prototype.value = "";
+
+        /**
+         * Creates a new AddCategoryValueRequest instance using the specified properties.
+         * @function create
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {category.IAddCategoryValueRequest=} [properties] Properties to set
+         * @returns {category.AddCategoryValueRequest} AddCategoryValueRequest instance
+         */
+        AddCategoryValueRequest.create = function create(properties) {
+            return new AddCategoryValueRequest(properties);
+        };
+
+        /**
+         * Encodes the specified AddCategoryValueRequest message. Does not implicitly {@link category.AddCategoryValueRequest.verify|verify} messages.
+         * @function encode
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {category.IAddCategoryValueRequest} message AddCategoryValueRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryValueRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.value != null && Object.hasOwnProperty.call(message, "value"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.value);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AddCategoryValueRequest message, length delimited. Does not implicitly {@link category.AddCategoryValueRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {category.IAddCategoryValueRequest} message AddCategoryValueRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryValueRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AddCategoryValueRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {category.AddCategoryValueRequest} AddCategoryValueRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryValueRequest.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.category.AddCategoryValueRequest();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.value = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AddCategoryValueRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {category.AddCategoryValueRequest} AddCategoryValueRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryValueRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AddCategoryValueRequest message.
+         * @function verify
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AddCategoryValueRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (!$util.isString(message.value))
+                    return "value: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an AddCategoryValueRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {category.AddCategoryValueRequest} AddCategoryValueRequest
+         */
+        AddCategoryValueRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.category.AddCategoryValueRequest)
+                return object;
+            let message = new $root.category.AddCategoryValueRequest();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.value != null)
+                message.value = String(object.value);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AddCategoryValueRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {category.AddCategoryValueRequest} message AddCategoryValueRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AddCategoryValueRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.value = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.value != null && message.hasOwnProperty("value"))
+                object.value = message.value;
+            return object;
+        };
+
+        /**
+         * Converts this AddCategoryValueRequest to JSON.
+         * @function toJSON
+         * @memberof category.AddCategoryValueRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AddCategoryValueRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for AddCategoryValueRequest
+         * @function getTypeUrl
+         * @memberof category.AddCategoryValueRequest
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        AddCategoryValueRequest.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/category.AddCategoryValueRequest";
+        };
+
+        return AddCategoryValueRequest;
+    })();
+
+    category.UpdateResponse = (function() {
+
+        /**
+         * Properties of an UpdateResponse.
+         * @memberof category
+         * @interface IUpdateResponse
+         * @property {boolean|null} [success] UpdateResponse success
+         */
+
+        /**
+         * Constructs a new UpdateResponse.
+         * @memberof category
+         * @classdesc Represents an UpdateResponse.
+         * @implements IUpdateResponse
+         * @constructor
+         * @param {category.IUpdateResponse=} [properties] Properties to set
+         */
+        function UpdateResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UpdateResponse success.
+         * @member {boolean} success
+         * @memberof category.UpdateResponse
+         * @instance
+         */
+        UpdateResponse.prototype.success = false;
+
+        /**
+         * Creates a new UpdateResponse instance using the specified properties.
+         * @function create
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {category.IUpdateResponse=} [properties] Properties to set
+         * @returns {category.UpdateResponse} UpdateResponse instance
+         */
+        UpdateResponse.create = function create(properties) {
+            return new UpdateResponse(properties);
+        };
+
+        /**
+         * Encodes the specified UpdateResponse message. Does not implicitly {@link category.UpdateResponse.verify|verify} messages.
+         * @function encode
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {category.IUpdateResponse} message UpdateResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdateResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.success != null && Object.hasOwnProperty.call(message, "success"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.success);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UpdateResponse message, length delimited. Does not implicitly {@link category.UpdateResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {category.IUpdateResponse} message UpdateResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdateResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an UpdateResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {category.UpdateResponse} UpdateResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdateResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.category.UpdateResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.success = reader.bool();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an UpdateResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {category.UpdateResponse} UpdateResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdateResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an UpdateResponse message.
+         * @function verify
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UpdateResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.success != null && message.hasOwnProperty("success"))
+                if (typeof message.success !== "boolean")
+                    return "success: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates an UpdateResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {category.UpdateResponse} UpdateResponse
+         */
+        UpdateResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.category.UpdateResponse)
+                return object;
+            let message = new $root.category.UpdateResponse();
+            if (object.success != null)
+                message.success = Boolean(object.success);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an UpdateResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {category.UpdateResponse} message UpdateResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UpdateResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                object.success = false;
+            if (message.success != null && message.hasOwnProperty("success"))
+                object.success = message.success;
+            return object;
+        };
+
+        /**
+         * Converts this UpdateResponse to JSON.
+         * @function toJSON
+         * @memberof category.UpdateResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UpdateResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for UpdateResponse
+         * @function getTypeUrl
+         * @memberof category.UpdateResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        UpdateResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/category.UpdateResponse";
+        };
+
+        return UpdateResponse;
     })();
 
     return category;

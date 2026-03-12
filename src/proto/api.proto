@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package api;
+
+message PostResponse {
+  int32 id = 1;
+}
+
+message PutResponse {
+  bool success = 1;
+}

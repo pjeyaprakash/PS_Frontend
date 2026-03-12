@@ -6,21 +6,21 @@ import { useRouter } from 'next/navigation';
 import styles from './createStock.module.css';
 
 import { category } from "@/proto/index";
-import { protoGet, protoPost } from '@/utils/protoAPI';
+import { protoGet, protoPost, protoPut } from '@/utils/protoAPI';
 
 /* ─── preset attribute groups ─────────────────────────────── */
-const PRESET_GROUPS = [
-  {
-    id: 'size', category: 'Size',
-    value: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Free Size'],
-  },
-    {
-    id: 'cloth', category: 'Cloth Type', 
-    value: ['Pure Silk', 'Linen', 'Cotton', 'Velvet', 'Chiffon', 'Georgette', 'Polyester', 'Satin', 'Denim', 'Rayon'],
-  }
-];
+// const PRESET_GROUPS = [
+//   {
+//     id: 'size', category: 'Size',
+//     value: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Free Size'],
+//   },
+//     {
+//     id: 'cloth', category: 'Cloth Type', 
+//     value: ['Pure Silk', 'Linen', 'Cotton', 'Velvet', 'Chiffon', 'Georgette', 'Polyester', 'Satin', 'Denim', 'Rayon'],
+//   }
+// ];
 
-
+let k = 1;
 const CATEGORIES = ['Gown', 'Casual', 'Formal', 'Party Wear', 'Ethnic', 'Western', 'Bridal', 'Co-ord Set'];
 
 function genId() { return Math.random().toString(36).slice(2, 9); }
@@ -50,33 +50,6 @@ function variantKey(attrs) {
 }
 
 
-// function initGroups() {
-//     const controller = new AbortController();
-//     (async () => {
-//       try {
-//         const data = await protoGet("/category", category.CategoryGetResponse, controller);
-
-
-//         return data.map(pg => ({
-//           ...pg, values: [], customInput: '',
-//         }));
-
-
-//       } catch (error) {
-//       if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
-//       console.error(error);
-
-//       }
-//     })()
-
-//   console.log("initGroups")
-//   return data.map(pg => ({
-//     ...pg, values: [], customInput: '',
-//   }));
-// }
-
-
-
 
 export default function CreateStock({ editItem = null }) {
 
@@ -90,7 +63,6 @@ export default function CreateStock({ editItem = null }) {
     (async () => {
       try {
         const {categories} = await protoGet("/category", category.CategoryGetResponse, controller)
-        console.log(categories)
               const groups = categories.map(pg => ({
         ...pg,
         values: [],
@@ -111,13 +83,12 @@ export default function CreateStock({ editItem = null }) {
 
 
   const [form, setForm] = useState({
-    name: editItem?.name || '', sku: editItem?.sku || '',
-    category: editItem?.category || '', price: editItem?.price || '',
-    cost: editItem?.cost || '', desc: editItem?.desc || '',
+    name: editItem?.name || '', 
+    category: editItem?.category || '', 
+     desc: editItem?.desc || '',
   });
 
 
-  // console.log("attrGroups", attrGroups)
   const [variants, setVariants]     = useState(editItem?.variants || []);
 
   const [showAddGroup, setShowAddGroup] = useState(false);
@@ -132,6 +103,7 @@ const recompute = useCallback((groups) => {
 
   const active = groups.filter(g => g.values.length > 0);
 
+
   if (active.length === 0) {
     setVariants([]);
     return;
@@ -139,14 +111,16 @@ const recompute = useCallback((groups) => {
 
   const arrays = active.map(g => g.values);
   const combos = cartesian(arrays);
-
+  let k = 1;
   setVariants(prev => {
 
     const prevMap = new Map();
 
+
     for (const v of prev) {
       prevMap.set(variantKey(v.attrs), v);
     }
+
 
     const next = new Array(combos.length);
 
@@ -156,7 +130,7 @@ const recompute = useCallback((groups) => {
       const attrs = {};
 
       for (let j = 0; j < active.length; j++) {
-        attrs[active[j].id] = combo[j];
+        attrs[active[j].category] = combo[j];
       }
 
       const id = variantKey(attrs);
@@ -165,9 +139,12 @@ const recompute = useCallback((groups) => {
         next[i] = prevMap.get(id);
       } else {
         next[i] = {
-          id: genId(),
+          id: id,
           attrs,
-          qty: 0
+          qty: 0,
+          name: "",
+          price: 0,
+          value: 0
         };
       }
     }
@@ -195,8 +172,8 @@ const recompute = useCallback((groups) => {
   };
 
 
-  const apiCall = async (id, newVal) => {
-    console.log("apiffffffCall",id, newVal)
+  const apiCall = async (id, value) => {
+   const {success} = await protoPut("/add-category-value", category.AddCategoryValueRequest, {id, value} )
   }
 
   /* ── add typed custom value ── */
@@ -204,7 +181,7 @@ const addCustomValue = async (groupKey) => {
 
   let newVal = "";
 
-  setAttrGroups(prev => {
+  await setAttrGroups(prev => {
 
     const next = prev.map(g => {
 
@@ -228,11 +205,7 @@ const addCustomValue = async (groupKey) => {
 
     return next;
   });
-
-  if (newVal) {
-    await apiCall(groupKey, newVal);
-  }
-
+  await apiCall(groupKey, newVal);
 };
 
   /* ── remove a selected value ── */
@@ -248,13 +221,13 @@ const addCustomValue = async (groupKey) => {
   };
 
   /* ── delete entire custom group ── */
-  const deleteGroup = (groupKey) => {
-    setAttrGroups(prev => {
-      const next = prev.filter(g => g.id !== groupKey);
-      recompute(next);
-      return next;
-    });
-  };
+  // const deleteGroup = (groupKey) => {
+  //   setAttrGroups(prev => {
+  //     const next = prev.filter(g => g.id !== groupKey);
+  //     recomputreeeeeeeee(next);
+  //     return next;
+  //   });
+  // };
 
   /* ── create new attribute group ── */
   const addCustomGroup = async () => {
@@ -262,7 +235,7 @@ const addCustomValue = async (groupKey) => {
     if (!name) return;
     const values = newGroupInput.split(',').map(s => s.trim()).filter(Boolean);
 
-    const {id} = await protoPost("/category", category.AddCategoryRequest, category.AddCategoryResponse, {category: name, value:values})
+    const {id} = await protoPost("/category", category.AddCategoryRequest, {category: name, value:values})
 
     const newGroup = {
       id, category: name, 
@@ -279,29 +252,36 @@ const addCustomValue = async (groupKey) => {
   };
 
   /* ── qty helpers ── */
-  const adjQty = (id, delta) =>
-    setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Math.max(0, v.qty + delta) } : v));
+  // const adjQty = (id, delta) =>
+  //   setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Math.max(0, v.qty + delta) } : v));
+
   const setQty = (id, val) =>
-    setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Math.max(0, Number(val) || 0) } : v));
+    setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Number(val), value: val * v.price} : v));
+  const setName = (id, val) =>
+    setVariants(prev => prev.map(v => v.id === id ? { ...v, name: val } : v));
+
+  const setPrice = (id, val) =>
+    setVariants(prev => prev.map(v => v.id === id ? { ...v, price: Number(val) , value: val * v.qty} : v));
 
   const totalQty  = variants.reduce((s, v) => s + v.qty, 0);
-  const totalVal  = form.cost ? variants.reduce((s, v) => s + v.qty * Number(form.cost), 0) : 0;
+  const totalVal  = variants.reduce((s, v) => s + v.qty * v.price, 0) 
   const activeGrps = attrGroups.filter(g => g.values.length > 0);
 
 
   /* ── submit ── */
   const handleSubmit = () => {
     if (!form.name || !form.category) return alert('Name and Category are required.');
-    const item = {
-      ...form, price: Number(form.price), cost: Number(form.cost), variants,
-      status: variants.length === 0 ? 'draft'
-        : variants.some(v => v.qty > 0 && v.qty < 5) ? 'low'
-        : variants.every(v => v.qty === 0) ? 'draft' : 'active',
-    };
+    // const item = {
+    //   ...form, price: Number(form.price), cost: Number(form.cost), variants,
+    //   status: variants.length === 0 ? 'draft'
+    //     : variants.some(v => v.qty > 0 && v.qty < 5) ? 'low'
+    //     : variants.every(v => v.qty === 0) ? 'draft' : 'active',
+    // };
+    console.log("item", {...form, total_quantity:totalQty, total_value: totalVal, variant_count: variants.length, variants})
     // if (editItem) updateItem(editItem.id, item);
     // else addItem(item);
     setToast(true);
-    setTimeout(() => { setToast(false); router.push('/stock'); }, 1600);
+    // setTimeout(() => { setToast(false); router.push('/stock'); }, 1600);
   };
 
   return (
@@ -310,9 +290,9 @@ const addCustomValue = async (groupKey) => {
       <div className={styles.pageHeader}>
         <div>
           <h1 className={styles.pageTitle}>{editItem ? 'Edit' : 'Create'} <em>Stock</em></h1>
-          <p className={styles.pageSubtitle}>
+          {/* <p className={styles.pageSubtitle}>
             Select values from any attribute — variants generate instantly from your picks
-          </p>
+          </p> */}
         </div>
         <div className={styles.headerActions}>
           <button className={styles.btnSecondary} onClick={() => router.push('/stock')}>
@@ -347,11 +327,11 @@ const addCustomValue = async (groupKey) => {
               <input className={styles.input} placeholder="e.g. Silk Evening Gown"
                 value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
             </div>
-            <div className={styles.field}>
+            {/* <div className={styles.field}>
               <label className={styles.label}>SKU Code</label>
               <input className={styles.input} placeholder="e.g. SEG-001"
                 value={form.sku} onChange={e => setForm(f => ({ ...f, sku: e.target.value }))} />
-            </div>
+            </div> */}
           </div>
           <div className={styles.row} style={{ marginTop: 14 }}>
             <div className={styles.field}>
@@ -367,7 +347,7 @@ const addCustomValue = async (groupKey) => {
                 value={form.desc} onChange={e => setForm(f => ({ ...f, desc: e.target.value }))} />
             </div>
           </div>
-          <div className={styles.row} style={{ marginTop: 14 }}>
+          {/* <div className={styles.row} style={{ marginTop: 14 }}>
             <div className={styles.field}>
               <label className={styles.label}>Selling Price (₹)</label>
               <div className={styles.inputWithIcon}>
@@ -392,7 +372,7 @@ const addCustomValue = async (groupKey) => {
                   value={form.cost} onChange={e => setForm(f => ({ ...f, cost: e.target.value }))} />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* ── Variant Builder ── */}
@@ -553,32 +533,65 @@ const addCustomValue = async (groupKey) => {
                 <table className={styles.matrix}>
                   <thead>
                     <tr>
-                      {activeGrps.map(g => <th key={g.id}>{g.category}</th>)}
+                      {/* {activeGrps.map(g => <th key={g.id}>{g.category}</th>)} */}
+
+                      <th>Specs</th>
+                      <th>Name</th>
                       <th>Quantity</th>
-                      <th></th>
+                      <th>Price</th>
+                      <th>Value</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
                     {variants.map(v => (
+                      
                       <tr key={v.id}>
-                        {activeGrps.map(g => {
-                          const val   = v.attrs[g.id];
+                        {/* {activeGrps.map(g => {
+                          const val   = v.attrs[g.category];
                           return (
                             <td key={g.id}>
                               <span className={styles.variantBadge}>
-                                {val}
+                                {Object.values(v.attrs).join(', ')}
                               </span>
                             </td>
                           );
-                        })}
+                        })} */}
+                        <td>
+                          <span className={styles.variantBadge}>
+                            {Object.values(v.attrs).join(', ')}
+                          </span>
+                        </td>
+
+
                         <td>
                           <div className={styles.qtyWrap}>
-                            <button className={styles.qtyBtn} onClick={() => adjQty(v.id, -1)}>−</button>
-                            <input className={styles.qtyInput} type="number" min={0}
-                              value={v.qty} onChange={e => setQty(v.id, e.target.value)} />
-                            <button className={styles.qtyBtn} onClick={() => adjQty(v.id, +1)}>+</button>
+                            <input className={styles.qtyInput} type="text" min={0}
+                              value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>
+
+                        <td>
+                          <div className={styles.qtyWrap}>
+                            {/* <button className={styles.qtyBtn} onClick={() => adjQty(v.id, -1)}>−</button> */}
+                            <input className={styles.qtyInput} type="number" min={0}
+                              value={v.qty} onChange={e => setQty(v.id, e.target.value)} onClick={() =>  { 
+                                if (v.qty != 0) return;
+                                setVariants(prev => prev.map(p => p.id === v.id ? { ...p, qty: "" } : p))} }/>
+                            {/* <button className={styles.qtyBtn} onClick={() => adjQty(v.id, +1)}>+</button> */}
+                          </div>
+                        </td>
+
+                        <td>
+                            <input className={styles.qtyInput} type="number" min={0}
+                              value={v.price} onChange={e => setPrice(v.id, e.target.value)} />
+                        </td>
+
+                        <td>
+                            <input className={styles.qtyInput} type="number" min={0}
+                              value={v.price *  v.qty} readOnly/>
+                        </td>
+
                         <td>
                           <button className={styles.btnDanger}
                             onClick={() => setVariants(prev => prev.filter(x => x.id !== v.id))}
@@ -599,13 +612,13 @@ const addCustomValue = async (groupKey) => {
                 <div className={styles.summaryItem}>Variants: <strong>{variants.length}</strong></div>
                 <div className={styles.summaryItem}>Total Units: <strong style={{ color: 'var(--accent)' }}>{totalQty}</strong></div>
                 {totalVal > 0 && (
-                  <div className={styles.summaryItem}>Value: <strong style={{ color: 'var(--accent)' }}>₹{totalVal.toLocaleString('en-IN')}</strong></div>
+                  <div className={styles.summaryItem}>Value: <strong style={{ color: 'var(--accent)' }}>₹ {totalVal.toLocaleString('en-IN')}</strong></div>
                 )}
-                {variants.some(v => v.qty > 0 && v.qty < 5) && (
+                {/* {variants.some(v => v.qty > 0 && v.qty < 5) && (
                   <div className={styles.summaryItem} style={{ color: 'var(--accent-o)' }}>
                     ⚠ {variants.filter(v => v.qty > 0 && v.qty < 5).length} low stock
                   </div>
-                )}
+                )} */}
               </div>
             </>
           )}
