@@ -493,7 +493,7 @@ export const category = $root.category = (() => {
          * @memberof category
          * @interface Icategory
          * @property {number|null} [id] category id
-         * @property {string|null} [name] category name
+         * @property {string|null} [category] category category
          * @property {Array.<string>|null} [value] category value
          */
 
@@ -522,12 +522,12 @@ export const category = $root.category = (() => {
         category.prototype.id = 0;
 
         /**
-         * category name.
-         * @member {string} name
+         * category category.
+         * @member {string} category
          * @memberof category.category
          * @instance
          */
-        category.prototype.name = "";
+        category.prototype.category = "";
 
         /**
          * category value.
@@ -563,8 +563,8 @@ export const category = $root.category = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
-            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.category);
             if (message.value != null && message.value.length)
                 for (let i = 0; i < message.value.length; ++i)
                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.value[i]);
@@ -609,7 +609,7 @@ export const category = $root.category = (() => {
                         break;
                     }
                 case 2: {
-                        message.name = reader.string();
+                        message.category = reader.string();
                         break;
                     }
                 case 3: {
@@ -656,9 +656,9 @@ export const category = $root.category = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isInteger(message.id))
                     return "id: integer expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
             if (message.value != null && message.hasOwnProperty("value")) {
                 if (!Array.isArray(message.value))
                     return "value: array expected";
@@ -683,8 +683,8 @@ export const category = $root.category = (() => {
             let message = new $root.category.category();
             if (object.id != null)
                 message.id = object.id | 0;
-            if (object.name != null)
-                message.name = String(object.name);
+            if (object.category != null)
+                message.category = String(object.category);
             if (object.value) {
                 if (!Array.isArray(object.value))
                     throw TypeError(".category.category.value: array expected");
@@ -712,12 +712,12 @@ export const category = $root.category = (() => {
                 object.value = [];
             if (options.defaults) {
                 object.id = 0;
-                object.name = "";
+                object.category = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
             if (message.value && message.value.length) {
                 object.value = [];
                 for (let j = 0; j < message.value.length; ++j)
@@ -979,6 +979,456 @@ export const category = $root.category = (() => {
         };
 
         return CategoryGetResponse;
+    })();
+
+    category.AddCategoryRequest = (function() {
+
+        /**
+         * Properties of an AddCategoryRequest.
+         * @memberof category
+         * @interface IAddCategoryRequest
+         * @property {string|null} [category] AddCategoryRequest category
+         * @property {Array.<string>|null} [value] AddCategoryRequest value
+         */
+
+        /**
+         * Constructs a new AddCategoryRequest.
+         * @memberof category
+         * @classdesc Represents an AddCategoryRequest.
+         * @implements IAddCategoryRequest
+         * @constructor
+         * @param {category.IAddCategoryRequest=} [properties] Properties to set
+         */
+        function AddCategoryRequest(properties) {
+            this.value = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AddCategoryRequest category.
+         * @member {string} category
+         * @memberof category.AddCategoryRequest
+         * @instance
+         */
+        AddCategoryRequest.prototype.category = "";
+
+        /**
+         * AddCategoryRequest value.
+         * @member {Array.<string>} value
+         * @memberof category.AddCategoryRequest
+         * @instance
+         */
+        AddCategoryRequest.prototype.value = $util.emptyArray;
+
+        /**
+         * Creates a new AddCategoryRequest instance using the specified properties.
+         * @function create
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {category.IAddCategoryRequest=} [properties] Properties to set
+         * @returns {category.AddCategoryRequest} AddCategoryRequest instance
+         */
+        AddCategoryRequest.create = function create(properties) {
+            return new AddCategoryRequest(properties);
+        };
+
+        /**
+         * Encodes the specified AddCategoryRequest message. Does not implicitly {@link category.AddCategoryRequest.verify|verify} messages.
+         * @function encode
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {category.IAddCategoryRequest} message AddCategoryRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.category);
+            if (message.value != null && message.value.length)
+                for (let i = 0; i < message.value.length; ++i)
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.value[i]);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AddCategoryRequest message, length delimited. Does not implicitly {@link category.AddCategoryRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {category.IAddCategoryRequest} message AddCategoryRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AddCategoryRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {category.AddCategoryRequest} AddCategoryRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryRequest.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.category.AddCategoryRequest();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.category = reader.string();
+                        break;
+                    }
+                case 2: {
+                        if (!(message.value && message.value.length))
+                            message.value = [];
+                        message.value.push(reader.string());
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AddCategoryRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {category.AddCategoryRequest} AddCategoryRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AddCategoryRequest message.
+         * @function verify
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AddCategoryRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
+            if (message.value != null && message.hasOwnProperty("value")) {
+                if (!Array.isArray(message.value))
+                    return "value: array expected";
+                for (let i = 0; i < message.value.length; ++i)
+                    if (!$util.isString(message.value[i]))
+                        return "value: string[] expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates an AddCategoryRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {category.AddCategoryRequest} AddCategoryRequest
+         */
+        AddCategoryRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.category.AddCategoryRequest)
+                return object;
+            let message = new $root.category.AddCategoryRequest();
+            if (object.category != null)
+                message.category = String(object.category);
+            if (object.value) {
+                if (!Array.isArray(object.value))
+                    throw TypeError(".category.AddCategoryRequest.value: array expected");
+                message.value = [];
+                for (let i = 0; i < object.value.length; ++i)
+                    message.value[i] = String(object.value[i]);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AddCategoryRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {category.AddCategoryRequest} message AddCategoryRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AddCategoryRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.value = [];
+            if (options.defaults)
+                object.category = "";
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
+            if (message.value && message.value.length) {
+                object.value = [];
+                for (let j = 0; j < message.value.length; ++j)
+                    object.value[j] = message.value[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this AddCategoryRequest to JSON.
+         * @function toJSON
+         * @memberof category.AddCategoryRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AddCategoryRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for AddCategoryRequest
+         * @function getTypeUrl
+         * @memberof category.AddCategoryRequest
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        AddCategoryRequest.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/category.AddCategoryRequest";
+        };
+
+        return AddCategoryRequest;
+    })();
+
+    category.AddCategoryResponse = (function() {
+
+        /**
+         * Properties of an AddCategoryResponse.
+         * @memberof category
+         * @interface IAddCategoryResponse
+         * @property {number|null} [id] AddCategoryResponse id
+         */
+
+        /**
+         * Constructs a new AddCategoryResponse.
+         * @memberof category
+         * @classdesc Represents an AddCategoryResponse.
+         * @implements IAddCategoryResponse
+         * @constructor
+         * @param {category.IAddCategoryResponse=} [properties] Properties to set
+         */
+        function AddCategoryResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AddCategoryResponse id.
+         * @member {number} id
+         * @memberof category.AddCategoryResponse
+         * @instance
+         */
+        AddCategoryResponse.prototype.id = 0;
+
+        /**
+         * Creates a new AddCategoryResponse instance using the specified properties.
+         * @function create
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {category.IAddCategoryResponse=} [properties] Properties to set
+         * @returns {category.AddCategoryResponse} AddCategoryResponse instance
+         */
+        AddCategoryResponse.create = function create(properties) {
+            return new AddCategoryResponse(properties);
+        };
+
+        /**
+         * Encodes the specified AddCategoryResponse message. Does not implicitly {@link category.AddCategoryResponse.verify|verify} messages.
+         * @function encode
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {category.IAddCategoryResponse} message AddCategoryResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AddCategoryResponse message, length delimited. Does not implicitly {@link category.AddCategoryResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {category.IAddCategoryResponse} message AddCategoryResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AddCategoryResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AddCategoryResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {category.AddCategoryResponse} AddCategoryResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.category.AddCategoryResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AddCategoryResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {category.AddCategoryResponse} AddCategoryResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AddCategoryResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AddCategoryResponse message.
+         * @function verify
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AddCategoryResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an AddCategoryResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {category.AddCategoryResponse} AddCategoryResponse
+         */
+        AddCategoryResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.category.AddCategoryResponse)
+                return object;
+            let message = new $root.category.AddCategoryResponse();
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AddCategoryResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {category.AddCategoryResponse} message AddCategoryResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AddCategoryResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                object.id = 0;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this AddCategoryResponse to JSON.
+         * @function toJSON
+         * @memberof category.AddCategoryResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AddCategoryResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for AddCategoryResponse
+         * @function getTypeUrl
+         * @memberof category.AddCategoryResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        AddCategoryResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/category.AddCategoryResponse";
+        };
+
+        return AddCategoryResponse;
     })();
 
     return category;

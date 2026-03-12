@@ -6,20 +6,33 @@ import { useRouter } from 'next/navigation';
 import styles from './createStock.module.css';
 
 import { category } from "@/proto/index";
-import { protoGet, protoPost } from '@/utils/protoAPI';
+import { protoGet } from '@/utils/protoAPI';
 
 /* ─── preset attribute groups ─────────────────────────────── */
 const PRESET_GROUPS = [
   {
-    id: 'size', category: 'Size',
-    value: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Free Size'],
+    key: 'size', label: 'Size',
+    presets: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Free Size'],
   },
-    {
-    id: 'cloth', category: 'Cloth Type', 
-    value: ['Pure Silk', 'Linen', 'Cotton', 'Velvet', 'Chiffon', 'Georgette', 'Polyester', 'Satin', 'Denim', 'Rayon'],
-  }
+  {
+    key: 'color', label: 'Colour', 
+    presets: [
+      'Midnight Black', 
+      'Ivory White',    
+      'Blush Pink',     
+      'Sky Blue',       
+      'Deep Burgundy',  
+      'Forest Green',   
+      'Champagne Gold', 
+      'Navy Blue',      
+      'Coral Red',      
+    ],
+  },
+  {
+    key: 'cloth', label: 'Cloth Type', 
+    presets: ['Pure Silk', 'Linen', 'Cotton', 'Velvet', 'Chiffon', 'Georgette', 'Polyester', 'Satin', 'Denim', 'Rayon'],
+  },
 ];
-
 
 const CATEGORIES = ['Gown', 'Casual', 'Formal', 'Party Wear', 'Ethnic', 'Western', 'Bridal', 'Co-ord Set'];
 
@@ -42,45 +55,23 @@ function cartesian(arrays) {
   return result;
 }
 
-function variantKey(attrs) {
+
+
+
+function initGroups() {
+  return PRESET_GROUPS.map(pg => ({
+    ...pg, values: [], customInput: '',
+  }));
+}
+
+  function variantKey(attrs) {
   return Object.entries(attrs)
     .sort(([a],[b]) => a.localeCompare(b))
     .map(([k,v]) => `${k}:${v}`)
     .join('|');
 }
 
-
-// function initGroups() {
-//     const controller = new AbortController();
-//     (async () => {
-//       try {
-//         const data = await protoGet("/category", category.CategoryGetResponse, controller);
-
-
-//         return data.map(pg => ({
-//           ...pg, values: [], customInput: '',
-//         }));
-
-
-//       } catch (error) {
-//       if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
-//       console.error(error);
-
-//       }
-//     })()
-
-//   console.log("initGroups")
-//   return data.map(pg => ({
-//     ...pg, values: [], customInput: '',
-//   }));
-// }
-
-
-
-
 export default function CreateStock({ editItem = null }) {
-
-    const [attrGroups, setAttrGroups] = useState([]);
   const router = useRouter();
 //   const { addItem, updateItem } = useStock();
 
@@ -89,15 +80,9 @@ export default function CreateStock({ editItem = null }) {
     const controller = new AbortController();
     (async () => {
       try {
-        const {categories} = await protoGet("/category", category.CategoryGetResponse, controller)
-        console.log(categories)
-              const groups = categories.map(pg => ({
-        ...pg,
-        values: [],
-        customInput: ''
-      }));
+        const data = await protoGet("/category", category.CategoryGetResponse, controller)
 
-      setAttrGroups(groups);
+        console.log(data)
       } catch (error) {
       if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
       console.error(error);
@@ -116,8 +101,8 @@ export default function CreateStock({ editItem = null }) {
     cost: editItem?.cost || '', desc: editItem?.desc || '',
   });
 
-
-  // console.log("attrGroups", attrGroups)
+  const [attrGroups, setAttrGroups] = useState(initGroups);
+  console.log("attrGroups", attrGroups)
   const [variants, setVariants]     = useState(editItem?.variants || []);
 
   const [showAddGroup, setShowAddGroup] = useState(false);
@@ -156,13 +141,13 @@ const recompute = useCallback((groups) => {
       const attrs = {};
 
       for (let j = 0; j < active.length; j++) {
-        attrs[active[j].id] = combo[j];
+        attrs[active[j].key] = combo[j];
       }
 
-      const id = variantKey(attrs);
+      const key = variantKey(attrs);
 
-      if (prevMap.has(id)) {
-        next[i] = prevMap.get(id);
+      if (prevMap.has(key)) {
+        next[i] = prevMap.get(key);
       } else {
         next[i] = {
           id: genId(),
@@ -182,7 +167,7 @@ const recompute = useCallback((groups) => {
   const toggleValue = (groupKey, value) => {
     setAttrGroups(prev => {
       const next = prev.map(g => {
-        if (g.id !== groupKey) return g;
+        if (g.key !== groupKey) return g;
         const exists  = g.values.includes(value);
         const values  = exists
           ? (g.values.filter(v => v !== value))
@@ -195,8 +180,8 @@ const recompute = useCallback((groups) => {
   };
 
 
-  const apiCall = async (id, newVal) => {
-    console.log("apiffffffCall",id, newVal)
+  const apiCall = async (key, newVal) => {
+    console.log("apiffffffCall",key, newVal)
   }
 
   /* ── add typed custom value ── */
@@ -208,7 +193,7 @@ const addCustomValue = async (groupKey) => {
 
     const next = prev.map(g => {
 
-      if (g.id !== groupKey) return g;
+      if (g.key !== groupKey) return g;
 
       newVal = g.customInput.trim().toLowerCase();
 
@@ -239,7 +224,7 @@ const addCustomValue = async (groupKey) => {
   const removeValue = (groupKey, value) => {
     setAttrGroups(prev => {
       const next = prev.map(g => {
-        if (g.id !== groupKey) return g;
+        if (g.key !== groupKey) return g;
         return { ...g, values: g.values.filter(v => v !== value) };
       });
       recompute(next);
@@ -250,23 +235,21 @@ const addCustomValue = async (groupKey) => {
   /* ── delete entire custom group ── */
   const deleteGroup = (groupKey) => {
     setAttrGroups(prev => {
-      const next = prev.filter(g => g.id !== groupKey);
+      const next = prev.filter(g => g.key !== groupKey);
       recompute(next);
       return next;
     });
   };
 
   /* ── create new attribute group ── */
-  const addCustomGroup = async () => {
+  const addCustomGroup = () => {
     const name = newGroupName.trim();
     if (!name) return;
+    const key    = name.toLowerCase().replace(/\s+/g, '_') + '_' + genId();
     const values = newGroupInput.split(',').map(s => s.trim()).filter(Boolean);
-
-    const {id} = await protoPost("/category", category.AddCategoryRequest, category.AddCategoryResponse, {category: name, value:values})
-
     const newGroup = {
-      id, category: name, 
-      value: values, values,
+      key, label: name, 
+      presets: values, values,
       customInput: '', 
     };
 
@@ -408,9 +391,9 @@ const addCustomValue = async (groupKey) => {
 
           {/* Attribute groups */}
           {attrGroups.map(group => (
-            <div key={group.id} className={styles.attrSection}>
+            <div key={group.key} className={styles.attrSection}>
               <div className={styles.attrTitleRow}>
-                <span className={styles.attrTitle}> {group.category}</span>
+                <span className={styles.attrTitle}> {group.label}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   {group.values.length > 0 && (
                     <span className={styles.attrCount}>{group.values.length} selected</span>
@@ -421,16 +404,16 @@ const addCustomValue = async (groupKey) => {
 
               <div className={styles.attrRow}>
                 {/* Preset options */}
-                {group.value.map(preset => {
+                {group.presets.map(preset => {
                   const isSelected =  group.values.includes(preset);
                   return (
                     <div key={preset}
                       className={`${styles.attrPill} ${isSelected ? styles.selected : ''}`}
-                      onClick={() => toggleValue(group.id, preset)}>
+                      onClick={() => toggleValue(group.key, preset)}>
                       {preset}
                       {isSelected && (
                         <button className={styles.pillRemove}
-                          onClick={e => { e.stopPropagation(); removeValue(group.id, preset); }}>×</button>
+                          onClick={e => { e.stopPropagation(); removeValue(group.key, preset); }}>×</button>
                       )}
                     </div>
                   );
@@ -438,13 +421,13 @@ const addCustomValue = async (groupKey) => {
 
                 {/* Extra custom values (not in presets) */}
                 {group.values
-                  .filter(v => !group.value.includes(v))
+                  .filter(v => !group.presets.includes(v))
                   .map(v => (
                     <div key={v}
                       className={`${styles.attrPill} ${styles.selected}`}>
                       { v}
                       <button className={styles.pillRemove}
-                        onClick={() => removeValue(group.id, v)}>×</button>
+                        onClick={() => removeValue(group.key, v)}>×</button>
                     </div>
                   ))
                 }
@@ -452,12 +435,12 @@ const addCustomValue = async (groupKey) => {
                 {/* Custom input */}
                 <div className={styles.addAttrInput}>
                   <input
-                    placeholder={`Add ${group.category}…`}
+                    placeholder={`Add ${group.label}…`}
                     value={group.customInput}
-                    onChange={e => setAttrGroups(prev => prev.map(g => g.id === group.id ? { ...g, customInput: e.target.value } : g))}
-                    onKeyDown={e => e.key === 'Enter' && addCustomValue(group.id)}
+                    onChange={e => setAttrGroups(prev => prev.map(g => g.key === group.key ? { ...g, customInput: e.target.value } : g))}
+                    onKeyDown={e => e.key === 'Enter' && addCustomValue(group.key)}
                   />
-                  <button className={styles.btnGhost} onClick={() => addCustomValue(group.id)}>
+                  <button className={styles.btnGhost} onClick={() => addCustomValue(group.key)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                     </svg>
@@ -553,7 +536,7 @@ const addCustomValue = async (groupKey) => {
                 <table className={styles.matrix}>
                   <thead>
                     <tr>
-                      {activeGrps.map(g => <th key={g.id}>{g.category}</th>)}
+                      {activeGrps.map(g => <th key={g.key}>{g.label}</th>)}
                       <th>Quantity</th>
                       <th></th>
                     </tr>
@@ -562,9 +545,9 @@ const addCustomValue = async (groupKey) => {
                     {variants.map(v => (
                       <tr key={v.id}>
                         {activeGrps.map(g => {
-                          const val   = v.attrs[g.id];
+                          const val   = v.attrs[g.key];
                           return (
-                            <td key={g.id}>
+                            <td key={g.key}>
                               <span className={styles.variantBadge}>
                                 {val}
                               </span>
@@ -577,6 +560,7 @@ const addCustomValue = async (groupKey) => {
                             <input className={styles.qtyInput} type="number" min={0}
                               value={v.qty} onChange={e => setQty(v.id, e.target.value)} />
                             <button className={styles.qtyBtn} onClick={() => adjQty(v.id, +1)}>+</button>
+                            {v.qty > 0 && v.qty < 5 && <span className={styles.lowBadge}>LOW</span>}
                           </div>
                         </td>
                         <td>
