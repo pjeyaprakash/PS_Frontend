@@ -11,6 +11,7 @@ message Variant {
   int32 qty = 4;
 
   map<string, string> attrs = 6;
+  repeated string keys = 7;
 }
 
 message Product {
@@ -66,8 +67,17 @@ message ProductVariants {
   int32 qty = 7;
   int32 value = 8;
   map<string, string> attrs = 9;
+  repeated string keys = 10;
 }
 message ProductResponse {
   SingleProduct product = 1;
   repeated ProductVariants variants = 2;
+}
+
+
+message UpdateProductRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
 }

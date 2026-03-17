@@ -83,22 +83,22 @@ export default function Stock() {
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>📦</div>
-          <div className={styles.statVal}>{product[0]?.total || 0}</div>
+          <div className={styles.statVal}>{products[0]?.total || 0}</div>
           <div className={styles.statLbl}>Total Products</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>🔢</div>
-          <div className={styles.statVal}>{product[0]?.total_unit.toLocaleString() || 0}</div>
+          <div className={styles.statVal}>{products[0]?.total_unit?.toLocaleString() || 0}</div>
           <div className={styles.statLbl}>Total Units</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>💰</div>
-          <div className={styles.statVal}>₹{(product[0]?.inventory_value || 0 / 1000).toFixed(1)}K</div>
+          <div className={styles.statVal}>₹{(products[0]?.inventory_value || 0 / 1000).toFixed(1)}K</div>
           <div className={styles.statLbl}>Inventory Value</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>⚠️</div>
-          <div className={styles.statVal}>{product[0]?.total_variant}</div>
+          <div className={styles.statVal}>{products[0]?.total_variant}</div>
           <div className={styles.statLbl}>Total Variants</div>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function Stock() {
               // const colors = [...new Set(item.variants.map(v => v.color))];
 
               return (
-                <tr key={item.id} onClick={() => router.push(`/stock/${item.id}`)}>
+                <tr key={item.id} onClick={() => router.push(`/home/stock/${item.id}`)}>
                   <td>
                     <div className={styles.itemName}>{item.name}</div>
                     {item.sku && <div className={styles.itemSku}>{item.sku}</div>}

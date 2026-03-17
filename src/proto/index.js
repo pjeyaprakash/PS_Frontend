@@ -2310,6 +2310,7 @@ export const product = $root.product = (() => {
          * @property {number|null} [price] Variant price
          * @property {number|null} [qty] Variant qty
          * @property {Object.<string,string>|null} [attrs] Variant attrs
+         * @property {Array.<string>|null} [keys] Variant keys
          */
 
         /**
@@ -2322,6 +2323,7 @@ export const product = $root.product = (() => {
          */
         function Variant(properties) {
             this.attrs = {};
+            this.keys = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -2369,6 +2371,14 @@ export const product = $root.product = (() => {
         Variant.prototype.attrs = $util.emptyObject;
 
         /**
+         * Variant keys.
+         * @member {Array.<string>} keys
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.keys = $util.emptyArray;
+
+        /**
          * Creates a new Variant instance using the specified properties.
          * @function create
          * @memberof product.Variant
@@ -2403,6 +2413,9 @@ export const product = $root.product = (() => {
             if (message.attrs != null && Object.hasOwnProperty.call(message, "attrs"))
                 for (let keys = Object.keys(message.attrs), i = 0; i < keys.length; ++i)
                     writer.uint32(/* id 6, wireType 2 =*/50).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.attrs[keys[i]]).ldelim();
+            if (message.keys != null && message.keys.length)
+                for (let i = 0; i < message.keys.length; ++i)
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.keys[i]);
             return writer;
         };
 
@@ -2478,6 +2491,12 @@ export const product = $root.product = (() => {
                         message.attrs[key] = value;
                         break;
                     }
+                case 7: {
+                        if (!(message.keys && message.keys.length))
+                            message.keys = [];
+                        message.keys.push(reader.string());
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2533,6 +2552,13 @@ export const product = $root.product = (() => {
                     if (!$util.isString(message.attrs[key[i]]))
                         return "attrs: string{k:string} expected";
             }
+            if (message.keys != null && message.hasOwnProperty("keys")) {
+                if (!Array.isArray(message.keys))
+                    return "keys: array expected";
+                for (let i = 0; i < message.keys.length; ++i)
+                    if (!$util.isString(message.keys[i]))
+                        return "keys: string[] expected";
+            }
             return null;
         };
 
@@ -2563,6 +2589,13 @@ export const product = $root.product = (() => {
                 for (let keys = Object.keys(object.attrs), i = 0; i < keys.length; ++i)
                     message.attrs[keys[i]] = String(object.attrs[keys[i]]);
             }
+            if (object.keys) {
+                if (!Array.isArray(object.keys))
+                    throw TypeError(".product.Variant.keys: array expected");
+                message.keys = [];
+                for (let i = 0; i < object.keys.length; ++i)
+                    message.keys[i] = String(object.keys[i]);
+            }
             return message;
         };
 
@@ -2579,6 +2612,8 @@ export const product = $root.product = (() => {
             if (!options)
                 options = {};
             let object = {};
+            if (options.arrays || options.defaults)
+                object.keys = [];
             if (options.objects || options.defaults)
                 object.attrs = {};
             if (options.defaults) {
@@ -2600,6 +2635,11 @@ export const product = $root.product = (() => {
                 object.attrs = {};
                 for (let j = 0; j < keys2.length; ++j)
                     object.attrs[keys2[j]] = message.attrs[keys2[j]];
+            }
+            if (message.keys && message.keys.length) {
+                object.keys = [];
+                for (let j = 0; j < message.keys.length; ++j)
+                    object.keys[j] = message.keys[j];
             }
             return object;
         };
@@ -4053,6 +4093,7 @@ export const product = $root.product = (() => {
          * @property {number|null} [qty] ProductVariants qty
          * @property {number|null} [value] ProductVariants value
          * @property {Object.<string,string>|null} [attrs] ProductVariants attrs
+         * @property {Array.<string>|null} [keys] ProductVariants keys
          */
 
         /**
@@ -4065,6 +4106,7 @@ export const product = $root.product = (() => {
          */
         function ProductVariants(properties) {
             this.attrs = {};
+            this.keys = [];
             if (properties)
                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -4144,6 +4186,14 @@ export const product = $root.product = (() => {
         ProductVariants.prototype.attrs = $util.emptyObject;
 
         /**
+         * ProductVariants keys.
+         * @member {Array.<string>} keys
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.keys = $util.emptyArray;
+
+        /**
          * Creates a new ProductVariants instance using the specified properties.
          * @function create
          * @memberof product.ProductVariants
@@ -4186,6 +4236,9 @@ export const product = $root.product = (() => {
             if (message.attrs != null && Object.hasOwnProperty.call(message, "attrs"))
                 for (let keys = Object.keys(message.attrs), i = 0; i < keys.length; ++i)
                     writer.uint32(/* id 9, wireType 2 =*/74).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.attrs[keys[i]]).ldelim();
+            if (message.keys != null && message.keys.length)
+                for (let i = 0; i < message.keys.length; ++i)
+                    writer.uint32(/* id 10, wireType 2 =*/82).string(message.keys[i]);
             return writer;
         };
 
@@ -4277,6 +4330,12 @@ export const product = $root.product = (() => {
                         message.attrs[key] = value;
                         break;
                     }
+                case 10: {
+                        if (!(message.keys && message.keys.length))
+                            message.keys = [];
+                        message.keys.push(reader.string());
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -4344,6 +4403,13 @@ export const product = $root.product = (() => {
                     if (!$util.isString(message.attrs[key[i]]))
                         return "attrs: string{k:string} expected";
             }
+            if (message.keys != null && message.hasOwnProperty("keys")) {
+                if (!Array.isArray(message.keys))
+                    return "keys: array expected";
+                for (let i = 0; i < message.keys.length; ++i)
+                    if (!$util.isString(message.keys[i]))
+                        return "keys: string[] expected";
+            }
             return null;
         };
 
@@ -4382,6 +4448,13 @@ export const product = $root.product = (() => {
                 for (let keys = Object.keys(object.attrs), i = 0; i < keys.length; ++i)
                     message.attrs[keys[i]] = String(object.attrs[keys[i]]);
             }
+            if (object.keys) {
+                if (!Array.isArray(object.keys))
+                    throw TypeError(".product.ProductVariants.keys: array expected");
+                message.keys = [];
+                for (let i = 0; i < object.keys.length; ++i)
+                    message.keys[i] = String(object.keys[i]);
+            }
             return message;
         };
 
@@ -4398,6 +4471,8 @@ export const product = $root.product = (() => {
             if (!options)
                 options = {};
             let object = {};
+            if (options.arrays || options.defaults)
+                object.keys = [];
             if (options.objects || options.defaults)
                 object.attrs = {};
             if (options.defaults) {
@@ -4431,6 +4506,11 @@ export const product = $root.product = (() => {
                 object.attrs = {};
                 for (let j = 0; j < keys2.length; ++j)
                     object.attrs[keys2[j]] = message.attrs[keys2[j]];
+            }
+            if (message.keys && message.keys.length) {
+                object.keys = [];
+                for (let j = 0; j < message.keys.length; ++j)
+                    object.keys[j] = message.keys[j];
             }
             return object;
         };
@@ -4717,6 +4797,281 @@ export const product = $root.product = (() => {
         };
 
         return ProductResponse;
+    })();
+
+    product.UpdateProductRequest = (function() {
+
+        /**
+         * Properties of an UpdateProductRequest.
+         * @memberof product
+         * @interface IUpdateProductRequest
+         * @property {number|null} [id] UpdateProductRequest id
+         * @property {string|null} [name] UpdateProductRequest name
+         * @property {string|null} [description] UpdateProductRequest description
+         * @property {string|null} [category] UpdateProductRequest category
+         */
+
+        /**
+         * Constructs a new UpdateProductRequest.
+         * @memberof product
+         * @classdesc Represents an UpdateProductRequest.
+         * @implements IUpdateProductRequest
+         * @constructor
+         * @param {product.IUpdateProductRequest=} [properties] Properties to set
+         */
+        function UpdateProductRequest(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UpdateProductRequest id.
+         * @member {number} id
+         * @memberof product.UpdateProductRequest
+         * @instance
+         */
+        UpdateProductRequest.prototype.id = 0;
+
+        /**
+         * UpdateProductRequest name.
+         * @member {string} name
+         * @memberof product.UpdateProductRequest
+         * @instance
+         */
+        UpdateProductRequest.prototype.name = "";
+
+        /**
+         * UpdateProductRequest description.
+         * @member {string} description
+         * @memberof product.UpdateProductRequest
+         * @instance
+         */
+        UpdateProductRequest.prototype.description = "";
+
+        /**
+         * UpdateProductRequest category.
+         * @member {string} category
+         * @memberof product.UpdateProductRequest
+         * @instance
+         */
+        UpdateProductRequest.prototype.category = "";
+
+        /**
+         * Creates a new UpdateProductRequest instance using the specified properties.
+         * @function create
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {product.IUpdateProductRequest=} [properties] Properties to set
+         * @returns {product.UpdateProductRequest} UpdateProductRequest instance
+         */
+        UpdateProductRequest.create = function create(properties) {
+            return new UpdateProductRequest(properties);
+        };
+
+        /**
+         * Encodes the specified UpdateProductRequest message. Does not implicitly {@link product.UpdateProductRequest.verify|verify} messages.
+         * @function encode
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {product.IUpdateProductRequest} message UpdateProductRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdateProductRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.description);
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.category);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UpdateProductRequest message, length delimited. Does not implicitly {@link product.UpdateProductRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {product.IUpdateProductRequest} message UpdateProductRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdateProductRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an UpdateProductRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.UpdateProductRequest} UpdateProductRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdateProductRequest.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.UpdateProductRequest();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.description = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.category = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an UpdateProductRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.UpdateProductRequest} UpdateProductRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdateProductRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an UpdateProductRequest message.
+         * @function verify
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UpdateProductRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an UpdateProductRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.UpdateProductRequest} UpdateProductRequest
+         */
+        UpdateProductRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.UpdateProductRequest)
+                return object;
+            let message = new $root.product.UpdateProductRequest();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.description != null)
+                message.description = String(object.description);
+            if (object.category != null)
+                message.category = String(object.category);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an UpdateProductRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {product.UpdateProductRequest} message UpdateProductRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UpdateProductRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.name = "";
+                object.description = "";
+                object.category = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
+            return object;
+        };
+
+        /**
+         * Converts this UpdateProductRequest to JSON.
+         * @function toJSON
+         * @memberof product.UpdateProductRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UpdateProductRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for UpdateProductRequest
+         * @function getTypeUrl
+         * @memberof product.UpdateProductRequest
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        UpdateProductRequest.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.UpdateProductRequest";
+        };
+
+        return UpdateProductRequest;
     })();
 
     return product;
