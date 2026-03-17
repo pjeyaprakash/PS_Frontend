@@ -2290,4 +2290,2436 @@ export const category = $root.category = (() => {
     return category;
 })();
 
+export const product = $root.product = (() => {
+
+    /**
+     * Namespace product.
+     * @exports product
+     * @namespace
+     */
+    const product = {};
+
+    product.Variant = (function() {
+
+        /**
+         * Properties of a Variant.
+         * @memberof product
+         * @interface IVariant
+         * @property {string|null} [id] Variant id
+         * @property {string|null} [name] Variant name
+         * @property {number|null} [price] Variant price
+         * @property {number|null} [qty] Variant qty
+         * @property {Object.<string,string>|null} [attrs] Variant attrs
+         */
+
+        /**
+         * Constructs a new Variant.
+         * @memberof product
+         * @classdesc Represents a Variant.
+         * @implements IVariant
+         * @constructor
+         * @param {product.IVariant=} [properties] Properties to set
+         */
+        function Variant(properties) {
+            this.attrs = {};
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Variant id.
+         * @member {string} id
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.id = "";
+
+        /**
+         * Variant name.
+         * @member {string} name
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.name = "";
+
+        /**
+         * Variant price.
+         * @member {number} price
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.price = 0;
+
+        /**
+         * Variant qty.
+         * @member {number} qty
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.qty = 0;
+
+        /**
+         * Variant attrs.
+         * @member {Object.<string,string>} attrs
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.attrs = $util.emptyObject;
+
+        /**
+         * Creates a new Variant instance using the specified properties.
+         * @function create
+         * @memberof product.Variant
+         * @static
+         * @param {product.IVariant=} [properties] Properties to set
+         * @returns {product.Variant} Variant instance
+         */
+        Variant.create = function create(properties) {
+            return new Variant(properties);
+        };
+
+        /**
+         * Encodes the specified Variant message. Does not implicitly {@link product.Variant.verify|verify} messages.
+         * @function encode
+         * @memberof product.Variant
+         * @static
+         * @param {product.IVariant} message Variant message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Variant.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.price);
+            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.qty);
+            if (message.attrs != null && Object.hasOwnProperty.call(message, "attrs"))
+                for (let keys = Object.keys(message.attrs), i = 0; i < keys.length; ++i)
+                    writer.uint32(/* id 6, wireType 2 =*/50).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.attrs[keys[i]]).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Variant message, length delimited. Does not implicitly {@link product.Variant.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.Variant
+         * @static
+         * @param {product.IVariant} message Variant message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Variant.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Variant message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.Variant
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.Variant} Variant
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Variant.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.Variant(), key, value;
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.price = reader.int32();
+                        break;
+                    }
+                case 4: {
+                        message.qty = reader.int32();
+                        break;
+                    }
+                case 6: {
+                        if (message.attrs === $util.emptyObject)
+                            message.attrs = {};
+                        let end2 = reader.uint32() + reader.pos;
+                        key = "";
+                        value = "";
+                        while (reader.pos < end2) {
+                            let tag2 = reader.uint32();
+                            switch (tag2 >>> 3) {
+                            case 1:
+                                key = reader.string();
+                                break;
+                            case 2:
+                                value = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag2 & 7);
+                                break;
+                            }
+                        }
+                        message.attrs[key] = value;
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Variant message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.Variant
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.Variant} Variant
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Variant.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Variant message.
+         * @function verify
+         * @memberof product.Variant
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Variant.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                if (!$util.isInteger(message.qty))
+                    return "qty: integer expected";
+            if (message.attrs != null && message.hasOwnProperty("attrs")) {
+                if (!$util.isObject(message.attrs))
+                    return "attrs: object expected";
+                let key = Object.keys(message.attrs);
+                for (let i = 0; i < key.length; ++i)
+                    if (!$util.isString(message.attrs[key[i]]))
+                        return "attrs: string{k:string} expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Variant message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.Variant
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.Variant} Variant
+         */
+        Variant.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.Variant)
+                return object;
+            let message = new $root.product.Variant();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.price != null)
+                message.price = object.price | 0;
+            if (object.qty != null)
+                message.qty = object.qty | 0;
+            if (object.attrs) {
+                if (typeof object.attrs !== "object")
+                    throw TypeError(".product.Variant.attrs: object expected");
+                message.attrs = {};
+                for (let keys = Object.keys(object.attrs), i = 0; i < keys.length; ++i)
+                    message.attrs[keys[i]] = String(object.attrs[keys[i]]);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Variant message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.Variant
+         * @static
+         * @param {product.Variant} message Variant
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Variant.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.objects || options.defaults)
+                object.attrs = {};
+            if (options.defaults) {
+                object.id = "";
+                object.name = "";
+                object.price = 0;
+                object.qty = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                object.qty = message.qty;
+            let keys2;
+            if (message.attrs && (keys2 = Object.keys(message.attrs)).length) {
+                object.attrs = {};
+                for (let j = 0; j < keys2.length; ++j)
+                    object.attrs[keys2[j]] = message.attrs[keys2[j]];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Variant to JSON.
+         * @function toJSON
+         * @memberof product.Variant
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Variant.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Variant
+         * @function getTypeUrl
+         * @memberof product.Variant
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Variant.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.Variant";
+        };
+
+        return Variant;
+    })();
+
+    product.Product = (function() {
+
+        /**
+         * Properties of a Product.
+         * @memberof product
+         * @interface IProduct
+         * @property {string|null} [name] Product name
+         * @property {string|null} [description] Product description
+         * @property {string|null} [category] Product category
+         * @property {number|null} [totalQuantity] Product totalQuantity
+         * @property {number|null} [totalValue] Product totalValue
+         * @property {number|null} [variantCount] Product variantCount
+         * @property {Array.<product.IVariant>|null} [variants] Product variants
+         */
+
+        /**
+         * Constructs a new Product.
+         * @memberof product
+         * @classdesc Represents a Product.
+         * @implements IProduct
+         * @constructor
+         * @param {product.IProduct=} [properties] Properties to set
+         */
+        function Product(properties) {
+            this.variants = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Product name.
+         * @member {string} name
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.name = "";
+
+        /**
+         * Product description.
+         * @member {string} description
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.description = "";
+
+        /**
+         * Product category.
+         * @member {string} category
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.category = "";
+
+        /**
+         * Product totalQuantity.
+         * @member {number} totalQuantity
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.totalQuantity = 0;
+
+        /**
+         * Product totalValue.
+         * @member {number} totalValue
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.totalValue = 0;
+
+        /**
+         * Product variantCount.
+         * @member {number} variantCount
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.variantCount = 0;
+
+        /**
+         * Product variants.
+         * @member {Array.<product.IVariant>} variants
+         * @memberof product.Product
+         * @instance
+         */
+        Product.prototype.variants = $util.emptyArray;
+
+        /**
+         * Creates a new Product instance using the specified properties.
+         * @function create
+         * @memberof product.Product
+         * @static
+         * @param {product.IProduct=} [properties] Properties to set
+         * @returns {product.Product} Product instance
+         */
+        Product.create = function create(properties) {
+            return new Product(properties);
+        };
+
+        /**
+         * Encodes the specified Product message. Does not implicitly {@link product.Product.verify|verify} messages.
+         * @function encode
+         * @memberof product.Product
+         * @static
+         * @param {product.IProduct} message Product message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Product.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.description);
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.category);
+            if (message.totalQuantity != null && Object.hasOwnProperty.call(message, "totalQuantity"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.totalQuantity);
+            if (message.totalValue != null && Object.hasOwnProperty.call(message, "totalValue"))
+                writer.uint32(/* id 5, wireType 1 =*/41).double(message.totalValue);
+            if (message.variantCount != null && Object.hasOwnProperty.call(message, "variantCount"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.variantCount);
+            if (message.variants != null && message.variants.length)
+                for (let i = 0; i < message.variants.length; ++i)
+                    $root.product.Variant.encode(message.variants[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Product message, length delimited. Does not implicitly {@link product.Product.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.Product
+         * @static
+         * @param {product.IProduct} message Product message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Product.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Product message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.Product
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.Product} Product
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Product.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.Product();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.description = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.category = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.totalQuantity = reader.int32();
+                        break;
+                    }
+                case 5: {
+                        message.totalValue = reader.double();
+                        break;
+                    }
+                case 6: {
+                        message.variantCount = reader.int32();
+                        break;
+                    }
+                case 7: {
+                        if (!(message.variants && message.variants.length))
+                            message.variants = [];
+                        message.variants.push($root.product.Variant.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Product message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.Product
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.Product} Product
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Product.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Product message.
+         * @function verify
+         * @memberof product.Product
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Product.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                if (!$util.isInteger(message.totalQuantity))
+                    return "totalQuantity: integer expected";
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                if (typeof message.totalValue !== "number")
+                    return "totalValue: number expected";
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                if (!$util.isInteger(message.variantCount))
+                    return "variantCount: integer expected";
+            if (message.variants != null && message.hasOwnProperty("variants")) {
+                if (!Array.isArray(message.variants))
+                    return "variants: array expected";
+                for (let i = 0; i < message.variants.length; ++i) {
+                    let error = $root.product.Variant.verify(message.variants[i]);
+                    if (error)
+                        return "variants." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Product message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.Product
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.Product} Product
+         */
+        Product.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.Product)
+                return object;
+            let message = new $root.product.Product();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.description != null)
+                message.description = String(object.description);
+            if (object.category != null)
+                message.category = String(object.category);
+            if (object.totalQuantity != null)
+                message.totalQuantity = object.totalQuantity | 0;
+            if (object.totalValue != null)
+                message.totalValue = Number(object.totalValue);
+            if (object.variantCount != null)
+                message.variantCount = object.variantCount | 0;
+            if (object.variants) {
+                if (!Array.isArray(object.variants))
+                    throw TypeError(".product.Product.variants: array expected");
+                message.variants = [];
+                for (let i = 0; i < object.variants.length; ++i) {
+                    if (typeof object.variants[i] !== "object")
+                        throw TypeError(".product.Product.variants: object expected");
+                    message.variants[i] = $root.product.Variant.fromObject(object.variants[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Product message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.Product
+         * @static
+         * @param {product.Product} message Product
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Product.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.variants = [];
+            if (options.defaults) {
+                object.name = "";
+                object.description = "";
+                object.category = "";
+                object.totalQuantity = 0;
+                object.totalValue = 0;
+                object.variantCount = 0;
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                object.totalQuantity = message.totalQuantity;
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                object.totalValue = options.json && !isFinite(message.totalValue) ? String(message.totalValue) : message.totalValue;
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                object.variantCount = message.variantCount;
+            if (message.variants && message.variants.length) {
+                object.variants = [];
+                for (let j = 0; j < message.variants.length; ++j)
+                    object.variants[j] = $root.product.Variant.toObject(message.variants[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Product to JSON.
+         * @function toJSON
+         * @memberof product.Product
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Product.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Product
+         * @function getTypeUrl
+         * @memberof product.Product
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Product.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.Product";
+        };
+
+        return Product;
+    })();
+
+    product.ProductList = (function() {
+
+        /**
+         * Properties of a ProductList.
+         * @memberof product
+         * @interface IProductList
+         * @property {number|null} [id] ProductList id
+         * @property {string|null} [name] ProductList name
+         * @property {string|null} [category] ProductList category
+         * @property {number|null} [totalQuantity] ProductList totalQuantity
+         * @property {number|null} [totalValue] ProductList totalValue
+         * @property {number|null} [variantCount] ProductList variantCount
+         * @property {number|Long|null} [total] ProductList total
+         * @property {number|Long|null} [totalUnit] ProductList totalUnit
+         * @property {number|Long|null} [inventoryValue] ProductList inventoryValue
+         * @property {number|Long|null} [totalVariant] ProductList totalVariant
+         */
+
+        /**
+         * Constructs a new ProductList.
+         * @memberof product
+         * @classdesc Represents a ProductList.
+         * @implements IProductList
+         * @constructor
+         * @param {product.IProductList=} [properties] Properties to set
+         */
+        function ProductList(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ProductList id.
+         * @member {number} id
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.id = 0;
+
+        /**
+         * ProductList name.
+         * @member {string} name
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.name = "";
+
+        /**
+         * ProductList category.
+         * @member {string} category
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.category = "";
+
+        /**
+         * ProductList totalQuantity.
+         * @member {number} totalQuantity
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.totalQuantity = 0;
+
+        /**
+         * ProductList totalValue.
+         * @member {number} totalValue
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.totalValue = 0;
+
+        /**
+         * ProductList variantCount.
+         * @member {number} variantCount
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.variantCount = 0;
+
+        /**
+         * ProductList total.
+         * @member {number|Long} total
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.total = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * ProductList totalUnit.
+         * @member {number|Long} totalUnit
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.totalUnit = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * ProductList inventoryValue.
+         * @member {number|Long} inventoryValue
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.inventoryValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * ProductList totalVariant.
+         * @member {number|Long} totalVariant
+         * @memberof product.ProductList
+         * @instance
+         */
+        ProductList.prototype.totalVariant = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new ProductList instance using the specified properties.
+         * @function create
+         * @memberof product.ProductList
+         * @static
+         * @param {product.IProductList=} [properties] Properties to set
+         * @returns {product.ProductList} ProductList instance
+         */
+        ProductList.create = function create(properties) {
+            return new ProductList(properties);
+        };
+
+        /**
+         * Encodes the specified ProductList message. Does not implicitly {@link product.ProductList.verify|verify} messages.
+         * @function encode
+         * @memberof product.ProductList
+         * @static
+         * @param {product.IProductList} message ProductList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.category);
+            if (message.totalQuantity != null && Object.hasOwnProperty.call(message, "totalQuantity"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.totalQuantity);
+            if (message.totalValue != null && Object.hasOwnProperty.call(message, "totalValue"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.totalValue);
+            if (message.variantCount != null && Object.hasOwnProperty.call(message, "variantCount"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.variantCount);
+            if (message.total != null && Object.hasOwnProperty.call(message, "total"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.total);
+            if (message.totalUnit != null && Object.hasOwnProperty.call(message, "totalUnit"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.totalUnit);
+            if (message.inventoryValue != null && Object.hasOwnProperty.call(message, "inventoryValue"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.inventoryValue);
+            if (message.totalVariant != null && Object.hasOwnProperty.call(message, "totalVariant"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int64(message.totalVariant);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ProductList message, length delimited. Does not implicitly {@link product.ProductList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.ProductList
+         * @static
+         * @param {product.IProductList} message ProductList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ProductList message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.ProductList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.ProductList} ProductList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductList.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.ProductList();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.category = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.totalQuantity = reader.int32();
+                        break;
+                    }
+                case 5: {
+                        message.totalValue = reader.int32();
+                        break;
+                    }
+                case 6: {
+                        message.variantCount = reader.int32();
+                        break;
+                    }
+                case 7: {
+                        message.total = reader.int64();
+                        break;
+                    }
+                case 8: {
+                        message.totalUnit = reader.int64();
+                        break;
+                    }
+                case 9: {
+                        message.inventoryValue = reader.int64();
+                        break;
+                    }
+                case 10: {
+                        message.totalVariant = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ProductList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.ProductList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.ProductList} ProductList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ProductList message.
+         * @function verify
+         * @memberof product.ProductList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ProductList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                if (!$util.isInteger(message.totalQuantity))
+                    return "totalQuantity: integer expected";
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                if (!$util.isInteger(message.totalValue))
+                    return "totalValue: integer expected";
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                if (!$util.isInteger(message.variantCount))
+                    return "variantCount: integer expected";
+            if (message.total != null && message.hasOwnProperty("total"))
+                if (!$util.isInteger(message.total) && !(message.total && $util.isInteger(message.total.low) && $util.isInteger(message.total.high)))
+                    return "total: integer|Long expected";
+            if (message.totalUnit != null && message.hasOwnProperty("totalUnit"))
+                if (!$util.isInteger(message.totalUnit) && !(message.totalUnit && $util.isInteger(message.totalUnit.low) && $util.isInteger(message.totalUnit.high)))
+                    return "totalUnit: integer|Long expected";
+            if (message.inventoryValue != null && message.hasOwnProperty("inventoryValue"))
+                if (!$util.isInteger(message.inventoryValue) && !(message.inventoryValue && $util.isInteger(message.inventoryValue.low) && $util.isInteger(message.inventoryValue.high)))
+                    return "inventoryValue: integer|Long expected";
+            if (message.totalVariant != null && message.hasOwnProperty("totalVariant"))
+                if (!$util.isInteger(message.totalVariant) && !(message.totalVariant && $util.isInteger(message.totalVariant.low) && $util.isInteger(message.totalVariant.high)))
+                    return "totalVariant: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a ProductList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.ProductList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.ProductList} ProductList
+         */
+        ProductList.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.ProductList)
+                return object;
+            let message = new $root.product.ProductList();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.category != null)
+                message.category = String(object.category);
+            if (object.totalQuantity != null)
+                message.totalQuantity = object.totalQuantity | 0;
+            if (object.totalValue != null)
+                message.totalValue = object.totalValue | 0;
+            if (object.variantCount != null)
+                message.variantCount = object.variantCount | 0;
+            if (object.total != null)
+                if ($util.Long)
+                    (message.total = $util.Long.fromValue(object.total)).unsigned = false;
+                else if (typeof object.total === "string")
+                    message.total = parseInt(object.total, 10);
+                else if (typeof object.total === "number")
+                    message.total = object.total;
+                else if (typeof object.total === "object")
+                    message.total = new $util.LongBits(object.total.low >>> 0, object.total.high >>> 0).toNumber();
+            if (object.totalUnit != null)
+                if ($util.Long)
+                    (message.totalUnit = $util.Long.fromValue(object.totalUnit)).unsigned = false;
+                else if (typeof object.totalUnit === "string")
+                    message.totalUnit = parseInt(object.totalUnit, 10);
+                else if (typeof object.totalUnit === "number")
+                    message.totalUnit = object.totalUnit;
+                else if (typeof object.totalUnit === "object")
+                    message.totalUnit = new $util.LongBits(object.totalUnit.low >>> 0, object.totalUnit.high >>> 0).toNumber();
+            if (object.inventoryValue != null)
+                if ($util.Long)
+                    (message.inventoryValue = $util.Long.fromValue(object.inventoryValue)).unsigned = false;
+                else if (typeof object.inventoryValue === "string")
+                    message.inventoryValue = parseInt(object.inventoryValue, 10);
+                else if (typeof object.inventoryValue === "number")
+                    message.inventoryValue = object.inventoryValue;
+                else if (typeof object.inventoryValue === "object")
+                    message.inventoryValue = new $util.LongBits(object.inventoryValue.low >>> 0, object.inventoryValue.high >>> 0).toNumber();
+            if (object.totalVariant != null)
+                if ($util.Long)
+                    (message.totalVariant = $util.Long.fromValue(object.totalVariant)).unsigned = false;
+                else if (typeof object.totalVariant === "string")
+                    message.totalVariant = parseInt(object.totalVariant, 10);
+                else if (typeof object.totalVariant === "number")
+                    message.totalVariant = object.totalVariant;
+                else if (typeof object.totalVariant === "object")
+                    message.totalVariant = new $util.LongBits(object.totalVariant.low >>> 0, object.totalVariant.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ProductList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.ProductList
+         * @static
+         * @param {product.ProductList} message ProductList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ProductList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.name = "";
+                object.category = "";
+                object.totalQuantity = 0;
+                object.totalValue = 0;
+                object.variantCount = 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.total = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.total = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.totalUnit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.totalUnit = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.inventoryValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.inventoryValue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.totalVariant = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.totalVariant = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                object.totalQuantity = message.totalQuantity;
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                object.totalValue = message.totalValue;
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                object.variantCount = message.variantCount;
+            if (message.total != null && message.hasOwnProperty("total"))
+                if (typeof message.total === "number")
+                    object.total = options.longs === String ? String(message.total) : message.total;
+                else
+                    object.total = options.longs === String ? $util.Long.prototype.toString.call(message.total) : options.longs === Number ? new $util.LongBits(message.total.low >>> 0, message.total.high >>> 0).toNumber() : message.total;
+            if (message.totalUnit != null && message.hasOwnProperty("totalUnit"))
+                if (typeof message.totalUnit === "number")
+                    object.totalUnit = options.longs === String ? String(message.totalUnit) : message.totalUnit;
+                else
+                    object.totalUnit = options.longs === String ? $util.Long.prototype.toString.call(message.totalUnit) : options.longs === Number ? new $util.LongBits(message.totalUnit.low >>> 0, message.totalUnit.high >>> 0).toNumber() : message.totalUnit;
+            if (message.inventoryValue != null && message.hasOwnProperty("inventoryValue"))
+                if (typeof message.inventoryValue === "number")
+                    object.inventoryValue = options.longs === String ? String(message.inventoryValue) : message.inventoryValue;
+                else
+                    object.inventoryValue = options.longs === String ? $util.Long.prototype.toString.call(message.inventoryValue) : options.longs === Number ? new $util.LongBits(message.inventoryValue.low >>> 0, message.inventoryValue.high >>> 0).toNumber() : message.inventoryValue;
+            if (message.totalVariant != null && message.hasOwnProperty("totalVariant"))
+                if (typeof message.totalVariant === "number")
+                    object.totalVariant = options.longs === String ? String(message.totalVariant) : message.totalVariant;
+                else
+                    object.totalVariant = options.longs === String ? $util.Long.prototype.toString.call(message.totalVariant) : options.longs === Number ? new $util.LongBits(message.totalVariant.low >>> 0, message.totalVariant.high >>> 0).toNumber() : message.totalVariant;
+            return object;
+        };
+
+        /**
+         * Converts this ProductList to JSON.
+         * @function toJSON
+         * @memberof product.ProductList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ProductList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for ProductList
+         * @function getTypeUrl
+         * @memberof product.ProductList
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ProductList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.ProductList";
+        };
+
+        return ProductList;
+    })();
+
+    product.ProductListResponse = (function() {
+
+        /**
+         * Properties of a ProductListResponse.
+         * @memberof product
+         * @interface IProductListResponse
+         * @property {Array.<product.IProductList>|null} [products] ProductListResponse products
+         */
+
+        /**
+         * Constructs a new ProductListResponse.
+         * @memberof product
+         * @classdesc Represents a ProductListResponse.
+         * @implements IProductListResponse
+         * @constructor
+         * @param {product.IProductListResponse=} [properties] Properties to set
+         */
+        function ProductListResponse(properties) {
+            this.products = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ProductListResponse products.
+         * @member {Array.<product.IProductList>} products
+         * @memberof product.ProductListResponse
+         * @instance
+         */
+        ProductListResponse.prototype.products = $util.emptyArray;
+
+        /**
+         * Creates a new ProductListResponse instance using the specified properties.
+         * @function create
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {product.IProductListResponse=} [properties] Properties to set
+         * @returns {product.ProductListResponse} ProductListResponse instance
+         */
+        ProductListResponse.create = function create(properties) {
+            return new ProductListResponse(properties);
+        };
+
+        /**
+         * Encodes the specified ProductListResponse message. Does not implicitly {@link product.ProductListResponse.verify|verify} messages.
+         * @function encode
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {product.IProductListResponse} message ProductListResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductListResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.products != null && message.products.length)
+                for (let i = 0; i < message.products.length; ++i)
+                    $root.product.ProductList.encode(message.products[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ProductListResponse message, length delimited. Does not implicitly {@link product.ProductListResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {product.IProductListResponse} message ProductListResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductListResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ProductListResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.ProductListResponse} ProductListResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductListResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.ProductListResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.products && message.products.length))
+                            message.products = [];
+                        message.products.push($root.product.ProductList.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ProductListResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.ProductListResponse} ProductListResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductListResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ProductListResponse message.
+         * @function verify
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ProductListResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.products != null && message.hasOwnProperty("products")) {
+                if (!Array.isArray(message.products))
+                    return "products: array expected";
+                for (let i = 0; i < message.products.length; ++i) {
+                    let error = $root.product.ProductList.verify(message.products[i]);
+                    if (error)
+                        return "products." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ProductListResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.ProductListResponse} ProductListResponse
+         */
+        ProductListResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.ProductListResponse)
+                return object;
+            let message = new $root.product.ProductListResponse();
+            if (object.products) {
+                if (!Array.isArray(object.products))
+                    throw TypeError(".product.ProductListResponse.products: array expected");
+                message.products = [];
+                for (let i = 0; i < object.products.length; ++i) {
+                    if (typeof object.products[i] !== "object")
+                        throw TypeError(".product.ProductListResponse.products: object expected");
+                    message.products[i] = $root.product.ProductList.fromObject(object.products[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ProductListResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {product.ProductListResponse} message ProductListResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ProductListResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.products = [];
+            if (message.products && message.products.length) {
+                object.products = [];
+                for (let j = 0; j < message.products.length; ++j)
+                    object.products[j] = $root.product.ProductList.toObject(message.products[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ProductListResponse to JSON.
+         * @function toJSON
+         * @memberof product.ProductListResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ProductListResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for ProductListResponse
+         * @function getTypeUrl
+         * @memberof product.ProductListResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ProductListResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.ProductListResponse";
+        };
+
+        return ProductListResponse;
+    })();
+
+    product.SingleProduct = (function() {
+
+        /**
+         * Properties of a SingleProduct.
+         * @memberof product
+         * @interface ISingleProduct
+         * @property {number|null} [id] SingleProduct id
+         * @property {string|null} [name] SingleProduct name
+         * @property {string|null} [description] SingleProduct description
+         * @property {string|null} [category] SingleProduct category
+         * @property {number|null} [totalQuantity] SingleProduct totalQuantity
+         * @property {number|null} [totalValue] SingleProduct totalValue
+         * @property {number|null} [variantCount] SingleProduct variantCount
+         */
+
+        /**
+         * Constructs a new SingleProduct.
+         * @memberof product
+         * @classdesc Represents a SingleProduct.
+         * @implements ISingleProduct
+         * @constructor
+         * @param {product.ISingleProduct=} [properties] Properties to set
+         */
+        function SingleProduct(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SingleProduct id.
+         * @member {number} id
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.id = 0;
+
+        /**
+         * SingleProduct name.
+         * @member {string} name
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.name = "";
+
+        /**
+         * SingleProduct description.
+         * @member {string} description
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.description = "";
+
+        /**
+         * SingleProduct category.
+         * @member {string} category
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.category = "";
+
+        /**
+         * SingleProduct totalQuantity.
+         * @member {number} totalQuantity
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.totalQuantity = 0;
+
+        /**
+         * SingleProduct totalValue.
+         * @member {number} totalValue
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.totalValue = 0;
+
+        /**
+         * SingleProduct variantCount.
+         * @member {number} variantCount
+         * @memberof product.SingleProduct
+         * @instance
+         */
+        SingleProduct.prototype.variantCount = 0;
+
+        /**
+         * Creates a new SingleProduct instance using the specified properties.
+         * @function create
+         * @memberof product.SingleProduct
+         * @static
+         * @param {product.ISingleProduct=} [properties] Properties to set
+         * @returns {product.SingleProduct} SingleProduct instance
+         */
+        SingleProduct.create = function create(properties) {
+            return new SingleProduct(properties);
+        };
+
+        /**
+         * Encodes the specified SingleProduct message. Does not implicitly {@link product.SingleProduct.verify|verify} messages.
+         * @function encode
+         * @memberof product.SingleProduct
+         * @static
+         * @param {product.ISingleProduct} message SingleProduct message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SingleProduct.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.description);
+            if (message.category != null && Object.hasOwnProperty.call(message, "category"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.category);
+            if (message.totalQuantity != null && Object.hasOwnProperty.call(message, "totalQuantity"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.totalQuantity);
+            if (message.totalValue != null && Object.hasOwnProperty.call(message, "totalValue"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.totalValue);
+            if (message.variantCount != null && Object.hasOwnProperty.call(message, "variantCount"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.variantCount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SingleProduct message, length delimited. Does not implicitly {@link product.SingleProduct.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.SingleProduct
+         * @static
+         * @param {product.ISingleProduct} message SingleProduct message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SingleProduct.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SingleProduct message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.SingleProduct
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.SingleProduct} SingleProduct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SingleProduct.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.SingleProduct();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.description = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.category = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.totalQuantity = reader.int32();
+                        break;
+                    }
+                case 6: {
+                        message.totalValue = reader.int32();
+                        break;
+                    }
+                case 7: {
+                        message.variantCount = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SingleProduct message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.SingleProduct
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.SingleProduct} SingleProduct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SingleProduct.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SingleProduct message.
+         * @function verify
+         * @memberof product.SingleProduct
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SingleProduct.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            if (message.category != null && message.hasOwnProperty("category"))
+                if (!$util.isString(message.category))
+                    return "category: string expected";
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                if (!$util.isInteger(message.totalQuantity))
+                    return "totalQuantity: integer expected";
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                if (!$util.isInteger(message.totalValue))
+                    return "totalValue: integer expected";
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                if (!$util.isInteger(message.variantCount))
+                    return "variantCount: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a SingleProduct message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.SingleProduct
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.SingleProduct} SingleProduct
+         */
+        SingleProduct.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.SingleProduct)
+                return object;
+            let message = new $root.product.SingleProduct();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.description != null)
+                message.description = String(object.description);
+            if (object.category != null)
+                message.category = String(object.category);
+            if (object.totalQuantity != null)
+                message.totalQuantity = object.totalQuantity | 0;
+            if (object.totalValue != null)
+                message.totalValue = object.totalValue | 0;
+            if (object.variantCount != null)
+                message.variantCount = object.variantCount | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SingleProduct message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.SingleProduct
+         * @static
+         * @param {product.SingleProduct} message SingleProduct
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SingleProduct.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.name = "";
+                object.description = "";
+                object.category = "";
+                object.totalQuantity = 0;
+                object.totalValue = 0;
+                object.variantCount = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            if (message.category != null && message.hasOwnProperty("category"))
+                object.category = message.category;
+            if (message.totalQuantity != null && message.hasOwnProperty("totalQuantity"))
+                object.totalQuantity = message.totalQuantity;
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                object.totalValue = message.totalValue;
+            if (message.variantCount != null && message.hasOwnProperty("variantCount"))
+                object.variantCount = message.variantCount;
+            return object;
+        };
+
+        /**
+         * Converts this SingleProduct to JSON.
+         * @function toJSON
+         * @memberof product.SingleProduct
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SingleProduct.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SingleProduct
+         * @function getTypeUrl
+         * @memberof product.SingleProduct
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SingleProduct.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.SingleProduct";
+        };
+
+        return SingleProduct;
+    })();
+
+    product.ProductVariants = (function() {
+
+        /**
+         * Properties of a ProductVariants.
+         * @memberof product
+         * @interface IProductVariants
+         * @property {number|null} [sn] ProductVariants sn
+         * @property {string|null} [id] ProductVariants id
+         * @property {number|null} [productId] ProductVariants productId
+         * @property {string|null} [productName] ProductVariants productName
+         * @property {string|null} [name] ProductVariants name
+         * @property {number|null} [price] ProductVariants price
+         * @property {number|null} [qty] ProductVariants qty
+         * @property {number|null} [value] ProductVariants value
+         * @property {Object.<string,string>|null} [attrs] ProductVariants attrs
+         */
+
+        /**
+         * Constructs a new ProductVariants.
+         * @memberof product
+         * @classdesc Represents a ProductVariants.
+         * @implements IProductVariants
+         * @constructor
+         * @param {product.IProductVariants=} [properties] Properties to set
+         */
+        function ProductVariants(properties) {
+            this.attrs = {};
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ProductVariants sn.
+         * @member {number} sn
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.sn = 0;
+
+        /**
+         * ProductVariants id.
+         * @member {string} id
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.id = "";
+
+        /**
+         * ProductVariants productId.
+         * @member {number} productId
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.productId = 0;
+
+        /**
+         * ProductVariants productName.
+         * @member {string} productName
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.productName = "";
+
+        /**
+         * ProductVariants name.
+         * @member {string} name
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.name = "";
+
+        /**
+         * ProductVariants price.
+         * @member {number} price
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.price = 0;
+
+        /**
+         * ProductVariants qty.
+         * @member {number} qty
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.qty = 0;
+
+        /**
+         * ProductVariants value.
+         * @member {number} value
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.value = 0;
+
+        /**
+         * ProductVariants attrs.
+         * @member {Object.<string,string>} attrs
+         * @memberof product.ProductVariants
+         * @instance
+         */
+        ProductVariants.prototype.attrs = $util.emptyObject;
+
+        /**
+         * Creates a new ProductVariants instance using the specified properties.
+         * @function create
+         * @memberof product.ProductVariants
+         * @static
+         * @param {product.IProductVariants=} [properties] Properties to set
+         * @returns {product.ProductVariants} ProductVariants instance
+         */
+        ProductVariants.create = function create(properties) {
+            return new ProductVariants(properties);
+        };
+
+        /**
+         * Encodes the specified ProductVariants message. Does not implicitly {@link product.ProductVariants.verify|verify} messages.
+         * @function encode
+         * @memberof product.ProductVariants
+         * @static
+         * @param {product.IProductVariants} message ProductVariants message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductVariants.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sn != null && Object.hasOwnProperty.call(message, "sn"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sn);
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.id);
+            if (message.productId != null && Object.hasOwnProperty.call(message, "productId"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.productId);
+            if (message.productName != null && Object.hasOwnProperty.call(message, "productName"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.productName);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.name);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.price);
+            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.qty);
+            if (message.value != null && Object.hasOwnProperty.call(message, "value"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.value);
+            if (message.attrs != null && Object.hasOwnProperty.call(message, "attrs"))
+                for (let keys = Object.keys(message.attrs), i = 0; i < keys.length; ++i)
+                    writer.uint32(/* id 9, wireType 2 =*/74).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.attrs[keys[i]]).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ProductVariants message, length delimited. Does not implicitly {@link product.ProductVariants.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.ProductVariants
+         * @static
+         * @param {product.IProductVariants} message ProductVariants message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductVariants.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ProductVariants message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.ProductVariants
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.ProductVariants} ProductVariants
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductVariants.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.ProductVariants(), key, value;
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.sn = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.id = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.productId = reader.int32();
+                        break;
+                    }
+                case 4: {
+                        message.productName = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 6: {
+                        message.price = reader.int32();
+                        break;
+                    }
+                case 7: {
+                        message.qty = reader.int32();
+                        break;
+                    }
+                case 8: {
+                        message.value = reader.int32();
+                        break;
+                    }
+                case 9: {
+                        if (message.attrs === $util.emptyObject)
+                            message.attrs = {};
+                        let end2 = reader.uint32() + reader.pos;
+                        key = "";
+                        value = "";
+                        while (reader.pos < end2) {
+                            let tag2 = reader.uint32();
+                            switch (tag2 >>> 3) {
+                            case 1:
+                                key = reader.string();
+                                break;
+                            case 2:
+                                value = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag2 & 7);
+                                break;
+                            }
+                        }
+                        message.attrs[key] = value;
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ProductVariants message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.ProductVariants
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.ProductVariants} ProductVariants
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductVariants.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ProductVariants message.
+         * @function verify
+         * @memberof product.ProductVariants
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ProductVariants.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sn != null && message.hasOwnProperty("sn"))
+                if (!$util.isInteger(message.sn))
+                    return "sn: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.productId != null && message.hasOwnProperty("productId"))
+                if (!$util.isInteger(message.productId))
+                    return "productId: integer expected";
+            if (message.productName != null && message.hasOwnProperty("productName"))
+                if (!$util.isString(message.productName))
+                    return "productName: string expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                if (!$util.isInteger(message.qty))
+                    return "qty: integer expected";
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (!$util.isInteger(message.value))
+                    return "value: integer expected";
+            if (message.attrs != null && message.hasOwnProperty("attrs")) {
+                if (!$util.isObject(message.attrs))
+                    return "attrs: object expected";
+                let key = Object.keys(message.attrs);
+                for (let i = 0; i < key.length; ++i)
+                    if (!$util.isString(message.attrs[key[i]]))
+                        return "attrs: string{k:string} expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ProductVariants message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.ProductVariants
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.ProductVariants} ProductVariants
+         */
+        ProductVariants.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.ProductVariants)
+                return object;
+            let message = new $root.product.ProductVariants();
+            if (object.sn != null)
+                message.sn = object.sn | 0;
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.productId != null)
+                message.productId = object.productId | 0;
+            if (object.productName != null)
+                message.productName = String(object.productName);
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.price != null)
+                message.price = object.price | 0;
+            if (object.qty != null)
+                message.qty = object.qty | 0;
+            if (object.value != null)
+                message.value = object.value | 0;
+            if (object.attrs) {
+                if (typeof object.attrs !== "object")
+                    throw TypeError(".product.ProductVariants.attrs: object expected");
+                message.attrs = {};
+                for (let keys = Object.keys(object.attrs), i = 0; i < keys.length; ++i)
+                    message.attrs[keys[i]] = String(object.attrs[keys[i]]);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ProductVariants message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.ProductVariants
+         * @static
+         * @param {product.ProductVariants} message ProductVariants
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ProductVariants.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.objects || options.defaults)
+                object.attrs = {};
+            if (options.defaults) {
+                object.sn = 0;
+                object.id = "";
+                object.productId = 0;
+                object.productName = "";
+                object.name = "";
+                object.price = 0;
+                object.qty = 0;
+                object.value = 0;
+            }
+            if (message.sn != null && message.hasOwnProperty("sn"))
+                object.sn = message.sn;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.productId != null && message.hasOwnProperty("productId"))
+                object.productId = message.productId;
+            if (message.productName != null && message.hasOwnProperty("productName"))
+                object.productName = message.productName;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                object.qty = message.qty;
+            if (message.value != null && message.hasOwnProperty("value"))
+                object.value = message.value;
+            let keys2;
+            if (message.attrs && (keys2 = Object.keys(message.attrs)).length) {
+                object.attrs = {};
+                for (let j = 0; j < keys2.length; ++j)
+                    object.attrs[keys2[j]] = message.attrs[keys2[j]];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ProductVariants to JSON.
+         * @function toJSON
+         * @memberof product.ProductVariants
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ProductVariants.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for ProductVariants
+         * @function getTypeUrl
+         * @memberof product.ProductVariants
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ProductVariants.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.ProductVariants";
+        };
+
+        return ProductVariants;
+    })();
+
+    product.ProductResponse = (function() {
+
+        /**
+         * Properties of a ProductResponse.
+         * @memberof product
+         * @interface IProductResponse
+         * @property {product.ISingleProduct|null} [product] ProductResponse product
+         * @property {Array.<product.IProductVariants>|null} [variants] ProductResponse variants
+         */
+
+        /**
+         * Constructs a new ProductResponse.
+         * @memberof product
+         * @classdesc Represents a ProductResponse.
+         * @implements IProductResponse
+         * @constructor
+         * @param {product.IProductResponse=} [properties] Properties to set
+         */
+        function ProductResponse(properties) {
+            this.variants = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ProductResponse product.
+         * @member {product.ISingleProduct|null|undefined} product
+         * @memberof product.ProductResponse
+         * @instance
+         */
+        ProductResponse.prototype.product = null;
+
+        /**
+         * ProductResponse variants.
+         * @member {Array.<product.IProductVariants>} variants
+         * @memberof product.ProductResponse
+         * @instance
+         */
+        ProductResponse.prototype.variants = $util.emptyArray;
+
+        /**
+         * Creates a new ProductResponse instance using the specified properties.
+         * @function create
+         * @memberof product.ProductResponse
+         * @static
+         * @param {product.IProductResponse=} [properties] Properties to set
+         * @returns {product.ProductResponse} ProductResponse instance
+         */
+        ProductResponse.create = function create(properties) {
+            return new ProductResponse(properties);
+        };
+
+        /**
+         * Encodes the specified ProductResponse message. Does not implicitly {@link product.ProductResponse.verify|verify} messages.
+         * @function encode
+         * @memberof product.ProductResponse
+         * @static
+         * @param {product.IProductResponse} message ProductResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.product != null && Object.hasOwnProperty.call(message, "product"))
+                $root.product.SingleProduct.encode(message.product, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.variants != null && message.variants.length)
+                for (let i = 0; i < message.variants.length; ++i)
+                    $root.product.ProductVariants.encode(message.variants[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ProductResponse message, length delimited. Does not implicitly {@link product.ProductResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.ProductResponse
+         * @static
+         * @param {product.IProductResponse} message ProductResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProductResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ProductResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.ProductResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.ProductResponse} ProductResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.ProductResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.product = $root.product.SingleProduct.decode(reader, reader.uint32());
+                        break;
+                    }
+                case 2: {
+                        if (!(message.variants && message.variants.length))
+                            message.variants = [];
+                        message.variants.push($root.product.ProductVariants.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ProductResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.ProductResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.ProductResponse} ProductResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProductResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ProductResponse message.
+         * @function verify
+         * @memberof product.ProductResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ProductResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.product != null && message.hasOwnProperty("product")) {
+                let error = $root.product.SingleProduct.verify(message.product);
+                if (error)
+                    return "product." + error;
+            }
+            if (message.variants != null && message.hasOwnProperty("variants")) {
+                if (!Array.isArray(message.variants))
+                    return "variants: array expected";
+                for (let i = 0; i < message.variants.length; ++i) {
+                    let error = $root.product.ProductVariants.verify(message.variants[i]);
+                    if (error)
+                        return "variants." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ProductResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.ProductResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.ProductResponse} ProductResponse
+         */
+        ProductResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.ProductResponse)
+                return object;
+            let message = new $root.product.ProductResponse();
+            if (object.product != null) {
+                if (typeof object.product !== "object")
+                    throw TypeError(".product.ProductResponse.product: object expected");
+                message.product = $root.product.SingleProduct.fromObject(object.product);
+            }
+            if (object.variants) {
+                if (!Array.isArray(object.variants))
+                    throw TypeError(".product.ProductResponse.variants: array expected");
+                message.variants = [];
+                for (let i = 0; i < object.variants.length; ++i) {
+                    if (typeof object.variants[i] !== "object")
+                        throw TypeError(".product.ProductResponse.variants: object expected");
+                    message.variants[i] = $root.product.ProductVariants.fromObject(object.variants[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ProductResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.ProductResponse
+         * @static
+         * @param {product.ProductResponse} message ProductResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ProductResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.variants = [];
+            if (options.defaults)
+                object.product = null;
+            if (message.product != null && message.hasOwnProperty("product"))
+                object.product = $root.product.SingleProduct.toObject(message.product, options);
+            if (message.variants && message.variants.length) {
+                object.variants = [];
+                for (let j = 0; j < message.variants.length; ++j)
+                    object.variants[j] = $root.product.ProductVariants.toObject(message.variants[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ProductResponse to JSON.
+         * @function toJSON
+         * @memberof product.ProductResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ProductResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for ProductResponse
+         * @function getTypeUrl
+         * @memberof product.ProductResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ProductResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.ProductResponse";
+        };
+
+        return ProductResponse;
+    })();
+
+    return product;
+})();
+
 export { $root as default };

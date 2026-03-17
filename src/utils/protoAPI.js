@@ -2,8 +2,10 @@ import axiosInstance from "./axios";
 import { api } from "@/proto/index";
 
 
-export async function protoPost(url, RequestType, payload) {
+export async function protoPost(url, RequestType, ResponseType, payload) {
+  console.log("payload", payload)
   const buffer = RequestType.encode(RequestType.create(payload)).finish()
+  console.log("buffer", buffer)
   const response = await axiosInstance.post(
     url,
     buffer,
@@ -15,7 +17,7 @@ export async function protoPost(url, RequestType, payload) {
       transformRequest: [(data) => data],
     }
   )
-  return api.PostResponse.decode(new Uint8Array(response.data))
+  return ResponseType.decode(new Uint8Array(response.data))
 }
 
 

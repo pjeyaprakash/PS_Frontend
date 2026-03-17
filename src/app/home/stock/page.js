@@ -3,24 +3,52 @@ import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-
+import { product } from "@/proto/index";
+import { protoGet } from '@/utils/protoAPI';
 
 export default function Stock() {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('all');
-  const [items, setItems] = useState([]);
+  // const [filter, setFilter] = useState('all');
+  const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+      const controller = new AbortController();
+      (async () => {
+        try {
+          const {products} = await protoGet("/products/10/0", product.ProductListResponse, controller)
+        //         const groups = categories.map(pg => ({
+        //   ...pg,
+        //   values: [],
+        //   customInput: ''
+        // }));
+        // setAttrGroups(groups);
+        console.log("products", products)
+        setProducts(products)
+
+        } catch (error) {
+        if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+        console.error(error);
+  
+        }
+      })()
+      return () => controller.abort()
+    }, [])
+
 //   const [variants, setVariants[];
 
-  const totalUnits = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty, 0), 0);
-  const totalVal   = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty * (i.cost || 0), 0), 0);
-  const lowItems   = items.filter(i => i.status === 'low').length;
+  // const totalUnits = products.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty, 0), 0);
+  // const totalVal   = products.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty * (i.cost || 0), 0), 0);
+  // const lowItems   = products.filter(i => i.status === 'low').length;
+  // const totalUnits = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty, 0), 0);
+  // const totalVal   = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty * (i.cost || 0), 0), 0);
+  // const lowItems   = items.filter(i => i.status === 'low').length;
 
-  const filtered = items.filter(item => {
-    const q = search.toLowerCase();
-    const matchQ = !q || item.name.toLowerCase().includes(q) || (item.sku || '').toLowerCase().includes(q);
-    const matchF = filter === 'all' || item.status === filter;
-    return matchQ && matchF;
-  });
+  // const filtered = products.filter(item => {
+  //   const q = search.toLowerCase();
+  //   const matchQ = !q || item.name.toLowerCase().includes(q) || (item.sku || '').toLowerCase().includes(q);
+  //   const matchF = filter === 'all' || item.status === filter;
+  //   return matchQ && matchF;
+  // });
 
       const { resolvedTheme , setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -55,23 +83,23 @@ export default function Stock() {
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>📦</div>
-          <div className={styles.statVal}>{items.length}</div>
+          <div className={styles.statVal}>{product[0]?.total || 0}</div>
           <div className={styles.statLbl}>Total Products</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>🔢</div>
-          <div className={styles.statVal}>{totalUnits.toLocaleString()}</div>
+          <div className={styles.statVal}>{product[0]?.total_unit.toLocaleString() || 0}</div>
           <div className={styles.statLbl}>Total Units</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>💰</div>
-          <div className={styles.statVal}>₹{(totalVal / 1000).toFixed(1)}K</div>
+          <div className={styles.statVal}>₹{(product[0]?.inventory_value || 0 / 1000).toFixed(1)}K</div>
           <div className={styles.statLbl}>Inventory Value</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>⚠️</div>
-          <div className={styles.statVal}>{lowItems}</div>
-          <div className={styles.statLbl}>Low Stock Items</div>
+          <div className={styles.statVal}>{product[0]?.total_variant}</div>
+          <div className={styles.statLbl}>Total Variants</div>
         </div>
       </div>
 
@@ -83,12 +111,12 @@ export default function Stock() {
           </svg>
           <input placeholder="Search by name or SKU…" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
-        {['all','active','low','draft'].map(f => (
+        {/* {['all','active','low','draft'].map(f => (
           <button key={f} className={`${styles.filterPill} ${filter === f ? styles.active : ''}`}
             onClick={() => setFilter(f)}>
             {f === 'all' ? 'All' : f === 'active' ? '✓ Active' : f === 'low' ? '⚠ Low Stock' : '○ Draft'}
           </button>
-        ))}
+        ))} */}
       </div>
 
       {/* Table */}
@@ -98,25 +126,25 @@ export default function Stock() {
             <tr>
               <th>Product</th>
               <th>Category</th>
-              <th>Variants</th>
+              {/* <th>Variants</th> */}
               <th>Units</th>
-              <th>Price</th>
-              <th>Status</th>
+              <th>Value</th>
+              <th>Variants</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.length === 0 ? (
+            {products.length === 0 ? (
               <tr>
                 <td colSpan={7} className={styles.empty}>
                   <strong>No products found</strong>
                   {search ? `No results for "${search}"` : 'Click "Create Stock" to add your first product'}
                 </td>
               </tr>
-            ) : filtered.map(item => {
-              const totalQty = item.variants.reduce((s, v) => s + v.qty, 0);
-              const sizes  = [...new Set(item.variants.map(v => v.size))];
-              const colors = [...new Set(item.variants.map(v => v.color))];
+            ) : products.map(item => {
+              // const totalQty = item.variants.reduce((s, v) => s + v.qty, 0);
+              // const sizes  = [...new Set(item.variants.map(v => v.size))];
+              // const colors = [...new Set(item.variants.map(v => v.color))];
 
               return (
                 <tr key={item.id} onClick={() => router.push(`/stock/${item.id}`)}>
@@ -125,23 +153,23 @@ export default function Stock() {
                     {item.sku && <div className={styles.itemSku}>{item.sku}</div>}
                   </td>
                   <td><span className={styles.itemCategory}>{item.category}</span></td>
-                  <td>
+                  {/* <td>
                     <div className={styles.variantMinis}>
                       {sizes.slice(0,4).map(s => <span key={s} className={styles.mini}>{s}</span>)}
                       {sizes.length > 4 && <span className={styles.mini}>+{sizes.length - 4}</span>}
                       {colors.slice(0,2).map(c => <span key={c} className={styles.mini}>🎨 {c.split(' ')[0]}</span>)}
                     </div>
-                  </td>
-                  <td style={{ fontWeight: 600, color: 'var(--text)', fontSize: 14 }}>{totalQty}</td>
+                  </td> */}
+                  <td style={{ fontWeight: 600, color: 'var(--text)', fontSize: 14 }}>{item.totalQuantity}</td>
                   <td>
-                    {item.price ? (
-                      <div className={styles.priceVal}>₹{Number(item.price).toLocaleString('en-IN')}<span>MRP</span></div>
+                    {item.totalValue ? (
+                      <div className={styles.priceVal}>₹{Number(item.totalValue).toLocaleString('en-IN')}</div>
                     ) : <span style={{ color: 'var(--text-3)', fontSize: 12 }}>—</span>}
                   </td>
                   <td>
                     <span className={`${styles.statusBadge} ${styles[item.status] || ''}`}>
                       <span className={styles.statusDot} />
-                      {item.status === 'active' ? 'Active' : item.status === 'low' ? 'Low Stock' : 'Draft'}
+                      {item.variantCount}
                     </span>
                   </td>
                   <td onClick={e => e.stopPropagation()}>
