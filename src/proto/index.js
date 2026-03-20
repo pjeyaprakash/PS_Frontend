@@ -2290,6 +2290,1249 @@ export const category = $root.category = (() => {
     return category;
 })();
 
+export const line = $root.line = (() => {
+
+    /**
+     * Namespace line.
+     * @exports line
+     * @namespace
+     */
+    const line = {};
+
+    line.Line = (function() {
+
+        /**
+         * Properties of a Line.
+         * @memberof line
+         * @interface ILine
+         * @property {number|null} [id] Line id
+         * @property {string|null} [lineCode] Line lineCode
+         * @property {string|null} [lineName] Line lineName
+         * @property {string|null} [area] Line area
+         * @property {string|null} [district] Line district
+         * @property {number|Long|null} [lineValue] Line lineValue
+         * @property {number|Long|null} [actualValue] Line actualValue
+         * @property {number|Long|null} [paid] Line paid
+         * @property {number|Long|null} [lineDebt] Line lineDebt
+         * @property {number|Long|null} [lineRevenue] Line lineRevenue
+         * @property {number|Long|null} [lineProfit] Line lineProfit
+         */
+
+        /**
+         * Constructs a new Line.
+         * @memberof line
+         * @classdesc Represents a Line.
+         * @implements ILine
+         * @constructor
+         * @param {line.ILine=} [properties] Properties to set
+         */
+        function Line(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Line id.
+         * @member {number} id
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.id = 0;
+
+        /**
+         * Line lineCode.
+         * @member {string} lineCode
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineCode = "";
+
+        /**
+         * Line lineName.
+         * @member {string} lineName
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineName = "";
+
+        /**
+         * Line area.
+         * @member {string} area
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.area = "";
+
+        /**
+         * Line district.
+         * @member {string} district
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.district = "";
+
+        /**
+         * Line lineValue.
+         * @member {number|Long} lineValue
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Line actualValue.
+         * @member {number|Long} actualValue
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.actualValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Line paid.
+         * @member {number|Long} paid
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.paid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Line lineDebt.
+         * @member {number|Long} lineDebt
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineDebt = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Line lineRevenue.
+         * @member {number|Long} lineRevenue
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineRevenue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Line lineProfit.
+         * @member {number|Long} lineProfit
+         * @memberof line.Line
+         * @instance
+         */
+        Line.prototype.lineProfit = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new Line instance using the specified properties.
+         * @function create
+         * @memberof line.Line
+         * @static
+         * @param {line.ILine=} [properties] Properties to set
+         * @returns {line.Line} Line instance
+         */
+        Line.create = function create(properties) {
+            return new Line(properties);
+        };
+
+        /**
+         * Encodes the specified Line message. Does not implicitly {@link line.Line.verify|verify} messages.
+         * @function encode
+         * @memberof line.Line
+         * @static
+         * @param {line.ILine} message Line message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Line.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.lineCode);
+            if (message.lineName != null && Object.hasOwnProperty.call(message, "lineName"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.lineName);
+            if (message.area != null && Object.hasOwnProperty.call(message, "area"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.area);
+            if (message.district != null && Object.hasOwnProperty.call(message, "district"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.district);
+            if (message.lineValue != null && Object.hasOwnProperty.call(message, "lineValue"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.lineValue);
+            if (message.actualValue != null && Object.hasOwnProperty.call(message, "actualValue"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.actualValue);
+            if (message.paid != null && Object.hasOwnProperty.call(message, "paid"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.paid);
+            if (message.lineDebt != null && Object.hasOwnProperty.call(message, "lineDebt"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.lineDebt);
+            if (message.lineRevenue != null && Object.hasOwnProperty.call(message, "lineRevenue"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int64(message.lineRevenue);
+            if (message.lineProfit != null && Object.hasOwnProperty.call(message, "lineProfit"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.lineProfit);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Line message, length delimited. Does not implicitly {@link line.Line.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.Line
+         * @static
+         * @param {line.ILine} message Line message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Line.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Line message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.Line
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.Line} Line
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Line.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.Line();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.lineName = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.area = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.district = reader.string();
+                        break;
+                    }
+                case 6: {
+                        message.lineValue = reader.int64();
+                        break;
+                    }
+                case 7: {
+                        message.actualValue = reader.int64();
+                        break;
+                    }
+                case 8: {
+                        message.paid = reader.int64();
+                        break;
+                    }
+                case 9: {
+                        message.lineDebt = reader.int64();
+                        break;
+                    }
+                case 10: {
+                        message.lineRevenue = reader.int64();
+                        break;
+                    }
+                case 11: {
+                        message.lineProfit = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Line message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.Line
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.Line} Line
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Line.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Line message.
+         * @function verify
+         * @memberof line.Line
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Line.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.lineName != null && message.hasOwnProperty("lineName"))
+                if (!$util.isString(message.lineName))
+                    return "lineName: string expected";
+            if (message.area != null && message.hasOwnProperty("area"))
+                if (!$util.isString(message.area))
+                    return "area: string expected";
+            if (message.district != null && message.hasOwnProperty("district"))
+                if (!$util.isString(message.district))
+                    return "district: string expected";
+            if (message.lineValue != null && message.hasOwnProperty("lineValue"))
+                if (!$util.isInteger(message.lineValue) && !(message.lineValue && $util.isInteger(message.lineValue.low) && $util.isInteger(message.lineValue.high)))
+                    return "lineValue: integer|Long expected";
+            if (message.actualValue != null && message.hasOwnProperty("actualValue"))
+                if (!$util.isInteger(message.actualValue) && !(message.actualValue && $util.isInteger(message.actualValue.low) && $util.isInteger(message.actualValue.high)))
+                    return "actualValue: integer|Long expected";
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                if (!$util.isInteger(message.paid) && !(message.paid && $util.isInteger(message.paid.low) && $util.isInteger(message.paid.high)))
+                    return "paid: integer|Long expected";
+            if (message.lineDebt != null && message.hasOwnProperty("lineDebt"))
+                if (!$util.isInteger(message.lineDebt) && !(message.lineDebt && $util.isInteger(message.lineDebt.low) && $util.isInteger(message.lineDebt.high)))
+                    return "lineDebt: integer|Long expected";
+            if (message.lineRevenue != null && message.hasOwnProperty("lineRevenue"))
+                if (!$util.isInteger(message.lineRevenue) && !(message.lineRevenue && $util.isInteger(message.lineRevenue.low) && $util.isInteger(message.lineRevenue.high)))
+                    return "lineRevenue: integer|Long expected";
+            if (message.lineProfit != null && message.hasOwnProperty("lineProfit"))
+                if (!$util.isInteger(message.lineProfit) && !(message.lineProfit && $util.isInteger(message.lineProfit.low) && $util.isInteger(message.lineProfit.high)))
+                    return "lineProfit: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a Line message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.Line
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.Line} Line
+         */
+        Line.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.Line)
+                return object;
+            let message = new $root.line.Line();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.lineName != null)
+                message.lineName = String(object.lineName);
+            if (object.area != null)
+                message.area = String(object.area);
+            if (object.district != null)
+                message.district = String(object.district);
+            if (object.lineValue != null)
+                if ($util.Long)
+                    (message.lineValue = $util.Long.fromValue(object.lineValue)).unsigned = false;
+                else if (typeof object.lineValue === "string")
+                    message.lineValue = parseInt(object.lineValue, 10);
+                else if (typeof object.lineValue === "number")
+                    message.lineValue = object.lineValue;
+                else if (typeof object.lineValue === "object")
+                    message.lineValue = new $util.LongBits(object.lineValue.low >>> 0, object.lineValue.high >>> 0).toNumber();
+            if (object.actualValue != null)
+                if ($util.Long)
+                    (message.actualValue = $util.Long.fromValue(object.actualValue)).unsigned = false;
+                else if (typeof object.actualValue === "string")
+                    message.actualValue = parseInt(object.actualValue, 10);
+                else if (typeof object.actualValue === "number")
+                    message.actualValue = object.actualValue;
+                else if (typeof object.actualValue === "object")
+                    message.actualValue = new $util.LongBits(object.actualValue.low >>> 0, object.actualValue.high >>> 0).toNumber();
+            if (object.paid != null)
+                if ($util.Long)
+                    (message.paid = $util.Long.fromValue(object.paid)).unsigned = false;
+                else if (typeof object.paid === "string")
+                    message.paid = parseInt(object.paid, 10);
+                else if (typeof object.paid === "number")
+                    message.paid = object.paid;
+                else if (typeof object.paid === "object")
+                    message.paid = new $util.LongBits(object.paid.low >>> 0, object.paid.high >>> 0).toNumber();
+            if (object.lineDebt != null)
+                if ($util.Long)
+                    (message.lineDebt = $util.Long.fromValue(object.lineDebt)).unsigned = false;
+                else if (typeof object.lineDebt === "string")
+                    message.lineDebt = parseInt(object.lineDebt, 10);
+                else if (typeof object.lineDebt === "number")
+                    message.lineDebt = object.lineDebt;
+                else if (typeof object.lineDebt === "object")
+                    message.lineDebt = new $util.LongBits(object.lineDebt.low >>> 0, object.lineDebt.high >>> 0).toNumber();
+            if (object.lineRevenue != null)
+                if ($util.Long)
+                    (message.lineRevenue = $util.Long.fromValue(object.lineRevenue)).unsigned = false;
+                else if (typeof object.lineRevenue === "string")
+                    message.lineRevenue = parseInt(object.lineRevenue, 10);
+                else if (typeof object.lineRevenue === "number")
+                    message.lineRevenue = object.lineRevenue;
+                else if (typeof object.lineRevenue === "object")
+                    message.lineRevenue = new $util.LongBits(object.lineRevenue.low >>> 0, object.lineRevenue.high >>> 0).toNumber();
+            if (object.lineProfit != null)
+                if ($util.Long)
+                    (message.lineProfit = $util.Long.fromValue(object.lineProfit)).unsigned = false;
+                else if (typeof object.lineProfit === "string")
+                    message.lineProfit = parseInt(object.lineProfit, 10);
+                else if (typeof object.lineProfit === "number")
+                    message.lineProfit = object.lineProfit;
+                else if (typeof object.lineProfit === "object")
+                    message.lineProfit = new $util.LongBits(object.lineProfit.low >>> 0, object.lineProfit.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Line message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.Line
+         * @static
+         * @param {line.Line} message Line
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Line.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.lineCode = "";
+                object.lineName = "";
+                object.area = "";
+                object.district = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.lineValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lineValue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.actualValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.actualValue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.paid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.paid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.lineDebt = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lineDebt = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.lineRevenue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lineRevenue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.lineProfit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lineProfit = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.lineName != null && message.hasOwnProperty("lineName"))
+                object.lineName = message.lineName;
+            if (message.area != null && message.hasOwnProperty("area"))
+                object.area = message.area;
+            if (message.district != null && message.hasOwnProperty("district"))
+                object.district = message.district;
+            if (message.lineValue != null && message.hasOwnProperty("lineValue"))
+                if (typeof message.lineValue === "number")
+                    object.lineValue = options.longs === String ? String(message.lineValue) : message.lineValue;
+                else
+                    object.lineValue = options.longs === String ? $util.Long.prototype.toString.call(message.lineValue) : options.longs === Number ? new $util.LongBits(message.lineValue.low >>> 0, message.lineValue.high >>> 0).toNumber() : message.lineValue;
+            if (message.actualValue != null && message.hasOwnProperty("actualValue"))
+                if (typeof message.actualValue === "number")
+                    object.actualValue = options.longs === String ? String(message.actualValue) : message.actualValue;
+                else
+                    object.actualValue = options.longs === String ? $util.Long.prototype.toString.call(message.actualValue) : options.longs === Number ? new $util.LongBits(message.actualValue.low >>> 0, message.actualValue.high >>> 0).toNumber() : message.actualValue;
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                if (typeof message.paid === "number")
+                    object.paid = options.longs === String ? String(message.paid) : message.paid;
+                else
+                    object.paid = options.longs === String ? $util.Long.prototype.toString.call(message.paid) : options.longs === Number ? new $util.LongBits(message.paid.low >>> 0, message.paid.high >>> 0).toNumber() : message.paid;
+            if (message.lineDebt != null && message.hasOwnProperty("lineDebt"))
+                if (typeof message.lineDebt === "number")
+                    object.lineDebt = options.longs === String ? String(message.lineDebt) : message.lineDebt;
+                else
+                    object.lineDebt = options.longs === String ? $util.Long.prototype.toString.call(message.lineDebt) : options.longs === Number ? new $util.LongBits(message.lineDebt.low >>> 0, message.lineDebt.high >>> 0).toNumber() : message.lineDebt;
+            if (message.lineRevenue != null && message.hasOwnProperty("lineRevenue"))
+                if (typeof message.lineRevenue === "number")
+                    object.lineRevenue = options.longs === String ? String(message.lineRevenue) : message.lineRevenue;
+                else
+                    object.lineRevenue = options.longs === String ? $util.Long.prototype.toString.call(message.lineRevenue) : options.longs === Number ? new $util.LongBits(message.lineRevenue.low >>> 0, message.lineRevenue.high >>> 0).toNumber() : message.lineRevenue;
+            if (message.lineProfit != null && message.hasOwnProperty("lineProfit"))
+                if (typeof message.lineProfit === "number")
+                    object.lineProfit = options.longs === String ? String(message.lineProfit) : message.lineProfit;
+                else
+                    object.lineProfit = options.longs === String ? $util.Long.prototype.toString.call(message.lineProfit) : options.longs === Number ? new $util.LongBits(message.lineProfit.low >>> 0, message.lineProfit.high >>> 0).toNumber() : message.lineProfit;
+            return object;
+        };
+
+        /**
+         * Converts this Line to JSON.
+         * @function toJSON
+         * @memberof line.Line
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Line.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Line
+         * @function getTypeUrl
+         * @memberof line.Line
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Line.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.Line";
+        };
+
+        return Line;
+    })();
+
+    line.LineList = (function() {
+
+        /**
+         * Properties of a LineList.
+         * @memberof line
+         * @interface ILineList
+         * @property {Array.<line.ILine>|null} [lines] LineList lines
+         */
+
+        /**
+         * Constructs a new LineList.
+         * @memberof line
+         * @classdesc Represents a LineList.
+         * @implements ILineList
+         * @constructor
+         * @param {line.ILineList=} [properties] Properties to set
+         */
+        function LineList(properties) {
+            this.lines = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LineList lines.
+         * @member {Array.<line.ILine>} lines
+         * @memberof line.LineList
+         * @instance
+         */
+        LineList.prototype.lines = $util.emptyArray;
+
+        /**
+         * Creates a new LineList instance using the specified properties.
+         * @function create
+         * @memberof line.LineList
+         * @static
+         * @param {line.ILineList=} [properties] Properties to set
+         * @returns {line.LineList} LineList instance
+         */
+        LineList.create = function create(properties) {
+            return new LineList(properties);
+        };
+
+        /**
+         * Encodes the specified LineList message. Does not implicitly {@link line.LineList.verify|verify} messages.
+         * @function encode
+         * @memberof line.LineList
+         * @static
+         * @param {line.ILineList} message LineList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LineList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lines != null && message.lines.length)
+                for (let i = 0; i < message.lines.length; ++i)
+                    $root.line.Line.encode(message.lines[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LineList message, length delimited. Does not implicitly {@link line.LineList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.LineList
+         * @static
+         * @param {line.ILineList} message LineList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LineList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LineList message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.LineList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.LineList} LineList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LineList.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.LineList();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.lines && message.lines.length))
+                            message.lines = [];
+                        message.lines.push($root.line.Line.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LineList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.LineList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.LineList} LineList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LineList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LineList message.
+         * @function verify
+         * @memberof line.LineList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LineList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lines != null && message.hasOwnProperty("lines")) {
+                if (!Array.isArray(message.lines))
+                    return "lines: array expected";
+                for (let i = 0; i < message.lines.length; ++i) {
+                    let error = $root.line.Line.verify(message.lines[i]);
+                    if (error)
+                        return "lines." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a LineList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.LineList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.LineList} LineList
+         */
+        LineList.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.LineList)
+                return object;
+            let message = new $root.line.LineList();
+            if (object.lines) {
+                if (!Array.isArray(object.lines))
+                    throw TypeError(".line.LineList.lines: array expected");
+                message.lines = [];
+                for (let i = 0; i < object.lines.length; ++i) {
+                    if (typeof object.lines[i] !== "object")
+                        throw TypeError(".line.LineList.lines: object expected");
+                    message.lines[i] = $root.line.Line.fromObject(object.lines[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LineList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.LineList
+         * @static
+         * @param {line.LineList} message LineList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LineList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.lines = [];
+            if (message.lines && message.lines.length) {
+                object.lines = [];
+                for (let j = 0; j < message.lines.length; ++j)
+                    object.lines[j] = $root.line.Line.toObject(message.lines[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this LineList to JSON.
+         * @function toJSON
+         * @memberof line.LineList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LineList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for LineList
+         * @function getTypeUrl
+         * @memberof line.LineList
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        LineList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.LineList";
+        };
+
+        return LineList;
+    })();
+
+    line.PostLine = (function() {
+
+        /**
+         * Properties of a PostLine.
+         * @memberof line
+         * @interface IPostLine
+         * @property {string|null} [lineCode] PostLine lineCode
+         * @property {string|null} [lineName] PostLine lineName
+         * @property {string|null} [area] PostLine area
+         * @property {string|null} [district] PostLine district
+         */
+
+        /**
+         * Constructs a new PostLine.
+         * @memberof line
+         * @classdesc Represents a PostLine.
+         * @implements IPostLine
+         * @constructor
+         * @param {line.IPostLine=} [properties] Properties to set
+         */
+        function PostLine(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PostLine lineCode.
+         * @member {string} lineCode
+         * @memberof line.PostLine
+         * @instance
+         */
+        PostLine.prototype.lineCode = "";
+
+        /**
+         * PostLine lineName.
+         * @member {string} lineName
+         * @memberof line.PostLine
+         * @instance
+         */
+        PostLine.prototype.lineName = "";
+
+        /**
+         * PostLine area.
+         * @member {string} area
+         * @memberof line.PostLine
+         * @instance
+         */
+        PostLine.prototype.area = "";
+
+        /**
+         * PostLine district.
+         * @member {string} district
+         * @memberof line.PostLine
+         * @instance
+         */
+        PostLine.prototype.district = "";
+
+        /**
+         * Creates a new PostLine instance using the specified properties.
+         * @function create
+         * @memberof line.PostLine
+         * @static
+         * @param {line.IPostLine=} [properties] Properties to set
+         * @returns {line.PostLine} PostLine instance
+         */
+        PostLine.create = function create(properties) {
+            return new PostLine(properties);
+        };
+
+        /**
+         * Encodes the specified PostLine message. Does not implicitly {@link line.PostLine.verify|verify} messages.
+         * @function encode
+         * @memberof line.PostLine
+         * @static
+         * @param {line.IPostLine} message PostLine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostLine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.lineCode);
+            if (message.lineName != null && Object.hasOwnProperty.call(message, "lineName"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.lineName);
+            if (message.area != null && Object.hasOwnProperty.call(message, "area"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.area);
+            if (message.district != null && Object.hasOwnProperty.call(message, "district"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.district);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PostLine message, length delimited. Does not implicitly {@link line.PostLine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.PostLine
+         * @static
+         * @param {line.IPostLine} message PostLine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostLine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PostLine message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.PostLine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.PostLine} PostLine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostLine.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.PostLine();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.lineName = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.area = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.district = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PostLine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.PostLine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.PostLine} PostLine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostLine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PostLine message.
+         * @function verify
+         * @memberof line.PostLine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PostLine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.lineName != null && message.hasOwnProperty("lineName"))
+                if (!$util.isString(message.lineName))
+                    return "lineName: string expected";
+            if (message.area != null && message.hasOwnProperty("area"))
+                if (!$util.isString(message.area))
+                    return "area: string expected";
+            if (message.district != null && message.hasOwnProperty("district"))
+                if (!$util.isString(message.district))
+                    return "district: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a PostLine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.PostLine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.PostLine} PostLine
+         */
+        PostLine.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.PostLine)
+                return object;
+            let message = new $root.line.PostLine();
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.lineName != null)
+                message.lineName = String(object.lineName);
+            if (object.area != null)
+                message.area = String(object.area);
+            if (object.district != null)
+                message.district = String(object.district);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PostLine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.PostLine
+         * @static
+         * @param {line.PostLine} message PostLine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PostLine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.lineCode = "";
+                object.lineName = "";
+                object.area = "";
+                object.district = "";
+            }
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.lineName != null && message.hasOwnProperty("lineName"))
+                object.lineName = message.lineName;
+            if (message.area != null && message.hasOwnProperty("area"))
+                object.area = message.area;
+            if (message.district != null && message.hasOwnProperty("district"))
+                object.district = message.district;
+            return object;
+        };
+
+        /**
+         * Converts this PostLine to JSON.
+         * @function toJSON
+         * @memberof line.PostLine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PostLine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PostLine
+         * @function getTypeUrl
+         * @memberof line.PostLine
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PostLine.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.PostLine";
+        };
+
+        return PostLine;
+    })();
+
+    line.PostLineResponse = (function() {
+
+        /**
+         * Properties of a PostLineResponse.
+         * @memberof line
+         * @interface IPostLineResponse
+         * @property {line.ILine|null} [line] PostLineResponse line
+         */
+
+        /**
+         * Constructs a new PostLineResponse.
+         * @memberof line
+         * @classdesc Represents a PostLineResponse.
+         * @implements IPostLineResponse
+         * @constructor
+         * @param {line.IPostLineResponse=} [properties] Properties to set
+         */
+        function PostLineResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PostLineResponse line.
+         * @member {line.ILine|null|undefined} line
+         * @memberof line.PostLineResponse
+         * @instance
+         */
+        PostLineResponse.prototype.line = null;
+
+        /**
+         * Creates a new PostLineResponse instance using the specified properties.
+         * @function create
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {line.IPostLineResponse=} [properties] Properties to set
+         * @returns {line.PostLineResponse} PostLineResponse instance
+         */
+        PostLineResponse.create = function create(properties) {
+            return new PostLineResponse(properties);
+        };
+
+        /**
+         * Encodes the specified PostLineResponse message. Does not implicitly {@link line.PostLineResponse.verify|verify} messages.
+         * @function encode
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {line.IPostLineResponse} message PostLineResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostLineResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.line != null && Object.hasOwnProperty.call(message, "line"))
+                $root.line.Line.encode(message.line, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PostLineResponse message, length delimited. Does not implicitly {@link line.PostLineResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {line.IPostLineResponse} message PostLineResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostLineResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PostLineResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.PostLineResponse} PostLineResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostLineResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.PostLineResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.line = $root.line.Line.decode(reader, reader.uint32());
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PostLineResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.PostLineResponse} PostLineResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostLineResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PostLineResponse message.
+         * @function verify
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PostLineResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.line != null && message.hasOwnProperty("line")) {
+                let error = $root.line.Line.verify(message.line);
+                if (error)
+                    return "line." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a PostLineResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.PostLineResponse} PostLineResponse
+         */
+        PostLineResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.PostLineResponse)
+                return object;
+            let message = new $root.line.PostLineResponse();
+            if (object.line != null) {
+                if (typeof object.line !== "object")
+                    throw TypeError(".line.PostLineResponse.line: object expected");
+                message.line = $root.line.Line.fromObject(object.line);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PostLineResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {line.PostLineResponse} message PostLineResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PostLineResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                object.line = null;
+            if (message.line != null && message.hasOwnProperty("line"))
+                object.line = $root.line.Line.toObject(message.line, options);
+            return object;
+        };
+
+        /**
+         * Converts this PostLineResponse to JSON.
+         * @function toJSON
+         * @memberof line.PostLineResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PostLineResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PostLineResponse
+         * @function getTypeUrl
+         * @memberof line.PostLineResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PostLineResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.PostLineResponse";
+        };
+
+        return PostLineResponse;
+    })();
+
+    return line;
+})();
+
 export const product = $root.product = (() => {
 
     /**
@@ -2311,6 +3554,7 @@ export const product = $root.product = (() => {
          * @property {number|null} [qty] Variant qty
          * @property {Object.<string,string>|null} [attrs] Variant attrs
          * @property {Array.<string>|null} [keys] Variant keys
+         * @property {number|null} [sn] Variant sn
          */
 
         /**
@@ -2379,6 +3623,14 @@ export const product = $root.product = (() => {
         Variant.prototype.keys = $util.emptyArray;
 
         /**
+         * Variant sn.
+         * @member {number} sn
+         * @memberof product.Variant
+         * @instance
+         */
+        Variant.prototype.sn = 0;
+
+        /**
          * Creates a new Variant instance using the specified properties.
          * @function create
          * @memberof product.Variant
@@ -2416,6 +3668,8 @@ export const product = $root.product = (() => {
             if (message.keys != null && message.keys.length)
                 for (let i = 0; i < message.keys.length; ++i)
                     writer.uint32(/* id 7, wireType 2 =*/58).string(message.keys[i]);
+            if (message.sn != null && Object.hasOwnProperty.call(message, "sn"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.sn);
             return writer;
         };
 
@@ -2497,6 +3751,10 @@ export const product = $root.product = (() => {
                         message.keys.push(reader.string());
                         break;
                     }
+                case 8: {
+                        message.sn = reader.int32();
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2559,6 +3817,9 @@ export const product = $root.product = (() => {
                     if (!$util.isString(message.keys[i]))
                         return "keys: string[] expected";
             }
+            if (message.sn != null && message.hasOwnProperty("sn"))
+                if (!$util.isInteger(message.sn))
+                    return "sn: integer expected";
             return null;
         };
 
@@ -2596,6 +3857,8 @@ export const product = $root.product = (() => {
                 for (let i = 0; i < object.keys.length; ++i)
                     message.keys[i] = String(object.keys[i]);
             }
+            if (object.sn != null)
+                message.sn = object.sn | 0;
             return message;
         };
 
@@ -2621,6 +3884,7 @@ export const product = $root.product = (() => {
                 object.name = "";
                 object.price = 0;
                 object.qty = 0;
+                object.sn = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -2641,6 +3905,8 @@ export const product = $root.product = (() => {
                 for (let j = 0; j < message.keys.length; ++j)
                     object.keys[j] = message.keys[j];
             }
+            if (message.sn != null && message.hasOwnProperty("sn"))
+                object.sn = message.sn;
             return object;
         };
 

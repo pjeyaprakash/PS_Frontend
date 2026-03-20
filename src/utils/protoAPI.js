@@ -5,7 +5,6 @@ import { api } from "@/proto/index";
 export async function protoPost(url, RequestType, ResponseType, payload) {
   console.log("payload", payload)
   const buffer = RequestType.encode(RequestType.create(payload)).finish()
-  console.log("buffer", buffer)
   const response = await axiosInstance.post(
     url,
     buffer,

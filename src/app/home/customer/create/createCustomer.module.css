@@ -1,0 +1,63 @@
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+.page {
+    padding: 28px 32px;
+    /* animation: fadeUp 0.35 ease-in both; */
+}
+
+.pageHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    gap: 16px;
+}
+
+.headerActions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btnSecondary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 42px;
+    padding: 0 18px;
+    background: rgba(230, 255, 252, 0.241);;
+    border: 1px solid rgba(214, 255, 254, 0.796);
+    border-radius: 2px;
+    color: rgba(0, 0, 0, 0.743);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btnPrimary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 42px;
+    padding: 0 22px;
+    background: linear-gradient(45deg,rgb(212, 169, 255), rgb(203, 252, 255));
+    border: none;
+    border-radius: 10px;
+    color: #000000b2;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 18px rgba(79, 124, 247, 0.35);
+}

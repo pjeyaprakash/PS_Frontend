@@ -14,6 +14,7 @@ const navGroups = [
       {
         id: 'dashboard',
         label: 'Dashboard',
+        path: "/home",
         icon: (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <rect x="3" y="3" width="7" height="7" rx="1.5" />
@@ -27,6 +28,7 @@ const navGroups = [
         id: 'stock',
         label: 'Stock',
         badge: 'New',
+        path: "/home/stock",
         icon: (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M3 7l9-4 9 4-9 4-9-4z" />
@@ -36,8 +38,9 @@ const navGroups = [
         ),
       },
       {
-        id: 'analytics',
-        label: 'Analytics',
+        id: 'lines',
+        label: 'Lines',
+        path: "/home/lines",
         badge: 'New',
         icon: (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -46,8 +49,9 @@ const navGroups = [
         ),
       },
       {
-        id: 'users',
-        label: 'Users',
+        id: 'customer',
+        label: 'Customer',
+        path: "/home/customer",
         icon: (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -143,7 +147,7 @@ export default function Sidebar() {
               key={item.id}
               className={`${styles.navItem} ${active === item.id ? styles.active : ''}`}
               onClick={() => {
-                router.push(`home/${item.id}`);
+                router.push(`${item.path}`);
                 setActive(item.id)}}
             >
               <span className={styles.navIcon}>{item.icon}</span>

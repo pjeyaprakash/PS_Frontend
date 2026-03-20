@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package line;
+
+message Line {
+  int32 id = 1;
+  string line_code = 2;
+  string line_name = 3;
+  string area = 4;
+  string district = 5;
+  int64 line_value = 6;
+  int64 actual_value = 7;
+  int64 paid = 8;
+  int64 line_debt = 9;
+  int64 line_revenue = 10;
+  int64 line_profit = 11;
+}
+
+message LineList {
+  repeated Line lines = 1;
+}
+
+message PostLine {
+    string line_code = 1;
+    string line_name = 2;
+    string area = 3;
+    string district = 4;
+}
+
+message PostLineResponse {
+  Line line = 1;
+}

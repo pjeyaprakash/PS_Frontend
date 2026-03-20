@@ -90,13 +90,12 @@ export default function CreateStock({ editItem = null }) {
 
 
   const [variants, setVariants]     = useState(editItem?.variants || []);
-  const [variantEditMode, setVariantEditMode] = useState(false);
 
   const [showAddGroup, setShowAddGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [newGroupInput, setNewGroupInput] = useState('');
-  // const [toast, setToast] = useState(false);
 
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
 
 
   /* ── recompute after every attribute change ── */
@@ -296,6 +295,21 @@ const addCustomValue = async (groupKey) => {
     // setTimeout(() => { setToast(false); router.push('/stock'); }, 1600);
   };
 
+  const saveEditedVariants = async () => {
+    try {
+      console.log("selectedVariantIndex")
+      console.log("selectedVariantIndex", selectedVariantIndex)
+      
+      if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
+      console.log(variants[selectedVariantIndex])
+      const {success} = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
+      if (success) setSelectedVariantIndex(null);
+      else {console.error("erkkkror", error)}
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={styles.page}>
       {/* Header */}
@@ -313,7 +327,8 @@ const addCustomValue = async (groupKey) => {
             </svg>
             Back
           </button>
-          {editMode && <button className={styles.btnSecondary} onClick={() => setEditMode(false)}>
+          {editMode && <button className={styles.btnSecondary} onClick={() => {setEditMode(false)
+             setSelectedVariantIndex(null)}}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
             </svg>
@@ -536,7 +551,7 @@ const addCustomValue = async (groupKey) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {variants.map(v => (
+                    {variants.map((v, i )=> (
                       
                       <tr key={v.id}>
                         <td>
@@ -548,14 +563,14 @@ const addCustomValue = async (groupKey) => {
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.qtyInput} type="text" min={0}
+                            <input className={styles.qtyInput} type="text" min={0} disabled={ editItem && selectedVariantIndex !== i}
                               value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.qtyInput} type="number" min={0}
+                            <input className={styles.qtyInput} type="number" min={0} disabled={ editItem && selectedVariantIndex !== i}
                               value={v.qty} onChange={e => setQty(v.id, e.target.value)} onClick={() =>  { 
                                 if (v.qty != 0) return;
                                 setVariants(prev => prev.map(p => p.id === v.id ? { ...p, qty: "" } : p))} }/>
@@ -563,7 +578,7 @@ const addCustomValue = async (groupKey) => {
                         </td>
 
                         <td>
-                            <input className={styles.qtyInput} type="number" min={0}
+                            <input className={styles.qtyInput} type="number" min={0} disabled={ editItem && selectedVariantIndex !== i}
                               value={v.price} onChange={e => setPrice(v.id, e.target.value)} />
                         </td>
 
@@ -581,21 +596,10 @@ const addCustomValue = async (groupKey) => {
                               <path d="M19 6l-1 14H6L5 6"/>
                               <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
                             </svg>
-                          </button>) : ( (editMode && !variantEditMode) ?
+                          </button>) : ( (editMode && selectedVariantIndex === i) ?
                           (<div>
                               <button className={styles.btnDanger}
-                                onClick={() => setVariantEditMode(true)}
-                                title="Edit Variant">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z"/>
-                                  <path d="M14 6l2 2"/>
-                                </svg>
-                              </button>
-                            </div>
-                        ) : ( variantEditMode &&
-                          <div>
-                              <button className={styles.btnDanger}
-                                onClick={() => setVariantEditMode(true)}
+                                onClick={() => setSelectedVariantIndex(null)}
                                 title="Cancel Edit">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                   <line x1="18" y1="6" x2="6" y2="18"/>
@@ -603,12 +607,26 @@ const addCustomValue = async (groupKey) => {
                                 </svg>
                               </button>
                               <button className={styles.btnDanger}
-                                onClick={() => setVariantEditMode(true)}
+                                onClick={saveEditedVariants}
+                                // onClick={() => {}}
                                 title="Save Changes">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                   <polyline points="20 6 9 17 4 12"/>
                                 </svg>
                               </button>
+                            </div>
+                        ) : ( editMode &&
+                          <div>
+                              <button className={styles.btnDanger}
+                                onClick={() => setSelectedVariantIndex(i)}
+                                title="Edit Variant">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z"/>
+                                  <path d="M14 6l2 2"/>
+                                </svg>
+                              </button>
+
+
                           </div>
                         ))}
                         </td>

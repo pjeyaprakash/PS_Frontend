@@ -12,6 +12,7 @@ message Variant {
 
   map<string, string> attrs = 6;
   repeated string keys = 7;
+  int32 sn = 8;
 }
 
 message Product {
