@@ -5,29 +5,9 @@ import styles from './lines.module.css';
 import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
 import { line } from '@/proto';
 
-const INITIAL_DATA = [
-  { id: 1, lineName: 'Line Alpha', area: 'North Zone', district: 'Coimbatore' },
-  { id: 2, lineName: 'Line Beta',  area: 'South Zone', district: 'Tiruppur' },
-  { id: 3, lineName: 'Line Gamma', area: 'East Zone',  district: 'Erode' },
-  { id: 4, lineName: 'Line Gamma', area: 'East Zone',  district: 'Erode' },
-  { id: 5, lineName: 'Line Gamma', area: 'East Zone',  district: 'Erode' },
-  { id: 6, lineName: 'Line Gamma', area: 'East Zone',  district: 'Erode' },
-  { id: 7, lineName: 'Line Gamma', area: 'East Zone',  district: 'Erode' },
-
-];
 
 const emptyForm = { lineName: '', area: '', district: '' };
 
-/* ──────────── small SVG icons ──────────── */
-// function IconTarget() {
-//   return (
-//     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-//          strokeLinecap="round" strokeLinejoin="round">
-//       <circle cx="12" cy="12" r="10" />
-//       <circle cx="12" cy="12" r="3"  />
-//     </svg>
-//   );
-// }
 function IconEdit() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -188,7 +168,7 @@ export default function Lines() {
   const [rows, setRows]         = useState([]);
 
 
-  const [modal, setModal]       = useState(null); // null | { mode:'create' } | { mode:'edit', row }
+  const [modal, setModal]       = useState(null); 
 
   const openCreate = () => setModal({ mode: 'create' });
   const openEdit   = (row) => setModal({ mode: 'edit', row });

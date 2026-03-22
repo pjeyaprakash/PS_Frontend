@@ -2290,6 +2290,1062 @@ export const category = $root.category = (() => {
     return category;
 })();
 
+export const customer = $root.customer = (() => {
+
+    /**
+     * Namespace customer.
+     * @exports customer
+     * @namespace
+     */
+    const customer = {};
+
+    customer.Customer = (function() {
+
+        /**
+         * Properties of a Customer.
+         * @memberof customer
+         * @interface ICustomer
+         * @property {number|null} [id] Customer id
+         * @property {string|null} [cusCode] Customer cusCode
+         * @property {string|null} [cusName] Customer cusName
+         * @property {string|null} [lineCode] Customer lineCode
+         * @property {string|null} [address] Customer address
+         * @property {number|Long|null} [totalValue] Customer totalValue
+         * @property {number|Long|null} [actualValue] Customer actualValue
+         * @property {number|Long|null} [paid] Customer paid
+         * @property {number|Long|null} [debt] Customer debt
+         * @property {number|Long|null} [revenue] Customer revenue
+         * @property {number|Long|null} [profit] Customer profit
+         */
+
+        /**
+         * Constructs a new Customer.
+         * @memberof customer
+         * @classdesc Represents a Customer.
+         * @implements ICustomer
+         * @constructor
+         * @param {customer.ICustomer=} [properties] Properties to set
+         */
+        function Customer(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Customer id.
+         * @member {number} id
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.id = 0;
+
+        /**
+         * Customer cusCode.
+         * @member {string} cusCode
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.cusCode = "";
+
+        /**
+         * Customer cusName.
+         * @member {string} cusName
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.cusName = "";
+
+        /**
+         * Customer lineCode.
+         * @member {string} lineCode
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.lineCode = "";
+
+        /**
+         * Customer address.
+         * @member {string} address
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.address = "";
+
+        /**
+         * Customer totalValue.
+         * @member {number|Long} totalValue
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.totalValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Customer actualValue.
+         * @member {number|Long} actualValue
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.actualValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Customer paid.
+         * @member {number|Long} paid
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.paid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Customer debt.
+         * @member {number|Long} debt
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.debt = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Customer revenue.
+         * @member {number|Long} revenue
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.revenue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Customer profit.
+         * @member {number|Long} profit
+         * @memberof customer.Customer
+         * @instance
+         */
+        Customer.prototype.profit = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new Customer instance using the specified properties.
+         * @function create
+         * @memberof customer.Customer
+         * @static
+         * @param {customer.ICustomer=} [properties] Properties to set
+         * @returns {customer.Customer} Customer instance
+         */
+        Customer.create = function create(properties) {
+            return new Customer(properties);
+        };
+
+        /**
+         * Encodes the specified Customer message. Does not implicitly {@link customer.Customer.verify|verify} messages.
+         * @function encode
+         * @memberof customer.Customer
+         * @static
+         * @param {customer.ICustomer} message Customer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Customer.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.cusCode != null && Object.hasOwnProperty.call(message, "cusCode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.cusCode);
+            if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.cusName);
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.lineCode);
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.address);
+            if (message.totalValue != null && Object.hasOwnProperty.call(message, "totalValue"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.totalValue);
+            if (message.actualValue != null && Object.hasOwnProperty.call(message, "actualValue"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.actualValue);
+            if (message.paid != null && Object.hasOwnProperty.call(message, "paid"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.paid);
+            if (message.debt != null && Object.hasOwnProperty.call(message, "debt"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.debt);
+            if (message.revenue != null && Object.hasOwnProperty.call(message, "revenue"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int64(message.revenue);
+            if (message.profit != null && Object.hasOwnProperty.call(message, "profit"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.profit);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Customer message, length delimited. Does not implicitly {@link customer.Customer.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof customer.Customer
+         * @static
+         * @param {customer.ICustomer} message Customer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Customer.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Customer message from the specified reader or buffer.
+         * @function decode
+         * @memberof customer.Customer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {customer.Customer} Customer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Customer.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.customer.Customer();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.cusCode = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.cusName = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.address = reader.string();
+                        break;
+                    }
+                case 6: {
+                        message.totalValue = reader.int64();
+                        break;
+                    }
+                case 7: {
+                        message.actualValue = reader.int64();
+                        break;
+                    }
+                case 8: {
+                        message.paid = reader.int64();
+                        break;
+                    }
+                case 9: {
+                        message.debt = reader.int64();
+                        break;
+                    }
+                case 10: {
+                        message.revenue = reader.int64();
+                        break;
+                    }
+                case 11: {
+                        message.profit = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Customer message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof customer.Customer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {customer.Customer} Customer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Customer.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Customer message.
+         * @function verify
+         * @memberof customer.Customer
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Customer.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                if (!$util.isString(message.cusCode))
+                    return "cusCode: string expected";
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                if (!$util.isString(message.cusName))
+                    return "cusName: string expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!$util.isString(message.address))
+                    return "address: string expected";
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                if (!$util.isInteger(message.totalValue) && !(message.totalValue && $util.isInteger(message.totalValue.low) && $util.isInteger(message.totalValue.high)))
+                    return "totalValue: integer|Long expected";
+            if (message.actualValue != null && message.hasOwnProperty("actualValue"))
+                if (!$util.isInteger(message.actualValue) && !(message.actualValue && $util.isInteger(message.actualValue.low) && $util.isInteger(message.actualValue.high)))
+                    return "actualValue: integer|Long expected";
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                if (!$util.isInteger(message.paid) && !(message.paid && $util.isInteger(message.paid.low) && $util.isInteger(message.paid.high)))
+                    return "paid: integer|Long expected";
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (!$util.isInteger(message.debt) && !(message.debt && $util.isInteger(message.debt.low) && $util.isInteger(message.debt.high)))
+                    return "debt: integer|Long expected";
+            if (message.revenue != null && message.hasOwnProperty("revenue"))
+                if (!$util.isInteger(message.revenue) && !(message.revenue && $util.isInteger(message.revenue.low) && $util.isInteger(message.revenue.high)))
+                    return "revenue: integer|Long expected";
+            if (message.profit != null && message.hasOwnProperty("profit"))
+                if (!$util.isInteger(message.profit) && !(message.profit && $util.isInteger(message.profit.low) && $util.isInteger(message.profit.high)))
+                    return "profit: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a Customer message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof customer.Customer
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {customer.Customer} Customer
+         */
+        Customer.fromObject = function fromObject(object) {
+            if (object instanceof $root.customer.Customer)
+                return object;
+            let message = new $root.customer.Customer();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.cusCode != null)
+                message.cusCode = String(object.cusCode);
+            if (object.cusName != null)
+                message.cusName = String(object.cusName);
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.address != null)
+                message.address = String(object.address);
+            if (object.totalValue != null)
+                if ($util.Long)
+                    (message.totalValue = $util.Long.fromValue(object.totalValue)).unsigned = false;
+                else if (typeof object.totalValue === "string")
+                    message.totalValue = parseInt(object.totalValue, 10);
+                else if (typeof object.totalValue === "number")
+                    message.totalValue = object.totalValue;
+                else if (typeof object.totalValue === "object")
+                    message.totalValue = new $util.LongBits(object.totalValue.low >>> 0, object.totalValue.high >>> 0).toNumber();
+            if (object.actualValue != null)
+                if ($util.Long)
+                    (message.actualValue = $util.Long.fromValue(object.actualValue)).unsigned = false;
+                else if (typeof object.actualValue === "string")
+                    message.actualValue = parseInt(object.actualValue, 10);
+                else if (typeof object.actualValue === "number")
+                    message.actualValue = object.actualValue;
+                else if (typeof object.actualValue === "object")
+                    message.actualValue = new $util.LongBits(object.actualValue.low >>> 0, object.actualValue.high >>> 0).toNumber();
+            if (object.paid != null)
+                if ($util.Long)
+                    (message.paid = $util.Long.fromValue(object.paid)).unsigned = false;
+                else if (typeof object.paid === "string")
+                    message.paid = parseInt(object.paid, 10);
+                else if (typeof object.paid === "number")
+                    message.paid = object.paid;
+                else if (typeof object.paid === "object")
+                    message.paid = new $util.LongBits(object.paid.low >>> 0, object.paid.high >>> 0).toNumber();
+            if (object.debt != null)
+                if ($util.Long)
+                    (message.debt = $util.Long.fromValue(object.debt)).unsigned = false;
+                else if (typeof object.debt === "string")
+                    message.debt = parseInt(object.debt, 10);
+                else if (typeof object.debt === "number")
+                    message.debt = object.debt;
+                else if (typeof object.debt === "object")
+                    message.debt = new $util.LongBits(object.debt.low >>> 0, object.debt.high >>> 0).toNumber();
+            if (object.revenue != null)
+                if ($util.Long)
+                    (message.revenue = $util.Long.fromValue(object.revenue)).unsigned = false;
+                else if (typeof object.revenue === "string")
+                    message.revenue = parseInt(object.revenue, 10);
+                else if (typeof object.revenue === "number")
+                    message.revenue = object.revenue;
+                else if (typeof object.revenue === "object")
+                    message.revenue = new $util.LongBits(object.revenue.low >>> 0, object.revenue.high >>> 0).toNumber();
+            if (object.profit != null)
+                if ($util.Long)
+                    (message.profit = $util.Long.fromValue(object.profit)).unsigned = false;
+                else if (typeof object.profit === "string")
+                    message.profit = parseInt(object.profit, 10);
+                else if (typeof object.profit === "number")
+                    message.profit = object.profit;
+                else if (typeof object.profit === "object")
+                    message.profit = new $util.LongBits(object.profit.low >>> 0, object.profit.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Customer message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof customer.Customer
+         * @static
+         * @param {customer.Customer} message Customer
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Customer.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.cusCode = "";
+                object.cusName = "";
+                object.lineCode = "";
+                object.address = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.totalValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.totalValue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.actualValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.actualValue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.paid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.paid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.debt = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.debt = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.revenue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.revenue = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.profit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.profit = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                object.cusCode = message.cusCode;
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                object.cusName = message.cusName;
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = message.address;
+            if (message.totalValue != null && message.hasOwnProperty("totalValue"))
+                if (typeof message.totalValue === "number")
+                    object.totalValue = options.longs === String ? String(message.totalValue) : message.totalValue;
+                else
+                    object.totalValue = options.longs === String ? $util.Long.prototype.toString.call(message.totalValue) : options.longs === Number ? new $util.LongBits(message.totalValue.low >>> 0, message.totalValue.high >>> 0).toNumber() : message.totalValue;
+            if (message.actualValue != null && message.hasOwnProperty("actualValue"))
+                if (typeof message.actualValue === "number")
+                    object.actualValue = options.longs === String ? String(message.actualValue) : message.actualValue;
+                else
+                    object.actualValue = options.longs === String ? $util.Long.prototype.toString.call(message.actualValue) : options.longs === Number ? new $util.LongBits(message.actualValue.low >>> 0, message.actualValue.high >>> 0).toNumber() : message.actualValue;
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                if (typeof message.paid === "number")
+                    object.paid = options.longs === String ? String(message.paid) : message.paid;
+                else
+                    object.paid = options.longs === String ? $util.Long.prototype.toString.call(message.paid) : options.longs === Number ? new $util.LongBits(message.paid.low >>> 0, message.paid.high >>> 0).toNumber() : message.paid;
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (typeof message.debt === "number")
+                    object.debt = options.longs === String ? String(message.debt) : message.debt;
+                else
+                    object.debt = options.longs === String ? $util.Long.prototype.toString.call(message.debt) : options.longs === Number ? new $util.LongBits(message.debt.low >>> 0, message.debt.high >>> 0).toNumber() : message.debt;
+            if (message.revenue != null && message.hasOwnProperty("revenue"))
+                if (typeof message.revenue === "number")
+                    object.revenue = options.longs === String ? String(message.revenue) : message.revenue;
+                else
+                    object.revenue = options.longs === String ? $util.Long.prototype.toString.call(message.revenue) : options.longs === Number ? new $util.LongBits(message.revenue.low >>> 0, message.revenue.high >>> 0).toNumber() : message.revenue;
+            if (message.profit != null && message.hasOwnProperty("profit"))
+                if (typeof message.profit === "number")
+                    object.profit = options.longs === String ? String(message.profit) : message.profit;
+                else
+                    object.profit = options.longs === String ? $util.Long.prototype.toString.call(message.profit) : options.longs === Number ? new $util.LongBits(message.profit.low >>> 0, message.profit.high >>> 0).toNumber() : message.profit;
+            return object;
+        };
+
+        /**
+         * Converts this Customer to JSON.
+         * @function toJSON
+         * @memberof customer.Customer
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Customer.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Customer
+         * @function getTypeUrl
+         * @memberof customer.Customer
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Customer.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/customer.Customer";
+        };
+
+        return Customer;
+    })();
+
+    customer.CustomerList = (function() {
+
+        /**
+         * Properties of a CustomerList.
+         * @memberof customer
+         * @interface ICustomerList
+         * @property {Array.<customer.ICustomer>|null} [customers] CustomerList customers
+         */
+
+        /**
+         * Constructs a new CustomerList.
+         * @memberof customer
+         * @classdesc Represents a CustomerList.
+         * @implements ICustomerList
+         * @constructor
+         * @param {customer.ICustomerList=} [properties] Properties to set
+         */
+        function CustomerList(properties) {
+            this.customers = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CustomerList customers.
+         * @member {Array.<customer.ICustomer>} customers
+         * @memberof customer.CustomerList
+         * @instance
+         */
+        CustomerList.prototype.customers = $util.emptyArray;
+
+        /**
+         * Creates a new CustomerList instance using the specified properties.
+         * @function create
+         * @memberof customer.CustomerList
+         * @static
+         * @param {customer.ICustomerList=} [properties] Properties to set
+         * @returns {customer.CustomerList} CustomerList instance
+         */
+        CustomerList.create = function create(properties) {
+            return new CustomerList(properties);
+        };
+
+        /**
+         * Encodes the specified CustomerList message. Does not implicitly {@link customer.CustomerList.verify|verify} messages.
+         * @function encode
+         * @memberof customer.CustomerList
+         * @static
+         * @param {customer.ICustomerList} message CustomerList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CustomerList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.customers != null && message.customers.length)
+                for (let i = 0; i < message.customers.length; ++i)
+                    $root.customer.Customer.encode(message.customers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CustomerList message, length delimited. Does not implicitly {@link customer.CustomerList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof customer.CustomerList
+         * @static
+         * @param {customer.ICustomerList} message CustomerList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CustomerList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CustomerList message from the specified reader or buffer.
+         * @function decode
+         * @memberof customer.CustomerList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {customer.CustomerList} CustomerList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CustomerList.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.customer.CustomerList();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.customers && message.customers.length))
+                            message.customers = [];
+                        message.customers.push($root.customer.Customer.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CustomerList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof customer.CustomerList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {customer.CustomerList} CustomerList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CustomerList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CustomerList message.
+         * @function verify
+         * @memberof customer.CustomerList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CustomerList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.customers != null && message.hasOwnProperty("customers")) {
+                if (!Array.isArray(message.customers))
+                    return "customers: array expected";
+                for (let i = 0; i < message.customers.length; ++i) {
+                    let error = $root.customer.Customer.verify(message.customers[i]);
+                    if (error)
+                        return "customers." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a CustomerList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof customer.CustomerList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {customer.CustomerList} CustomerList
+         */
+        CustomerList.fromObject = function fromObject(object) {
+            if (object instanceof $root.customer.CustomerList)
+                return object;
+            let message = new $root.customer.CustomerList();
+            if (object.customers) {
+                if (!Array.isArray(object.customers))
+                    throw TypeError(".customer.CustomerList.customers: array expected");
+                message.customers = [];
+                for (let i = 0; i < object.customers.length; ++i) {
+                    if (typeof object.customers[i] !== "object")
+                        throw TypeError(".customer.CustomerList.customers: object expected");
+                    message.customers[i] = $root.customer.Customer.fromObject(object.customers[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CustomerList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof customer.CustomerList
+         * @static
+         * @param {customer.CustomerList} message CustomerList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CustomerList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.customers = [];
+            if (message.customers && message.customers.length) {
+                object.customers = [];
+                for (let j = 0; j < message.customers.length; ++j)
+                    object.customers[j] = $root.customer.Customer.toObject(message.customers[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this CustomerList to JSON.
+         * @function toJSON
+         * @memberof customer.CustomerList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CustomerList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for CustomerList
+         * @function getTypeUrl
+         * @memberof customer.CustomerList
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        CustomerList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/customer.CustomerList";
+        };
+
+        return CustomerList;
+    })();
+
+    customer.PostCustomer = (function() {
+
+        /**
+         * Properties of a PostCustomer.
+         * @memberof customer
+         * @interface IPostCustomer
+         * @property {number|null} [id] PostCustomer id
+         * @property {string|null} [cusCode] PostCustomer cusCode
+         * @property {string|null} [cusName] PostCustomer cusName
+         * @property {string|null} [lineCode] PostCustomer lineCode
+         * @property {string|null} [address] PostCustomer address
+         */
+
+        /**
+         * Constructs a new PostCustomer.
+         * @memberof customer
+         * @classdesc Represents a PostCustomer.
+         * @implements IPostCustomer
+         * @constructor
+         * @param {customer.IPostCustomer=} [properties] Properties to set
+         */
+        function PostCustomer(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PostCustomer id.
+         * @member {number} id
+         * @memberof customer.PostCustomer
+         * @instance
+         */
+        PostCustomer.prototype.id = 0;
+
+        /**
+         * PostCustomer cusCode.
+         * @member {string} cusCode
+         * @memberof customer.PostCustomer
+         * @instance
+         */
+        PostCustomer.prototype.cusCode = "";
+
+        /**
+         * PostCustomer cusName.
+         * @member {string} cusName
+         * @memberof customer.PostCustomer
+         * @instance
+         */
+        PostCustomer.prototype.cusName = "";
+
+        /**
+         * PostCustomer lineCode.
+         * @member {string} lineCode
+         * @memberof customer.PostCustomer
+         * @instance
+         */
+        PostCustomer.prototype.lineCode = "";
+
+        /**
+         * PostCustomer address.
+         * @member {string} address
+         * @memberof customer.PostCustomer
+         * @instance
+         */
+        PostCustomer.prototype.address = "";
+
+        /**
+         * Creates a new PostCustomer instance using the specified properties.
+         * @function create
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {customer.IPostCustomer=} [properties] Properties to set
+         * @returns {customer.PostCustomer} PostCustomer instance
+         */
+        PostCustomer.create = function create(properties) {
+            return new PostCustomer(properties);
+        };
+
+        /**
+         * Encodes the specified PostCustomer message. Does not implicitly {@link customer.PostCustomer.verify|verify} messages.
+         * @function encode
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {customer.IPostCustomer} message PostCustomer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostCustomer.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.cusCode != null && Object.hasOwnProperty.call(message, "cusCode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.cusCode);
+            if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.cusName);
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.lineCode);
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.address);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PostCustomer message, length delimited. Does not implicitly {@link customer.PostCustomer.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {customer.IPostCustomer} message PostCustomer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostCustomer.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PostCustomer message from the specified reader or buffer.
+         * @function decode
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {customer.PostCustomer} PostCustomer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostCustomer.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.customer.PostCustomer();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int32();
+                        break;
+                    }
+                case 2: {
+                        message.cusCode = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.cusName = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.address = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PostCustomer message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {customer.PostCustomer} PostCustomer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostCustomer.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PostCustomer message.
+         * @function verify
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PostCustomer.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                if (!$util.isString(message.cusCode))
+                    return "cusCode: string expected";
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                if (!$util.isString(message.cusName))
+                    return "cusName: string expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!$util.isString(message.address))
+                    return "address: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a PostCustomer message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {customer.PostCustomer} PostCustomer
+         */
+        PostCustomer.fromObject = function fromObject(object) {
+            if (object instanceof $root.customer.PostCustomer)
+                return object;
+            let message = new $root.customer.PostCustomer();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.cusCode != null)
+                message.cusCode = String(object.cusCode);
+            if (object.cusName != null)
+                message.cusName = String(object.cusName);
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.address != null)
+                message.address = String(object.address);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PostCustomer message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {customer.PostCustomer} message PostCustomer
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PostCustomer.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.cusCode = "";
+                object.cusName = "";
+                object.lineCode = "";
+                object.address = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                object.cusCode = message.cusCode;
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                object.cusName = message.cusName;
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = message.address;
+            return object;
+        };
+
+        /**
+         * Converts this PostCustomer to JSON.
+         * @function toJSON
+         * @memberof customer.PostCustomer
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PostCustomer.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PostCustomer
+         * @function getTypeUrl
+         * @memberof customer.PostCustomer
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PostCustomer.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/customer.PostCustomer";
+        };
+
+        return PostCustomer;
+    })();
+
+    return customer;
+})();
+
 export const line = $root.line = (() => {
 
     /**

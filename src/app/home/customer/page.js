@@ -1,28 +1,186 @@
-"use client";
-import { useRouter } from 'next/navigation';
-import styles from './page.module.css';
-import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
-import { product } from "@/proto/index";
-import { protoGet } from '@/utils/protoAPI';
+'use client';
 
+import { useEffect, useState } from 'react';
+import styles from './page.module.css';
+import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
+import { customer } from '@/proto';
+
+
+const emptyForm = {id:"", cusCode: '', cusName: '', lineCode: '', address: '' };
+
+function IconEdit() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+    </svg>
+  );
+}
+function IconPlus() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+  );
+}
+function IconX() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6"  y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
+function IconUser() {
+  return (
+    <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+function IconMap() {
+  return (
+    <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+      <line x1="8" y1="2" x2="8" y2="18" />
+      <line x1="16" y1="6" x2="16" y2="22" />
+    </svg>
+  );
+}
+function IconBuilding() {
+  return (
+    <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+      <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
+    </svg>
+  );
+}
+function IconRows() {
+  return (
+    <svg width="38" height="38" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 9h18M3 15h18M9 3v18" />
+    </svg>
+  );
+}
+
+/* ──────────── Modal component ──────────── */
+function CustomerModal({ mode, initialData, onClose, onSave }) {
+  const [form, setForm] = useState(initialData || emptyForm);
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = () => {
+    if (!form.cusName.trim() || !form.lineCode.trim() || !form.address.trim()) return;
+    onSave(form);
+  };
+
+  return (
+    <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className={styles.modal}>
+        {/* close */}
+        <button className={styles.closeBtn} onClick={onClose}><IconX /></button>
+
+        {/* header */}
+        <div className={styles.modalHeader}>
+          <div className={styles.modalTitle}>
+            {mode === 'create' ? <>Create <span>customer</span></> : <>Edit <span>customer</span></>}
+          </div>
+        </div>
+
+        {/* fields */}
+        <div className={styles.fieldGroup}>
+          {/* Name */}
+          <div>
+            <div className={styles.fieldLabel}>Name</div>
+            <div className={styles.fieldWrapper}>
+              <IconUser />
+              <input
+                className={styles.fieldInput}
+                type="text"
+                name="cusName"
+                placeholder="e.g. Customer Name"
+                value={form.cusName}
+                onChange={handleChange}
+                autoFocus
+              />
+            </div>
+          </div>
+
+          {/* lineCode */}
+          <div>
+            <div className={styles.fieldLabel}>lineCode</div>
+            <div className={styles.fieldWrapper}>
+              <IconMap />
+              <input
+                className={styles.fieldInput}
+                type="text"
+                name="lineCode"
+                placeholder="e.g. North Zone"
+                value={form.lineCode}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          {/* address */}
+          <div>
+            <div className={styles.fieldLabel}>address</div>
+            <div className={styles.fieldWrapper}>
+              <IconBuilding />
+              <input
+                className={styles.fieldInput}
+                type="text"
+                name="address"
+                placeholder="e.g. Coimbatore"
+                value={form.address}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* actions */}
+        <div className={styles.modalActions}>
+          <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
+          <button className={styles.submitBtn} onClick={handleSubmit}>
+            {mode === 'create' ? 'Add Customer →' : 'Save Changes →'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────── Main page ──────────── */
 export default function Customer() {
-  const [search, setSearch] = useState('');
-  // const [filter, setFilter] = useState('all');
-  const [products, setProducts] = useState([]);
+  const [rows, setRows]         = useState([]);
+
+
+  const [modal, setModal]       = useState(null); 
+
+  const openCreate = () => setModal({ mode: 'create' });
+  const openEdit   = (row) => setModal({ mode: 'edit', row });
+  const closeModal = () => setModal(null);
+
 
     useEffect(() => {
       const controller = new AbortController();
       (async () => {
         try {
-          const {products} = await protoGet("/products/10/0", product.ProductListResponse, controller)
-        //         const groups = categories.map(pg => ({
-        //   ...pg,
-        //   values: [],
-        //   customInput: ''
-        // }));
-        // setAttrGroups(groups);
-        setProducts(products)
+          const {customers} = await protoGet("/customer/1000/0", customer.CustomerList, controller)
+        setRows(customers)
 
         } catch (error) {
         if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
@@ -33,127 +191,88 @@ export default function Customer() {
       return () => controller.abort()
     }, [])
 
-      const { resolvedTheme , setTheme} = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  const router = useRouter();
+  const handleSave = async(form) => {
+    if (modal.mode === 'create') {
+      console.log("ss", form)
+      const response = await protoPost("/customer", customer.PostCustomer, customer.Customer, {id:0, cusCode: "code", ...form})
+      setRows((prev) => [...prev, response ]);
+    } else {
+      const response = await protoPutt(`/customer/${modal.row.id}`, customer.PostCustomer, customer.Customer, form)
+      setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
+    }
+    closeModal();
+  };
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  return (
+    <div className={styles.page}>
 
-  const themeClass = mounted && resolvedTheme ? styles[resolvedTheme] : '';
-
-    return (
-        <div className={`${styles.page} ${themeClass}`}>
       {/* Header */}
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>All <em>Stock</em></h1>
-          {/* <p className={styles.subtitle}>{items.length} products · {totalUnits} total units</p> */}
-        </div>
-        <div className={styles.actions}>
-          <button className={styles.btnPrimary} onClick={() => router.push('/home/customer/create')}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            New Customer
-          </button>
-        </div>
-      </div>
-
-
-      {/* Filters */}
-      <div className={styles.filterBar}>
-        <div className={styles.filterSearch}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input placeholder="Search by name or SKU…" value={search} onChange={e => setSearch(e.target.value)} />
+        <div className={styles.logo}>
+          {/* <div className={styles.logoIcon}><IconTarget /></div>
+          <span className={styles.logoText}>Luminary</span> */}
         </div>
 
+        <div className={styles.pageTitle}>
+          Customer <span>Management</span>
+        </div>
+
+        <button className={styles.createBtn} onClick={openCreate}>
+          <IconPlus /> Add Customer
+        </button>
       </div>
 
       {/* Table */}
-      <div className={styles.tableWrap}>
+      <div className={styles.tableCard}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Category</th>
-              {/* <th>Variants</th> */}
-              <th>Units</th>
-              <th>Value</th>
-              <th>Variants</th>
+              <th>code</th>
+              <th>Name</th>
+              <th>lineCode</th>
+              <th>address</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {products.length === 0 ? (
+            {rows.length === 0 ? (
               <tr>
-                <td colSpan={7} className={styles.empty}>
-                  <strong>No products found</strong>
-                  {search ? `No results for "${search}"` : 'Click "Create Stock" to add your first product'}
+                <td colSpan={5}>
+                  <div className={styles.emptyState}>
+                    <IconRows />
+                    <div>No Customer yet. Click <strong>Add Customer</strong> to add one.</div>
+                  </div>
                 </td>
               </tr>
-            ) : products.map(item => {
-              // const totalQty = item.variants.reduce((s, v) => s + v.qty, 0);
-              // const sizes  = [...new Set(item.variants.map(v => v.size))];
-              // const colors = [...new Set(item.variants.map(v => v.color))];
-
-              return (
-                <tr key={item.id} onClick={() => router.push(`/home/stock/${item.id}`)}>
-                  <td>
-                    <div className={styles.itemName}>{item.name}</div>
-                    {item.sku && <div className={styles.itemSku}>{item.sku}</div>}
-                  </td>
-                  <td><span className={styles.itemCategory}>{item.category}</span></td>
-                  {/* <td>
-                    <div className={styles.variantMinis}>
-                      {sizes.slice(0,4).map(s => <span key={s} className={styles.mini}>{s}</span>)}
-                      {sizes.length > 4 && <span className={styles.mini}>+{sizes.length - 4}</span>}
-                      {colors.slice(0,2).map(c => <span key={c} className={styles.mini}>🎨 {c.split(' ')[0]}</span>)}
-                    </div>
-                  </td> */}
-                  <td style={{ fontWeight: 600, color: 'var(--text)', fontSize: 14 }}>{item.totalQuantity}</td>
-                  <td>
-                    {item.totalValue ? (
-                      <div className={styles.priceVal}>₹{Number(item.totalValue).toLocaleString('en-IN')}</div>
-                    ) : <span style={{ color: 'var(--text-3)', fontSize: 12 }}>—</span>}
-                  </td>
-                  <td>
-                    <span className={`${styles.statusBadge} ${styles[item.status] || ''}`}>
-                      <span className={styles.statusDot} />
-                      {item.variantCount}
-                    </span>
-                  </td>
-                  <td onClick={e => e.stopPropagation()}>
-                    <div className={styles.rowActions}>
-                      <button className={`${styles.actBtn} ${styles.edit}`}
-                        onClick={() => router.push(`/stock/${item.id}`)}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                        Edit
-                      </button>
-                      <button className={`${styles.actBtn} ${styles.del}`}
-                        onClick={() => { if (confirm('Delete this item?')) console.log('deleted'); }}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
-                          <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
-                        </svg>
-                        Del
-                      </button>
-                    </div>
+            ) : (
+              rows.map((row, i) => (
+                <tr key={row.id}>
+                  <td><span className={styles.indexBadge}>{row.cusCode}</span></td>
+                  <td>{row.cusName}</td>
+                  <td>{row.lineCode}</td>
+                  <td>{row.address}</td>
+                  <td className={styles.actionsCell}>
+                    <button className={styles.editBtn} onClick={() => openEdit(row)} title="Edit">
+                      <IconEdit />
+                    </button>
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            )}
           </tbody>
         </table>
       </div>
+
+      {/* Modal */}
+      {modal && (
+        <CustomerModal
+          mode={modal.mode}
+          initialData={modal.mode === 'edit' ? { cusName: modal.row.cusName, lineCode: modal.row.lineCode, address: modal.row.address } : emptyForm}
+          onClose={closeModal}
+          onSave={handleSave}
+        />
+      )}
     </div>
-    
-    )
+  );
 }
