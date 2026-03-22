@@ -3,7 +3,6 @@ import { api } from "@/proto/index";
 
 
 export async function protoPost(url, RequestType, ResponseType, payload) {
-  console.log("payload", payload)
   const buffer = RequestType.encode(RequestType.create(payload)).finish()
   const response = await axiosInstance.post(
     url,
@@ -46,4 +45,21 @@ export async function protoPut(url, RequestType, payload) {
     }
   )
   return api.PutResponse.decode(new Uint8Array(response.data))
+}
+
+
+export async function protoPutt(url, RequestType, ResponseType, payload) {
+  const buffer = RequestType.encode(RequestType.create(payload)).finish()
+  const response = await axiosInstance.put(
+    url,
+    buffer,
+    {
+      headers: {
+        "Content-Type": "application/x-protobuf",
+      },
+      responseType: "arraybuffer",
+      transformRequest: [(data) => data],
+    }
+  )
+  return ResponseType.decode(new Uint8Array(response.data))
 }

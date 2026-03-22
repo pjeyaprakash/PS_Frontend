@@ -13,7 +13,6 @@ export default function Home1() {
   //       const res = await axiosInstance.get(`/users`, {
   //         signal: controller.signal
   //       })
-  //       console.log(res.data)
   //     } catch (error) {
   //     if (error.name === "CanceledError") return;
   //     console.error(error);

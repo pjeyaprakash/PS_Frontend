@@ -285,7 +285,6 @@ const addCustomValue = async (groupKey) => {
       let res;
       if (editItem) res = await protoPut("/product", product.UpdateProductRequest, {id: form.id, name: form.name, description: form.description, category: form.category})
       else res = await protoPost("/product", product.Product, api.PostResponse, {...form, total_quantity:totalQty, total_value: totalVal, variant_count: variants.length, variants})
-      console.log(res)
     } catch (error) {
       console.error(error);
     }
@@ -297,11 +296,7 @@ const addCustomValue = async (groupKey) => {
 
   const saveEditedVariants = async () => {
     try {
-      console.log("selectedVariantIndex")
-      console.log("selectedVariantIndex", selectedVariantIndex)
-      
       if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
-      console.log(variants[selectedVariantIndex])
       const {success} = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
       if (success) setSelectedVariantIndex(null);
       else {console.error("erkkkror", error)}

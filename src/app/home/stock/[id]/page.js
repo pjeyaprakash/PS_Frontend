@@ -18,7 +18,6 @@ export default function EditPage({ params }) {
     (async () => {
       try {
         const {product, variants} = await protoGet(`/product/${id}`, protoproduct.ProductResponse, controller)
-        console.log("product", product, variants)
         if (!product) {}
 
         setItem({...product, variants})

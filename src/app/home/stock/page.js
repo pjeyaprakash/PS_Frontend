@@ -22,7 +22,6 @@ export default function Stock() {
         //   customInput: ''
         // }));
         // setAttrGroups(groups);
-        console.log("products", products)
         setProducts(products)
 
         } catch (error) {

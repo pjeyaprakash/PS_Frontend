@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './lines.module.css';
-import { protoGet, protoPost } from '@/utils/protoAPI';
+import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
 import { line } from '@/proto';
 
 const INITIAL_DATA = [
@@ -186,6 +186,8 @@ function LineModal({ mode, initialData, onClose, onSave }) {
 /* ──────────── Main page ──────────── */
 export default function Lines() {
   const [rows, setRows]         = useState([]);
+
+
   const [modal, setModal]       = useState(null); // null | { mode:'create' } | { mode:'edit', row }
 
   const openCreate = () => setModal({ mode: 'create' });
@@ -198,8 +200,6 @@ export default function Lines() {
       (async () => {
         try {
           const {lines} = await protoGet("/lines/1000/0", line.LineList, controller)
-
-            console.log("lines", lines)
         setRows(lines)
 
         } catch (error) {
@@ -213,12 +213,12 @@ export default function Lines() {
 
 
   const handleSave = async(form) => {
-    console.log("form", form)
     if (modal.mode === 'create') {
-        const response = await protoPost("/line", line.PostLine, line.PostLineResponse, {lineCode: "code", ...form})
-      setRows((prev) => [...prev, { ...response }]);
+      const response = await protoPost("/line", line.PostLine, line.Line, {lineCode: "code", ...form})
+      setRows((prev) => [...prev, response ]);
     } else {
-      setRows((prev) => prev.map((r) => (r.id === modal.row.id ? { ...r, ...form } : r)));
+      const response = await protoPutt(`/line/${modal.row.id}`, line.PostLine, line.Line, form)
+      setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
     }
     closeModal();
   };

@@ -22,7 +22,6 @@ export default function Customer() {
         //   customInput: ''
         // }));
         // setAttrGroups(groups);
-        console.log("products", products)
         setProducts(products)
 
         } catch (error) {
