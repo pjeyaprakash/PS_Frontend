@@ -1,11 +1,22 @@
 syntax = "proto3";
 
-package line;
+package transaction;
 
 message Sales {
     string name = 1;
     int32 qty = 2;
     int32 price = 3;
-    int32 sold_price = 4;
+    int32 sale_price = 4;
+}
+
+message TransactionPost {
+    int32 id = 1;
+    string line_code = 2;
+    string cus_code = 3;
+    int32 debt = 4;
+    int32 paid = 5;
+    int32 actual_amount = 6;
+    int32 sale_amount = 7;
+    repeated Sales sales = 8;
 }
 

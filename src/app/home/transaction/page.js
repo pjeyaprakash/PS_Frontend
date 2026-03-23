@@ -30,11 +30,10 @@ async function fetchCustomerName(query) {
 }
  
 // ── empty shapes ──────────────────────────────────────────────────────────────
-const emptySalesRow = () => ({salePrice: "", qty: "", price: "", selected: null });
-// const emptySalesRow = () => ({ id: crypto.randomUUID(), search: "", qty: "", price: "", selected: null });
+const emptySalesRow = () => ({salePrice: "", qty: "", price: "", name: null });
 
 function SalesRow({ row, onChange, onRemove }) {
-  const [query, setQuery]       = useState(row.search || "");
+  const [query, setQuery]       = useState("");
   const [options, setOptions]   = useState([]);
   const [loading, setLoading]   = useState(false);
   const [open, setOpen]         = useState(false);
@@ -53,7 +52,8 @@ function SalesRow({ row, onChange, onRemove }) {
   const handleSearchChange = (e) => {
     const val = e.target.value;
     setQuery(val);
-    onChange({ ...row, search: val, selected: null });
+    onChange({ ...row, name: null });
+    // onChange({ ...row, search: val, name: null });
     setOpen(true);
  
     clearTimeout(debounceRef.current);
@@ -71,7 +71,7 @@ function SalesRow({ row, onChange, onRemove }) {
     setQuery(`${opt.name} - ₹${opt.price}`);
     setOptions([]);
     setOpen(false);
-    onChange({ ...row, selected: opt.name, price: opt.price});
+    onChange({ ...row, name: opt.name, price: opt.price});
   };
  
   return (
@@ -104,7 +104,7 @@ function SalesRow({ row, onChange, onRemove }) {
       {/* ② Field 2 */}
       <input
         className={styles.salesInput}
-        type="text"
+        type="number"
         placeholder="Qty"
         value={row.qty}
         onChange={(e) => onChange({ ...row, qty: e.target.value })}
@@ -113,7 +113,7 @@ function SalesRow({ row, onChange, onRemove }) {
       {/* ③ Field 3 */}
       <input
         className={styles.salesInput}
-        type="text"
+        type="number"
         placeholder="Sold Price"
         value={row.salePrice}
         onChange={(e) => onChange({ ...row, salePrice: e.target.value })}
@@ -195,180 +195,6 @@ function IconRows() {
 }
 
 /* ──────────── Modal component ──────────── */
-// function TransactionModal({ mode, initialData, onClose, onSave }) {
-//   const [form, setForm] = useState(initialData || emptyForm);
-
-//   const handleChange = (e) => {
-//     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-//   };
-
-//   const handleSubmit = () => {
-//     if (!form.lineCode.trim() || !form.cusCode.trim() || !form.paid.trim()) return;
-//     onSave(form);
-//   };
-
-//   return (
-//     <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
-//       <div className={styles.modal}>
-//         {/* close */}
-//         <button className={styles.closeBtn} onClick={onClose}><IconX /></button>
-
-//         {/* header */}
-//         <div className={styles.modalHeader}>
-//           <div className={styles.modalTitle}>
-//             {mode === 'create' ? <>Create <span>Transaction</span></> : <>Edit <span>Transaction</span></>}
-//           </div>
-//         </div>
-
-//         {/* fields */}
-//         <div className={styles.fieldGroup}>
-//           {/* Name */}
-//           <div>
-//             <div className={styles.fieldLabel}>Line Code</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconUser />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="lineCode"
-//                 placeholder="e.g. Line Alpha"
-//                 value={form.lineCode}
-//                 onChange={handleChange}
-//                 autoFocus
-//               />
-//             </div>
-//           </div>
-
-//           {/* Area */}
-//           <div>
-//             <div className={styles.fieldLabel}>Customer Code</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconMap />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="cusCode"
-//                 placeholder="e.g. North Zone"
-//                 value={form.cusCode}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-
-//           {/* actual_amount */}
-//           <div>
-//             <div className={styles.fieldLabel}>Actual Amount</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="actualAmount"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.actualAmount}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//           {/* Sale Amount */}
-//           <div>
-//             <div className={styles.fieldLabel}>Sale Amount</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="saleAmount"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.saleAmount}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//           {/* debt */}
-//           <div>
-//             <div className={styles.fieldLabel}>Debt</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="debt"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.debt}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//           {/* paid */}
-//           <div>
-//             <div className={styles.fieldLabel}>Paid</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="paid"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.paid}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//           {/* pedingDebt */}
-//           <div>
-//             <div className={styles.fieldLabel}>PedingDebt</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="pedingDebt"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.pedingDebt}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//           {/* Sales */}
-//           <div>
-//             <div className={styles.fieldLabel}>Sales</div>
-//             <div className={styles.fieldWrapper}>
-//               <IconBuilding />
-//               <input
-//                 className={styles.fieldInput}
-//                 type="text"
-//                 name="sales"
-//                 placeholder="e.g. Coimbatore"
-//                 value={form.sales}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//           </div>
-
-//         </div>
-
-//         {/* actions */}
-//         <div className={styles.modalActions}>
-//           <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
-//           <button className={styles.submitBtn} onClick={handleSubmit}>
-//             {mode === 'create' ? 'Create Transaction →' : 'Save Changes →'}
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-// ── TransactionModal ──────────────────────────────────────────────────────────
-
 
 function TransactionModal({ mode, initialData, onClose, onSave }) {
   const [form, setForm] = useState(() => ({
@@ -401,14 +227,15 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
 
   useEffect(() => {
     const total = form.sales.reduce((sum, row) => {
-        sum.saleAmount = sum.saleAmount + (Number(row.salePrice) * Number(row.qty));
-        sum.actualAmount = sum.actualAmount + (Number(row.price) * Number(row.qty));
+        sum.saleAmount = sum.saleAmount + (row.salePrice * row.qty);
+        sum.actualAmount = sum.actualAmount + (row.price * row.qty);
         return sum;
     }, {saleAmount:0, actualAmount:0});
     setForm((prev) => ({ ...prev, saleAmount:total.saleAmount, actualAmount:total.actualAmount}));
   },[form.sales])
  
   const handleSubmit = () => {
+    console.log(form)
     if (!form.lineCode.trim() || !form.cusCode.trim() || !String(form.paid).trim()) return;
     onSave(form);
   };
@@ -658,11 +485,13 @@ export default function Transactions() {
 
 
   const handleSave = async(form) => {
+    console.log(form)
     if (modal.mode === 'create') {
-      const response = await protoPost("/line", line.PostLine, line.Line, {lineCode: "code", ...form})
-      setRows((prev) => [...prev, response ]);
+        
+    //   const response = await protoPost("/line", line.PostLine, line.Line, {lineCode: "code", ...form})
+    //   setRows((prev) => [...prev, response ]);
     } else {
-      const response = await protoPutt(`/line/${modal.row.id}`, line.PostLine, line.Line, form)
+    //   const response = await protoPutt(`/line/${modal.row.id}`, line.PostLine, line.Line, form)
       setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
     }
     closeModal();
