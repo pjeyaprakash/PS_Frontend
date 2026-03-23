@@ -27,3 +27,15 @@ message PostCustomer {
     string line_code = 4;
     string address = 5;
 }
+
+
+message SearchCustomerName {
+  string cus_code = 1;
+  string cus_name = 2;
+  string line_code = 3;
+  int64 debt = 4;
+}
+
+message SearchCustomerNameResponse {
+  repeated SearchCustomerName customer_names = 1;
+}

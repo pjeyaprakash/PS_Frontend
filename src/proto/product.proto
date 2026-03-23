@@ -82,3 +82,13 @@ message UpdateProductRequest {
   string description = 3;
   string category = 4;
 }
+
+
+message SearchProductName {
+  string name = 1;
+  int32 price = 2;
+}
+
+message SearchProductNameResponse {
+  repeated SearchProductName product_names = 1;
+}

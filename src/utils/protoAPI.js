@@ -29,6 +29,15 @@ export async function protoGet(url, ResponseType, controller) {
   )
   return ResponseType.decode(new Uint8Array(response.data))
 }
+export async function protoGett(url, ResponseType) {
+  const response = await axiosInstance.get(
+    url,
+    {
+      responseType: "arraybuffer"
+    }
+  )
+  return ResponseType.decode(new Uint8Array(response.data))
+}
 
 
 export async function protoPut(url, RequestType, payload) {

@@ -163,6 +163,9 @@ function CustomerModal({ mode, initialData, onClose, onSave }) {
   );
 }
 
+
+
+/* ────────────========== Main page ===========──────────── */
 /* ──────────── Main page ──────────── */
 export default function Customer() {
   const [rows, setRows]         = useState([]);
@@ -203,6 +206,13 @@ export default function Customer() {
     }
     closeModal();
   };
+
+
+// ==============================================
+// =============== TRANSACTION ==================
+// ==============================================
+  // const [tarnsactionModal, setTransactionModal] = useState(null)
+
 
   return (
     <div className={styles.page}>

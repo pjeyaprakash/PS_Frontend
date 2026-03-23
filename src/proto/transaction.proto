@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package line;
+
+message Sales {
+    string name = 1;
+    int32 qty = 2;
+    int32 price = 3;
+    int32 sold_price = 4;
+}
+

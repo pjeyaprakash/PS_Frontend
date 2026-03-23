@@ -3052,7 +3052,7 @@ export const customer = $root.customer = (() => {
          * @memberof customer
          * @interface IPostCustomer
          * @property {number|null} [id] PostCustomer id
-         * @property {string|null} [cusCode] PostCustomer cusCode
+         * @property {string|null} [custCode] PostCustomer custCode
          * @property {string|null} [cusName] PostCustomer cusName
          * @property {string|null} [lineCode] PostCustomer lineCode
          * @property {string|null} [address] PostCustomer address
@@ -3082,12 +3082,12 @@ export const customer = $root.customer = (() => {
         PostCustomer.prototype.id = 0;
 
         /**
-         * PostCustomer cusCode.
-         * @member {string} cusCode
+         * PostCustomer custCode.
+         * @member {string} custCode
          * @memberof customer.PostCustomer
          * @instance
          */
-        PostCustomer.prototype.cusCode = "";
+        PostCustomer.prototype.custCode = "";
 
         /**
          * PostCustomer cusName.
@@ -3139,8 +3139,8 @@ export const customer = $root.customer = (() => {
                 writer = $Writer.create();
             if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
-            if (message.cusCode != null && Object.hasOwnProperty.call(message, "cusCode"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.cusCode);
+            if (message.custCode != null && Object.hasOwnProperty.call(message, "custCode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.custCode);
             if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.cusName);
             if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
@@ -3188,7 +3188,7 @@ export const customer = $root.customer = (() => {
                         break;
                     }
                 case 2: {
-                        message.cusCode = reader.string();
+                        message.custCode = reader.string();
                         break;
                     }
                 case 3: {
@@ -3241,9 +3241,9 @@ export const customer = $root.customer = (() => {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isInteger(message.id))
                     return "id: integer expected";
-            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
-                if (!$util.isString(message.cusCode))
-                    return "cusCode: string expected";
+            if (message.custCode != null && message.hasOwnProperty("custCode"))
+                if (!$util.isString(message.custCode))
+                    return "custCode: string expected";
             if (message.cusName != null && message.hasOwnProperty("cusName"))
                 if (!$util.isString(message.cusName))
                     return "cusName: string expected";
@@ -3270,8 +3270,8 @@ export const customer = $root.customer = (() => {
             let message = new $root.customer.PostCustomer();
             if (object.id != null)
                 message.id = object.id | 0;
-            if (object.cusCode != null)
-                message.cusCode = String(object.cusCode);
+            if (object.custCode != null)
+                message.custCode = String(object.custCode);
             if (object.cusName != null)
                 message.cusName = String(object.cusName);
             if (object.lineCode != null)
@@ -3296,15 +3296,15 @@ export const customer = $root.customer = (() => {
             let object = {};
             if (options.defaults) {
                 object.id = 0;
-                object.cusCode = "";
+                object.custCode = "";
                 object.cusName = "";
                 object.lineCode = "";
                 object.address = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
-                object.cusCode = message.cusCode;
+            if (message.custCode != null && message.hasOwnProperty("custCode"))
+                object.custCode = message.custCode;
             if (message.cusName != null && message.hasOwnProperty("cusName"))
                 object.cusName = message.cusName;
             if (message.lineCode != null && message.hasOwnProperty("lineCode"))
@@ -3341,6 +3341,521 @@ export const customer = $root.customer = (() => {
         };
 
         return PostCustomer;
+    })();
+
+    customer.SearchCustomerName = (function() {
+
+        /**
+         * Properties of a SearchCustomerName.
+         * @memberof customer
+         * @interface ISearchCustomerName
+         * @property {string|null} [cusCode] SearchCustomerName cusCode
+         * @property {string|null} [cusName] SearchCustomerName cusName
+         * @property {string|null} [lineCode] SearchCustomerName lineCode
+         * @property {number|Long|null} [debt] SearchCustomerName debt
+         */
+
+        /**
+         * Constructs a new SearchCustomerName.
+         * @memberof customer
+         * @classdesc Represents a SearchCustomerName.
+         * @implements ISearchCustomerName
+         * @constructor
+         * @param {customer.ISearchCustomerName=} [properties] Properties to set
+         */
+        function SearchCustomerName(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SearchCustomerName cusCode.
+         * @member {string} cusCode
+         * @memberof customer.SearchCustomerName
+         * @instance
+         */
+        SearchCustomerName.prototype.cusCode = "";
+
+        /**
+         * SearchCustomerName cusName.
+         * @member {string} cusName
+         * @memberof customer.SearchCustomerName
+         * @instance
+         */
+        SearchCustomerName.prototype.cusName = "";
+
+        /**
+         * SearchCustomerName lineCode.
+         * @member {string} lineCode
+         * @memberof customer.SearchCustomerName
+         * @instance
+         */
+        SearchCustomerName.prototype.lineCode = "";
+
+        /**
+         * SearchCustomerName debt.
+         * @member {number|Long} debt
+         * @memberof customer.SearchCustomerName
+         * @instance
+         */
+        SearchCustomerName.prototype.debt = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new SearchCustomerName instance using the specified properties.
+         * @function create
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {customer.ISearchCustomerName=} [properties] Properties to set
+         * @returns {customer.SearchCustomerName} SearchCustomerName instance
+         */
+        SearchCustomerName.create = function create(properties) {
+            return new SearchCustomerName(properties);
+        };
+
+        /**
+         * Encodes the specified SearchCustomerName message. Does not implicitly {@link customer.SearchCustomerName.verify|verify} messages.
+         * @function encode
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {customer.ISearchCustomerName} message SearchCustomerName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchCustomerName.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.cusCode != null && Object.hasOwnProperty.call(message, "cusCode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.cusCode);
+            if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.cusName);
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.lineCode);
+            if (message.debt != null && Object.hasOwnProperty.call(message, "debt"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.debt);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SearchCustomerName message, length delimited. Does not implicitly {@link customer.SearchCustomerName.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {customer.ISearchCustomerName} message SearchCustomerName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchCustomerName.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SearchCustomerName message from the specified reader or buffer.
+         * @function decode
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {customer.SearchCustomerName} SearchCustomerName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchCustomerName.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.customer.SearchCustomerName();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.cusCode = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.cusName = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.debt = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SearchCustomerName message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {customer.SearchCustomerName} SearchCustomerName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchCustomerName.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SearchCustomerName message.
+         * @function verify
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SearchCustomerName.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                if (!$util.isString(message.cusCode))
+                    return "cusCode: string expected";
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                if (!$util.isString(message.cusName))
+                    return "cusName: string expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (!$util.isInteger(message.debt) && !(message.debt && $util.isInteger(message.debt.low) && $util.isInteger(message.debt.high)))
+                    return "debt: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a SearchCustomerName message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {customer.SearchCustomerName} SearchCustomerName
+         */
+        SearchCustomerName.fromObject = function fromObject(object) {
+            if (object instanceof $root.customer.SearchCustomerName)
+                return object;
+            let message = new $root.customer.SearchCustomerName();
+            if (object.cusCode != null)
+                message.cusCode = String(object.cusCode);
+            if (object.cusName != null)
+                message.cusName = String(object.cusName);
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.debt != null)
+                if ($util.Long)
+                    (message.debt = $util.Long.fromValue(object.debt)).unsigned = false;
+                else if (typeof object.debt === "string")
+                    message.debt = parseInt(object.debt, 10);
+                else if (typeof object.debt === "number")
+                    message.debt = object.debt;
+                else if (typeof object.debt === "object")
+                    message.debt = new $util.LongBits(object.debt.low >>> 0, object.debt.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SearchCustomerName message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {customer.SearchCustomerName} message SearchCustomerName
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SearchCustomerName.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.cusCode = "";
+                object.cusName = "";
+                object.lineCode = "";
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.debt = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.debt = options.longs === String ? "0" : 0;
+            }
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                object.cusCode = message.cusCode;
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                object.cusName = message.cusName;
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (typeof message.debt === "number")
+                    object.debt = options.longs === String ? String(message.debt) : message.debt;
+                else
+                    object.debt = options.longs === String ? $util.Long.prototype.toString.call(message.debt) : options.longs === Number ? new $util.LongBits(message.debt.low >>> 0, message.debt.high >>> 0).toNumber() : message.debt;
+            return object;
+        };
+
+        /**
+         * Converts this SearchCustomerName to JSON.
+         * @function toJSON
+         * @memberof customer.SearchCustomerName
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SearchCustomerName.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SearchCustomerName
+         * @function getTypeUrl
+         * @memberof customer.SearchCustomerName
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SearchCustomerName.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/customer.SearchCustomerName";
+        };
+
+        return SearchCustomerName;
+    })();
+
+    customer.SearchCustomerNameResponse = (function() {
+
+        /**
+         * Properties of a SearchCustomerNameResponse.
+         * @memberof customer
+         * @interface ISearchCustomerNameResponse
+         * @property {Array.<customer.ISearchCustomerName>|null} [customerNames] SearchCustomerNameResponse customerNames
+         */
+
+        /**
+         * Constructs a new SearchCustomerNameResponse.
+         * @memberof customer
+         * @classdesc Represents a SearchCustomerNameResponse.
+         * @implements ISearchCustomerNameResponse
+         * @constructor
+         * @param {customer.ISearchCustomerNameResponse=} [properties] Properties to set
+         */
+        function SearchCustomerNameResponse(properties) {
+            this.customerNames = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SearchCustomerNameResponse customerNames.
+         * @member {Array.<customer.ISearchCustomerName>} customerNames
+         * @memberof customer.SearchCustomerNameResponse
+         * @instance
+         */
+        SearchCustomerNameResponse.prototype.customerNames = $util.emptyArray;
+
+        /**
+         * Creates a new SearchCustomerNameResponse instance using the specified properties.
+         * @function create
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {customer.ISearchCustomerNameResponse=} [properties] Properties to set
+         * @returns {customer.SearchCustomerNameResponse} SearchCustomerNameResponse instance
+         */
+        SearchCustomerNameResponse.create = function create(properties) {
+            return new SearchCustomerNameResponse(properties);
+        };
+
+        /**
+         * Encodes the specified SearchCustomerNameResponse message. Does not implicitly {@link customer.SearchCustomerNameResponse.verify|verify} messages.
+         * @function encode
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {customer.ISearchCustomerNameResponse} message SearchCustomerNameResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchCustomerNameResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.customerNames != null && message.customerNames.length)
+                for (let i = 0; i < message.customerNames.length; ++i)
+                    $root.customer.SearchCustomerName.encode(message.customerNames[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SearchCustomerNameResponse message, length delimited. Does not implicitly {@link customer.SearchCustomerNameResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {customer.ISearchCustomerNameResponse} message SearchCustomerNameResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchCustomerNameResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SearchCustomerNameResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {customer.SearchCustomerNameResponse} SearchCustomerNameResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchCustomerNameResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.customer.SearchCustomerNameResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.customerNames && message.customerNames.length))
+                            message.customerNames = [];
+                        message.customerNames.push($root.customer.SearchCustomerName.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SearchCustomerNameResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {customer.SearchCustomerNameResponse} SearchCustomerNameResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchCustomerNameResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SearchCustomerNameResponse message.
+         * @function verify
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SearchCustomerNameResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.customerNames != null && message.hasOwnProperty("customerNames")) {
+                if (!Array.isArray(message.customerNames))
+                    return "customerNames: array expected";
+                for (let i = 0; i < message.customerNames.length; ++i) {
+                    let error = $root.customer.SearchCustomerName.verify(message.customerNames[i]);
+                    if (error)
+                        return "customerNames." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a SearchCustomerNameResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {customer.SearchCustomerNameResponse} SearchCustomerNameResponse
+         */
+        SearchCustomerNameResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.customer.SearchCustomerNameResponse)
+                return object;
+            let message = new $root.customer.SearchCustomerNameResponse();
+            if (object.customerNames) {
+                if (!Array.isArray(object.customerNames))
+                    throw TypeError(".customer.SearchCustomerNameResponse.customerNames: array expected");
+                message.customerNames = [];
+                for (let i = 0; i < object.customerNames.length; ++i) {
+                    if (typeof object.customerNames[i] !== "object")
+                        throw TypeError(".customer.SearchCustomerNameResponse.customerNames: object expected");
+                    message.customerNames[i] = $root.customer.SearchCustomerName.fromObject(object.customerNames[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SearchCustomerNameResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {customer.SearchCustomerNameResponse} message SearchCustomerNameResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SearchCustomerNameResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.customerNames = [];
+            if (message.customerNames && message.customerNames.length) {
+                object.customerNames = [];
+                for (let j = 0; j < message.customerNames.length; ++j)
+                    object.customerNames[j] = $root.customer.SearchCustomerName.toObject(message.customerNames[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this SearchCustomerNameResponse to JSON.
+         * @function toJSON
+         * @memberof customer.SearchCustomerNameResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SearchCustomerNameResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SearchCustomerNameResponse
+         * @function getTypeUrl
+         * @memberof customer.SearchCustomerNameResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SearchCustomerNameResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/customer.SearchCustomerNameResponse";
+        };
+
+        return SearchCustomerNameResponse;
     })();
 
     return customer;
@@ -4584,6 +5099,281 @@ export const line = $root.line = (() => {
         };
 
         return PostLineResponse;
+    })();
+
+    line.Sales = (function() {
+
+        /**
+         * Properties of a Sales.
+         * @memberof line
+         * @interface ISales
+         * @property {string|null} [name] Sales name
+         * @property {number|null} [qty] Sales qty
+         * @property {number|null} [price] Sales price
+         * @property {number|null} [soldPrice] Sales soldPrice
+         */
+
+        /**
+         * Constructs a new Sales.
+         * @memberof line
+         * @classdesc Represents a Sales.
+         * @implements ISales
+         * @constructor
+         * @param {line.ISales=} [properties] Properties to set
+         */
+        function Sales(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Sales name.
+         * @member {string} name
+         * @memberof line.Sales
+         * @instance
+         */
+        Sales.prototype.name = "";
+
+        /**
+         * Sales qty.
+         * @member {number} qty
+         * @memberof line.Sales
+         * @instance
+         */
+        Sales.prototype.qty = 0;
+
+        /**
+         * Sales price.
+         * @member {number} price
+         * @memberof line.Sales
+         * @instance
+         */
+        Sales.prototype.price = 0;
+
+        /**
+         * Sales soldPrice.
+         * @member {number} soldPrice
+         * @memberof line.Sales
+         * @instance
+         */
+        Sales.prototype.soldPrice = 0;
+
+        /**
+         * Creates a new Sales instance using the specified properties.
+         * @function create
+         * @memberof line.Sales
+         * @static
+         * @param {line.ISales=} [properties] Properties to set
+         * @returns {line.Sales} Sales instance
+         */
+        Sales.create = function create(properties) {
+            return new Sales(properties);
+        };
+
+        /**
+         * Encodes the specified Sales message. Does not implicitly {@link line.Sales.verify|verify} messages.
+         * @function encode
+         * @memberof line.Sales
+         * @static
+         * @param {line.ISales} message Sales message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Sales.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.qty);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.price);
+            if (message.soldPrice != null && Object.hasOwnProperty.call(message, "soldPrice"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.soldPrice);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Sales message, length delimited. Does not implicitly {@link line.Sales.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.Sales
+         * @static
+         * @param {line.ISales} message Sales message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Sales.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Sales message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.Sales
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.Sales} Sales
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Sales.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.Sales();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.qty = reader.int32();
+                        break;
+                    }
+                case 3: {
+                        message.price = reader.int32();
+                        break;
+                    }
+                case 4: {
+                        message.soldPrice = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Sales message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.Sales
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.Sales} Sales
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Sales.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Sales message.
+         * @function verify
+         * @memberof line.Sales
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Sales.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                if (!$util.isInteger(message.qty))
+                    return "qty: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.soldPrice != null && message.hasOwnProperty("soldPrice"))
+                if (!$util.isInteger(message.soldPrice))
+                    return "soldPrice: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a Sales message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.Sales
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.Sales} Sales
+         */
+        Sales.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.Sales)
+                return object;
+            let message = new $root.line.Sales();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.qty != null)
+                message.qty = object.qty | 0;
+            if (object.price != null)
+                message.price = object.price | 0;
+            if (object.soldPrice != null)
+                message.soldPrice = object.soldPrice | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Sales message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.Sales
+         * @static
+         * @param {line.Sales} message Sales
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Sales.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.name = "";
+                object.qty = 0;
+                object.price = 0;
+                object.soldPrice = 0;
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                object.qty = message.qty;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.soldPrice != null && message.hasOwnProperty("soldPrice"))
+                object.soldPrice = message.soldPrice;
+            return object;
+        };
+
+        /**
+         * Converts this Sales to JSON.
+         * @function toJSON
+         * @memberof line.Sales
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Sales.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Sales
+         * @function getTypeUrl
+         * @memberof line.Sales
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Sales.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.Sales";
+        };
+
+        return Sales;
     })();
 
     return line;
@@ -7394,6 +8184,461 @@ export const product = $root.product = (() => {
         };
 
         return UpdateProductRequest;
+    })();
+
+    product.SearchProductName = (function() {
+
+        /**
+         * Properties of a SearchProductName.
+         * @memberof product
+         * @interface ISearchProductName
+         * @property {string|null} [name] SearchProductName name
+         * @property {number|null} [price] SearchProductName price
+         */
+
+        /**
+         * Constructs a new SearchProductName.
+         * @memberof product
+         * @classdesc Represents a SearchProductName.
+         * @implements ISearchProductName
+         * @constructor
+         * @param {product.ISearchProductName=} [properties] Properties to set
+         */
+        function SearchProductName(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SearchProductName name.
+         * @member {string} name
+         * @memberof product.SearchProductName
+         * @instance
+         */
+        SearchProductName.prototype.name = "";
+
+        /**
+         * SearchProductName price.
+         * @member {number} price
+         * @memberof product.SearchProductName
+         * @instance
+         */
+        SearchProductName.prototype.price = 0;
+
+        /**
+         * Creates a new SearchProductName instance using the specified properties.
+         * @function create
+         * @memberof product.SearchProductName
+         * @static
+         * @param {product.ISearchProductName=} [properties] Properties to set
+         * @returns {product.SearchProductName} SearchProductName instance
+         */
+        SearchProductName.create = function create(properties) {
+            return new SearchProductName(properties);
+        };
+
+        /**
+         * Encodes the specified SearchProductName message. Does not implicitly {@link product.SearchProductName.verify|verify} messages.
+         * @function encode
+         * @memberof product.SearchProductName
+         * @static
+         * @param {product.ISearchProductName} message SearchProductName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchProductName.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.price);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SearchProductName message, length delimited. Does not implicitly {@link product.SearchProductName.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.SearchProductName
+         * @static
+         * @param {product.ISearchProductName} message SearchProductName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchProductName.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SearchProductName message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.SearchProductName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.SearchProductName} SearchProductName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchProductName.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.SearchProductName();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.price = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SearchProductName message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.SearchProductName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.SearchProductName} SearchProductName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchProductName.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SearchProductName message.
+         * @function verify
+         * @memberof product.SearchProductName
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SearchProductName.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a SearchProductName message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.SearchProductName
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.SearchProductName} SearchProductName
+         */
+        SearchProductName.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.SearchProductName)
+                return object;
+            let message = new $root.product.SearchProductName();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.price != null)
+                message.price = object.price | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SearchProductName message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.SearchProductName
+         * @static
+         * @param {product.SearchProductName} message SearchProductName
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SearchProductName.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.name = "";
+                object.price = 0;
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            return object;
+        };
+
+        /**
+         * Converts this SearchProductName to JSON.
+         * @function toJSON
+         * @memberof product.SearchProductName
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SearchProductName.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SearchProductName
+         * @function getTypeUrl
+         * @memberof product.SearchProductName
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SearchProductName.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.SearchProductName";
+        };
+
+        return SearchProductName;
+    })();
+
+    product.SearchProductNameResponse = (function() {
+
+        /**
+         * Properties of a SearchProductNameResponse.
+         * @memberof product
+         * @interface ISearchProductNameResponse
+         * @property {Array.<product.ISearchProductName>|null} [productNames] SearchProductNameResponse productNames
+         */
+
+        /**
+         * Constructs a new SearchProductNameResponse.
+         * @memberof product
+         * @classdesc Represents a SearchProductNameResponse.
+         * @implements ISearchProductNameResponse
+         * @constructor
+         * @param {product.ISearchProductNameResponse=} [properties] Properties to set
+         */
+        function SearchProductNameResponse(properties) {
+            this.productNames = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SearchProductNameResponse productNames.
+         * @member {Array.<product.ISearchProductName>} productNames
+         * @memberof product.SearchProductNameResponse
+         * @instance
+         */
+        SearchProductNameResponse.prototype.productNames = $util.emptyArray;
+
+        /**
+         * Creates a new SearchProductNameResponse instance using the specified properties.
+         * @function create
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {product.ISearchProductNameResponse=} [properties] Properties to set
+         * @returns {product.SearchProductNameResponse} SearchProductNameResponse instance
+         */
+        SearchProductNameResponse.create = function create(properties) {
+            return new SearchProductNameResponse(properties);
+        };
+
+        /**
+         * Encodes the specified SearchProductNameResponse message. Does not implicitly {@link product.SearchProductNameResponse.verify|verify} messages.
+         * @function encode
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {product.ISearchProductNameResponse} message SearchProductNameResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchProductNameResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.productNames != null && message.productNames.length)
+                for (let i = 0; i < message.productNames.length; ++i)
+                    $root.product.SearchProductName.encode(message.productNames[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SearchProductNameResponse message, length delimited. Does not implicitly {@link product.SearchProductNameResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {product.ISearchProductNameResponse} message SearchProductNameResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SearchProductNameResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SearchProductNameResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.SearchProductNameResponse} SearchProductNameResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchProductNameResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.SearchProductNameResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.productNames && message.productNames.length))
+                            message.productNames = [];
+                        message.productNames.push($root.product.SearchProductName.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SearchProductNameResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.SearchProductNameResponse} SearchProductNameResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SearchProductNameResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SearchProductNameResponse message.
+         * @function verify
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SearchProductNameResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.productNames != null && message.hasOwnProperty("productNames")) {
+                if (!Array.isArray(message.productNames))
+                    return "productNames: array expected";
+                for (let i = 0; i < message.productNames.length; ++i) {
+                    let error = $root.product.SearchProductName.verify(message.productNames[i]);
+                    if (error)
+                        return "productNames." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a SearchProductNameResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.SearchProductNameResponse} SearchProductNameResponse
+         */
+        SearchProductNameResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.SearchProductNameResponse)
+                return object;
+            let message = new $root.product.SearchProductNameResponse();
+            if (object.productNames) {
+                if (!Array.isArray(object.productNames))
+                    throw TypeError(".product.SearchProductNameResponse.productNames: array expected");
+                message.productNames = [];
+                for (let i = 0; i < object.productNames.length; ++i) {
+                    if (typeof object.productNames[i] !== "object")
+                        throw TypeError(".product.SearchProductNameResponse.productNames: object expected");
+                    message.productNames[i] = $root.product.SearchProductName.fromObject(object.productNames[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SearchProductNameResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {product.SearchProductNameResponse} message SearchProductNameResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SearchProductNameResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.productNames = [];
+            if (message.productNames && message.productNames.length) {
+                object.productNames = [];
+                for (let j = 0; j < message.productNames.length; ++j)
+                    object.productNames[j] = $root.product.SearchProductName.toObject(message.productNames[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this SearchProductNameResponse to JSON.
+         * @function toJSON
+         * @memberof product.SearchProductNameResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SearchProductNameResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SearchProductNameResponse
+         * @function getTypeUrl
+         * @memberof product.SearchProductNameResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SearchProductNameResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.SearchProductNameResponse";
+        };
+
+        return SearchProductNameResponse;
     })();
 
     return product;
