@@ -346,7 +346,7 @@ const addCustomValue = async (groupKey) => {
             <div className={styles.cardIcon}>📝</div>
             <div>
               <div className={styles.cardTitle}>Product Details</div>
-              <div className={styles.cardSubtitle}>Basic information about the product</div>
+              {/* <div className={styles.cardSubtitle}>Basic information about the product</div> */}
             </div>
           </div>
           <div className={styles.row}>
@@ -558,7 +558,7 @@ const addCustomValue = async (groupKey) => {
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.qtyInput} type="text" min={0} disabled={ editItem && selectedVariantIndex !== i}
+                            <input className={styles.nameInput} type="text" min={0} disabled={ editItem && selectedVariantIndex !== i}
                               value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>

@@ -22,6 +22,7 @@ export default function Stock() {
         //   customInput: ''
         // }));
         // setAttrGroups(groups);
+        console.log(products)
         setProducts(products)
 
         } catch (error) {
@@ -87,29 +88,30 @@ export default function Stock() {
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>🔢</div>
-          <div className={styles.statVal}>{products[0]?.total_unit?.toLocaleString() || 0}</div>
+          <div className={styles.statVal}>{products[0]?.totalUnit?.toLocaleString() || 0}</div>
           <div className={styles.statLbl}>Total Units</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>💰</div>
-          <div className={styles.statVal}>₹{(products[0]?.inventory_value || 0 / 1000).toFixed(1)}K</div>
+          <div className={styles.statVal}>₹{(products[0]?.totalValue || 0)}</div>
+          {/* <div className={styles.statVal}>₹{((products[0]?.totalValue || 0) / 1000).toFixed(1)}K</div> */}
           <div className={styles.statLbl}>Inventory Value</div>
         </div>
         <div className={styles.statCard}>
           <div className={styles.statEmoji}>⚠️</div>
-          <div className={styles.statVal}>{products[0]?.total_variant}</div>
+          <div className={styles.statVal}>{products[0]?.totalVariant}</div>
           <div className={styles.statLbl}>Total Variants</div>
         </div>
       </div>
 
       {/* Filters */}
       <div className={styles.filterBar}>
-        <div className={styles.filterSearch}>
+        {/* <div className={styles.filterSearch}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
           <input placeholder="Search by name or SKU…" value={search} onChange={e => setSearch(e.target.value)} />
-        </div>
+        </div> */}
         {/* {['all','active','low','draft'].map(f => (
           <button key={f} className={`${styles.filterPill} ${filter === f ? styles.active : ''}`}
             onClick={() => setFilter(f)}>
@@ -174,21 +176,21 @@ export default function Stock() {
                   <td onClick={e => e.stopPropagation()}>
                     <div className={styles.rowActions}>
                       <button className={`${styles.actBtn} ${styles.edit}`}
-                        onClick={() => router.push(`/stock/${item.id}`)}>
+                        onClick={() => router.push(`/home/stock/${item.id}`)}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                         </svg>
                         Edit
                       </button>
-                      <button className={`${styles.actBtn} ${styles.del}`}
+                      {/* <button className={`${styles.actBtn} ${styles.del}`}
                         onClick={() => { if (confirm('Delete this item?')) console.log('deleted'); }}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
                           <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
                         </svg>
                         Del
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>

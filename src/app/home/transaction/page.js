@@ -33,7 +33,7 @@ async function fetchCustomerName(query) {
 const emptySalesRow = () => ({salePrice: "", qty: "", price: "", name: null });
 
 function SalesRow({ row, onChange, onRemove }) {
-  const [query, setQuery]       = useState("");
+  const [query, setQuery]       = useState(row.name? `${row.name} - ₹${row.price}` : "");
   const [options, setOptions]   = useState([]);
   const [loading, setLoading]   = useState(false);
   const [open, setOpen]         = useState(false);
@@ -62,6 +62,7 @@ function SalesRow({ row, onChange, onRemove }) {
     setLoading(true);
     debounceRef.current = setTimeout(async () => {
       const results = await fetchSalesOptions(val);
+      console.log(results)
       setOptions(results);
       setLoading(false);
     }, 1000);
@@ -73,6 +74,7 @@ function SalesRow({ row, onChange, onRemove }) {
     setOpen(false);
     onChange({ ...row, name: opt.name, price: opt.price});
   };
+  // console.log("uhiu", row)
  
   return (
     <div className={styles.salesRow}>
@@ -120,9 +122,9 @@ function SalesRow({ row, onChange, onRemove }) {
       />
  
       {/* Remove row */}
-      <button className={styles.removeRowBtn} onClick={onRemove} title="Remove row">
+      {<button className={styles.removeRowBtn} onClick={onRemove} title="Remove row">
         <IconTrash />
-      </button>
+      </button> }
     </div>
   );
 }
@@ -315,7 +317,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Customer Name</div>
             <div className={styles.fieldWrapper}>
               <IconMap />
-              <input className={styles.fieldInput} type="text" name="cusName"
+              <input className={styles.fieldInput} type="text" name="cusName"  disabled={mode === "edit"} 
                 placeholder="e.g. North Zone" value={form.cusName} onChange={handleSearchChange} 
                 onFocus={() => cusNameQuery && setCusNameOpen(true)} autoFocus/>
                 {cusNameOpen && (cusNameLoading || cusNameOptions.length > 0) && (
@@ -340,7 +342,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Customer Code</div>
             <div className={styles.fieldWrapper}>
               <IconMap />
-              <input className={styles.fieldInput} type="text" name="cusCode"
+              <input className={styles.fieldInput} type="text" name="cusCode"  disabled={true} 
                 placeholder="e.g. North Zone" value={form.cusCode} onChange={handleChange} />
             </div>
           </div>
@@ -350,7 +352,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Line Code</div>
             <div className={styles.fieldWrapper}>
               <IconUser />
-              <input className={styles.fieldInput} type="text" name="lineCode"
+              <input className={styles.fieldInput} type="text" name="lineCode"  disabled={true} 
                 placeholder="e.g. Line Alpha" value={form.lineCode} onChange={handleChange} />
             </div>
           </div>
@@ -361,7 +363,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldWrapper}>
               <IconBuilding />
               <input className={styles.fieldInput} type="text" name="debt"
-                placeholder="0" value={form.debt} onChange={handleChange} />
+                placeholder="0" value={form.debt} onChange={handleChange} disabled={true} />
             </div>
           </div>
  
@@ -371,7 +373,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldWrapper}>
               <IconBuilding />
               <input className={styles.fieldInput} type="text" name="pedingDebt"
-                placeholder="0" value={form.debt - form.paid + form.saleAmount} onChange={handleChange} />
+                placeholder="0" value={form.debt - form.paid + form.saleAmount} onChange={handleChange}  disabled={true} />
             </div>
           </div>
 
@@ -380,7 +382,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Paid</div>
             <div className={styles.fieldWrapper}>
               <IconBuilding />
-              <input className={styles.fieldInput} type="text" name="paid"
+              <input className={styles.fieldInput} type="text" name="paid" disabled={mode === "edit"} 
                 placeholder="0" value={form.paid} onChange={handleChange} />
             </div>
           </div>
@@ -390,7 +392,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Actual Amount</div>
             <div className={styles.fieldWrapper}>
               <IconBuilding />
-              <input className={styles.fieldInput} type="text" name="actualAmount"
+              <input className={styles.fieldInput} type="text" name="actualAmount"  disabled={true} 
                 placeholder="0" value={form.actualAmount} onChange={handleChange} />
             </div>
           </div>
@@ -400,7 +402,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
             <div className={styles.fieldLabel}>Sale Amount</div>
             <div className={styles.fieldWrapper}>
               <IconBuilding />
-              <input className={styles.fieldInput} type="text" name="saleAmount"
+              <input className={styles.fieldInput} type="text" name="saleAmount"  disabled={true} 
                 placeholder="0" value={form.saleAmount} onChange={handleChange} />
             </div>
           </div>
@@ -410,11 +412,11 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
  
         {/* ── Sales section (full width) ── */}
         <div className={styles.salesSection}>
-          <div className={styles.salesHeader}>
+           <div className={styles.salesHeader}>
             <div className={styles.fieldLabel} style={{ marginBottom: 0 }}>Sales</div>
-            <button className={styles.addRowBtn} onClick={addSalesRow}>
+            {mode === "create" &&<button className={styles.addRowBtn} onClick={addSalesRow}>
               <IconPlus /> Add
-            </button>
+            </button>}
           </div>
  
           {form.sales.length === 0 && (
@@ -444,12 +446,12 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
         </div>
  
         {/* actions */}
-        <div className={styles.modalActions}>
+        {mode === "create" && <div className={styles.modalActions}>
           <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
           <button className={styles.submitBtn} onClick={handleSubmit}>
             {mode === "create" ? "Create Transaction →" : "Save Changes →"}
           </button>
-        </div>
+        </div>}
       </div>
     </div>
   );
@@ -461,6 +463,7 @@ export default function Transactions() {
 
 
   const [modal, setModal]       = useState(null); 
+  console.log(modal)
 
   const openCreate = () => setModal({ mode: 'create' });
   const openEdit   = (row) => setModal({ mode: 'edit', row });
@@ -493,7 +496,7 @@ export default function Transactions() {
       setRows((prev) => [...prev, { ...form, id} ]);
     } else {
     //   const response = await protoPutt(`/line/${modal.row.id}`, line.PostLine, line.Line, form)
-      setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
+      // setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
     }
     closeModal();
   };
@@ -566,6 +569,7 @@ export default function Transactions() {
           mode={modal.mode}
           initialData={modal.mode === 'edit' ? { 
             lineCode: modal.row.lineCode, 
+            cusName: modal.row.cusName,
             cusCode: modal.row.cusCode, 
             sales: modal.row.sales,
             actualAmount: modal.row.actualAmount,

@@ -18,6 +18,7 @@ message TransactionPost {
     int32 actual_amount = 6;
     int32 sale_amount = 7;
     repeated SaleItem sales = 8;
+    string cus_name = 9;
 }
 
 message PostResponse {

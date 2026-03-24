@@ -208,12 +208,6 @@ export default function Customer() {
   };
 
 
-// ==============================================
-// =============== TRANSACTION ==================
-// ==============================================
-  // const [tarnsactionModal, setTransactionModal] = useState(null)
-
-
   return (
     <div className={styles.page}>
 
@@ -242,6 +236,10 @@ export default function Customer() {
               <th>Name</th>
               <th>lineCode</th>
               <th>address</th>
+              <th>Value</th>
+              <th>Paid</th>
+              <th>Debt</th>
+              <th>Revenue</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -262,6 +260,10 @@ export default function Customer() {
                   <td>{row.cusName}</td>
                   <td>{row.lineCode}</td>
                   <td>{row.address}</td>
+                  <td>{row.totalValue}</td>
+                  <td>{row.paid}</td>
+                  <td>{row.debt}</td>
+                  <td>{row.revenue}</td>
                   <td className={styles.actionsCell}>
                     <button className={styles.editBtn} onClick={() => openEdit(row)} title="Edit">
                       <IconEdit />

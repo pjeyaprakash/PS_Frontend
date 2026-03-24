@@ -8667,6 +8667,7 @@ export const transaction = $root.transaction = (() => {
          * @property {number|null} [actualAmount] TransactionPost actualAmount
          * @property {number|null} [saleAmount] TransactionPost saleAmount
          * @property {Array.<transaction.ISaleItem>|null} [sales] TransactionPost sales
+         * @property {string|null} [cusName] TransactionPost cusName
          */
 
         /**
@@ -8750,6 +8751,14 @@ export const transaction = $root.transaction = (() => {
         TransactionPost.prototype.sales = $util.emptyArray;
 
         /**
+         * TransactionPost cusName.
+         * @member {string} cusName
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.cusName = "";
+
+        /**
          * Creates a new TransactionPost instance using the specified properties.
          * @function create
          * @memberof transaction.TransactionPost
@@ -8790,6 +8799,8 @@ export const transaction = $root.transaction = (() => {
             if (message.sales != null && message.sales.length)
                 for (let i = 0; i < message.sales.length; ++i)
                     $root.transaction.SaleItem.encode(message.sales[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+            if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.cusName);
             return writer;
         };
 
@@ -8860,6 +8871,10 @@ export const transaction = $root.transaction = (() => {
                         message.sales.push($root.transaction.SaleItem.decode(reader, reader.uint32()));
                         break;
                     }
+                case 9: {
+                        message.cusName = reader.string();
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -8925,6 +8940,9 @@ export const transaction = $root.transaction = (() => {
                         return "sales." + error;
                 }
             }
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                if (!$util.isString(message.cusName))
+                    return "cusName: string expected";
             return null;
         };
 
@@ -8971,6 +8989,8 @@ export const transaction = $root.transaction = (() => {
                     message.sales[i] = $root.transaction.SaleItem.fromObject(object.sales[i]);
                 }
             }
+            if (object.cusName != null)
+                message.cusName = String(object.cusName);
             return message;
         };
 
@@ -9001,6 +9021,7 @@ export const transaction = $root.transaction = (() => {
                 object.paid = 0;
                 object.actualAmount = 0;
                 object.saleAmount = 0;
+                object.cusName = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -9024,6 +9045,8 @@ export const transaction = $root.transaction = (() => {
                 for (let j = 0; j < message.sales.length; ++j)
                     object.sales[j] = $root.transaction.SaleItem.toObject(message.sales[j], options);
             }
+            if (message.cusName != null && message.hasOwnProperty("cusName"))
+                object.cusName = message.cusName;
             return object;
         };
 

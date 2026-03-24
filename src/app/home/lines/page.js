@@ -231,6 +231,10 @@ export default function Lines() {
               <th>Name</th>
               <th>Area</th>
               <th>District</th>
+              <th>Value</th>
+              <th>Paid</th>
+              <th>Debt</th>
+              <th>Revenue</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -251,6 +255,10 @@ export default function Lines() {
                   <td>{row.lineName}</td>
                   <td>{row.area}</td>
                   <td>{row.district}</td>
+                  <td>{row.lineValue}</td>
+                  <td>{row.paid}</td>
+                  <td>{row.lineDebt}</td>
+                  <td>{row.lineRevenue}</td>
                   <td className={styles.actionsCell}>
                     <button className={styles.editBtn} onClick={() => openEdit(row)} title="Edit">
                       <IconEdit />
