@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect, act} from 'react';
+import { useState, useRef, useEffect} from 'react';
 import styles from './page.module.css';
 import { protoGet, protoGett, protoPost, protoPutt } from '@/utils/protoAPI';
-import { customer, line, product } from '@/proto';
+import { customer, line, product , transaction} from '@/proto';
 
 
 const emptyForm = { 
@@ -236,7 +236,7 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
  
   const handleSubmit = () => {
     console.log(form)
-    if (!form.lineCode.trim() || !form.cusCode.trim() || !String(form.paid).trim()) return;
+    // if (!form.lineCode.trim() || !form.cusCode.trim() || !String(form.paid).trim()) return;
     onSave(form);
   };
  
@@ -471,8 +471,9 @@ export default function Transactions() {
       const controller = new AbortController();
       (async () => {
         try {
-          const {lines} = await protoGet("/lines/1000/0", line.LineList, controller)
-        setRows(lines)
+          const {transactions} = await protoGet("/transactions", transaction.TransactionList, controller)
+        console.log(transactions)
+          setRows(transactions)
 
         } catch (error) {
         if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
@@ -488,8 +489,8 @@ export default function Transactions() {
     console.log(form)
     if (modal.mode === 'create') {
         
-    //   const response = await protoPost("/line", line.PostLine, line.Line, {lineCode: "code", ...form})
-    //   setRows((prev) => [...prev, response ]);
+      const {id} = await protoPost("/transaction", transaction.TransactionPost, transaction.PostResponse, form)
+      setRows((prev) => [...prev, { ...form, id} ]);
     } else {
     //   const response = await protoPutt(`/line/${modal.row.id}`, line.PostLine, line.Line, form)
       setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));

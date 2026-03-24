@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package transaction;
 
-message Sales {
+message SaleItem {
     string name = 1;
     int32 qty = 2;
     int32 price = 3;
@@ -10,13 +10,22 @@ message Sales {
 }
 
 message TransactionPost {
-    int32 id = 1;
+    int64 id = 1;
     string line_code = 2;
     string cus_code = 3;
     int32 debt = 4;
     int32 paid = 5;
     int32 actual_amount = 6;
     int32 sale_amount = 7;
-    repeated Sales sales = 8;
+    repeated SaleItem sales = 8;
 }
+
+message PostResponse {
+    int64 id = 1;
+}
+
+message TransactionList {
+    repeated TransactionPost transactions = 1;
+}
+
 

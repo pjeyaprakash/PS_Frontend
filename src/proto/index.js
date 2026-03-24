@@ -5101,281 +5101,6 @@ export const line = $root.line = (() => {
         return PostLineResponse;
     })();
 
-    line.Sales = (function() {
-
-        /**
-         * Properties of a Sales.
-         * @memberof line
-         * @interface ISales
-         * @property {string|null} [name] Sales name
-         * @property {number|null} [qty] Sales qty
-         * @property {number|null} [price] Sales price
-         * @property {number|null} [soldPrice] Sales soldPrice
-         */
-
-        /**
-         * Constructs a new Sales.
-         * @memberof line
-         * @classdesc Represents a Sales.
-         * @implements ISales
-         * @constructor
-         * @param {line.ISales=} [properties] Properties to set
-         */
-        function Sales(properties) {
-            if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * Sales name.
-         * @member {string} name
-         * @memberof line.Sales
-         * @instance
-         */
-        Sales.prototype.name = "";
-
-        /**
-         * Sales qty.
-         * @member {number} qty
-         * @memberof line.Sales
-         * @instance
-         */
-        Sales.prototype.qty = 0;
-
-        /**
-         * Sales price.
-         * @member {number} price
-         * @memberof line.Sales
-         * @instance
-         */
-        Sales.prototype.price = 0;
-
-        /**
-         * Sales soldPrice.
-         * @member {number} soldPrice
-         * @memberof line.Sales
-         * @instance
-         */
-        Sales.prototype.soldPrice = 0;
-
-        /**
-         * Creates a new Sales instance using the specified properties.
-         * @function create
-         * @memberof line.Sales
-         * @static
-         * @param {line.ISales=} [properties] Properties to set
-         * @returns {line.Sales} Sales instance
-         */
-        Sales.create = function create(properties) {
-            return new Sales(properties);
-        };
-
-        /**
-         * Encodes the specified Sales message. Does not implicitly {@link line.Sales.verify|verify} messages.
-         * @function encode
-         * @memberof line.Sales
-         * @static
-         * @param {line.ISales} message Sales message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Sales.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
-            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.qty);
-            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.price);
-            if (message.soldPrice != null && Object.hasOwnProperty.call(message, "soldPrice"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.soldPrice);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified Sales message, length delimited. Does not implicitly {@link line.Sales.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof line.Sales
-         * @static
-         * @param {line.ISales} message Sales message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Sales.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a Sales message from the specified reader or buffer.
-         * @function decode
-         * @memberof line.Sales
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {line.Sales} Sales
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Sales.decode = function decode(reader, length, error) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.Sales();
-            while (reader.pos < end) {
-                let tag = reader.uint32();
-                if (tag === error)
-                    break;
-                switch (tag >>> 3) {
-                case 1: {
-                        message.name = reader.string();
-                        break;
-                    }
-                case 2: {
-                        message.qty = reader.int32();
-                        break;
-                    }
-                case 3: {
-                        message.price = reader.int32();
-                        break;
-                    }
-                case 4: {
-                        message.soldPrice = reader.int32();
-                        break;
-                    }
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a Sales message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof line.Sales
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {line.Sales} Sales
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Sales.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a Sales message.
-         * @function verify
-         * @memberof line.Sales
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        Sales.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
-            if (message.qty != null && message.hasOwnProperty("qty"))
-                if (!$util.isInteger(message.qty))
-                    return "qty: integer expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
-            if (message.soldPrice != null && message.hasOwnProperty("soldPrice"))
-                if (!$util.isInteger(message.soldPrice))
-                    return "soldPrice: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a Sales message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof line.Sales
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {line.Sales} Sales
-         */
-        Sales.fromObject = function fromObject(object) {
-            if (object instanceof $root.line.Sales)
-                return object;
-            let message = new $root.line.Sales();
-            if (object.name != null)
-                message.name = String(object.name);
-            if (object.qty != null)
-                message.qty = object.qty | 0;
-            if (object.price != null)
-                message.price = object.price | 0;
-            if (object.soldPrice != null)
-                message.soldPrice = object.soldPrice | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a Sales message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof line.Sales
-         * @static
-         * @param {line.Sales} message Sales
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        Sales.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            let object = {};
-            if (options.defaults) {
-                object.name = "";
-                object.qty = 0;
-                object.price = 0;
-                object.soldPrice = 0;
-            }
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
-            if (message.qty != null && message.hasOwnProperty("qty"))
-                object.qty = message.qty;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
-            if (message.soldPrice != null && message.hasOwnProperty("soldPrice"))
-                object.soldPrice = message.soldPrice;
-            return object;
-        };
-
-        /**
-         * Converts this Sales to JSON.
-         * @function toJSON
-         * @memberof line.Sales
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        Sales.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        /**
-         * Gets the default type url for Sales
-         * @function getTypeUrl
-         * @memberof line.Sales
-         * @static
-         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
-         * @returns {string} The default type url
-         */
-        Sales.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
-            if (typeUrlPrefix === undefined) {
-                typeUrlPrefix = "type.googleapis.com";
-            }
-            return typeUrlPrefix + "/line.Sales";
-        };
-
-        return Sales;
-    })();
-
     return line;
 })();
 
@@ -8642,6 +8367,1141 @@ export const product = $root.product = (() => {
     })();
 
     return product;
+})();
+
+export const transaction = $root.transaction = (() => {
+
+    /**
+     * Namespace transaction.
+     * @exports transaction
+     * @namespace
+     */
+    const transaction = {};
+
+    transaction.SaleItem = (function() {
+
+        /**
+         * Properties of a SaleItem.
+         * @memberof transaction
+         * @interface ISaleItem
+         * @property {string|null} [name] SaleItem name
+         * @property {number|null} [qty] SaleItem qty
+         * @property {number|null} [price] SaleItem price
+         * @property {number|null} [salePrice] SaleItem salePrice
+         */
+
+        /**
+         * Constructs a new SaleItem.
+         * @memberof transaction
+         * @classdesc Represents a SaleItem.
+         * @implements ISaleItem
+         * @constructor
+         * @param {transaction.ISaleItem=} [properties] Properties to set
+         */
+        function SaleItem(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SaleItem name.
+         * @member {string} name
+         * @memberof transaction.SaleItem
+         * @instance
+         */
+        SaleItem.prototype.name = "";
+
+        /**
+         * SaleItem qty.
+         * @member {number} qty
+         * @memberof transaction.SaleItem
+         * @instance
+         */
+        SaleItem.prototype.qty = 0;
+
+        /**
+         * SaleItem price.
+         * @member {number} price
+         * @memberof transaction.SaleItem
+         * @instance
+         */
+        SaleItem.prototype.price = 0;
+
+        /**
+         * SaleItem salePrice.
+         * @member {number} salePrice
+         * @memberof transaction.SaleItem
+         * @instance
+         */
+        SaleItem.prototype.salePrice = 0;
+
+        /**
+         * Creates a new SaleItem instance using the specified properties.
+         * @function create
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {transaction.ISaleItem=} [properties] Properties to set
+         * @returns {transaction.SaleItem} SaleItem instance
+         */
+        SaleItem.create = function create(properties) {
+            return new SaleItem(properties);
+        };
+
+        /**
+         * Encodes the specified SaleItem message. Does not implicitly {@link transaction.SaleItem.verify|verify} messages.
+         * @function encode
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {transaction.ISaleItem} message SaleItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SaleItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.qty);
+            if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.price);
+            if (message.salePrice != null && Object.hasOwnProperty.call(message, "salePrice"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.salePrice);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SaleItem message, length delimited. Does not implicitly {@link transaction.SaleItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {transaction.ISaleItem} message SaleItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SaleItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SaleItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {transaction.SaleItem} SaleItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SaleItem.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.transaction.SaleItem();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.qty = reader.int32();
+                        break;
+                    }
+                case 3: {
+                        message.price = reader.int32();
+                        break;
+                    }
+                case 4: {
+                        message.salePrice = reader.int32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SaleItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {transaction.SaleItem} SaleItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SaleItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SaleItem message.
+         * @function verify
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SaleItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                if (!$util.isInteger(message.qty))
+                    return "qty: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.salePrice != null && message.hasOwnProperty("salePrice"))
+                if (!$util.isInteger(message.salePrice))
+                    return "salePrice: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a SaleItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {transaction.SaleItem} SaleItem
+         */
+        SaleItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.transaction.SaleItem)
+                return object;
+            let message = new $root.transaction.SaleItem();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.qty != null)
+                message.qty = object.qty | 0;
+            if (object.price != null)
+                message.price = object.price | 0;
+            if (object.salePrice != null)
+                message.salePrice = object.salePrice | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SaleItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {transaction.SaleItem} message SaleItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SaleItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.name = "";
+                object.qty = 0;
+                object.price = 0;
+                object.salePrice = 0;
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                object.qty = message.qty;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.salePrice != null && message.hasOwnProperty("salePrice"))
+                object.salePrice = message.salePrice;
+            return object;
+        };
+
+        /**
+         * Converts this SaleItem to JSON.
+         * @function toJSON
+         * @memberof transaction.SaleItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SaleItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for SaleItem
+         * @function getTypeUrl
+         * @memberof transaction.SaleItem
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        SaleItem.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/transaction.SaleItem";
+        };
+
+        return SaleItem;
+    })();
+
+    transaction.TransactionPost = (function() {
+
+        /**
+         * Properties of a TransactionPost.
+         * @memberof transaction
+         * @interface ITransactionPost
+         * @property {number|Long|null} [id] TransactionPost id
+         * @property {string|null} [lineCode] TransactionPost lineCode
+         * @property {string|null} [cusCode] TransactionPost cusCode
+         * @property {number|null} [debt] TransactionPost debt
+         * @property {number|null} [paid] TransactionPost paid
+         * @property {number|null} [actualAmount] TransactionPost actualAmount
+         * @property {number|null} [saleAmount] TransactionPost saleAmount
+         * @property {Array.<transaction.ISaleItem>|null} [sales] TransactionPost sales
+         */
+
+        /**
+         * Constructs a new TransactionPost.
+         * @memberof transaction
+         * @classdesc Represents a TransactionPost.
+         * @implements ITransactionPost
+         * @constructor
+         * @param {transaction.ITransactionPost=} [properties] Properties to set
+         */
+        function TransactionPost(properties) {
+            this.sales = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TransactionPost id.
+         * @member {number|Long} id
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * TransactionPost lineCode.
+         * @member {string} lineCode
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.lineCode = "";
+
+        /**
+         * TransactionPost cusCode.
+         * @member {string} cusCode
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.cusCode = "";
+
+        /**
+         * TransactionPost debt.
+         * @member {number} debt
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.debt = 0;
+
+        /**
+         * TransactionPost paid.
+         * @member {number} paid
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.paid = 0;
+
+        /**
+         * TransactionPost actualAmount.
+         * @member {number} actualAmount
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.actualAmount = 0;
+
+        /**
+         * TransactionPost saleAmount.
+         * @member {number} saleAmount
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.saleAmount = 0;
+
+        /**
+         * TransactionPost sales.
+         * @member {Array.<transaction.ISaleItem>} sales
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.sales = $util.emptyArray;
+
+        /**
+         * Creates a new TransactionPost instance using the specified properties.
+         * @function create
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {transaction.ITransactionPost=} [properties] Properties to set
+         * @returns {transaction.TransactionPost} TransactionPost instance
+         */
+        TransactionPost.create = function create(properties) {
+            return new TransactionPost(properties);
+        };
+
+        /**
+         * Encodes the specified TransactionPost message. Does not implicitly {@link transaction.TransactionPost.verify|verify} messages.
+         * @function encode
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {transaction.ITransactionPost} message TransactionPost message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TransactionPost.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+            if (message.lineCode != null && Object.hasOwnProperty.call(message, "lineCode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.lineCode);
+            if (message.cusCode != null && Object.hasOwnProperty.call(message, "cusCode"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.cusCode);
+            if (message.debt != null && Object.hasOwnProperty.call(message, "debt"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.debt);
+            if (message.paid != null && Object.hasOwnProperty.call(message, "paid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.paid);
+            if (message.actualAmount != null && Object.hasOwnProperty.call(message, "actualAmount"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.actualAmount);
+            if (message.saleAmount != null && Object.hasOwnProperty.call(message, "saleAmount"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.saleAmount);
+            if (message.sales != null && message.sales.length)
+                for (let i = 0; i < message.sales.length; ++i)
+                    $root.transaction.SaleItem.encode(message.sales[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TransactionPost message, length delimited. Does not implicitly {@link transaction.TransactionPost.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {transaction.ITransactionPost} message TransactionPost message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TransactionPost.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TransactionPost message from the specified reader or buffer.
+         * @function decode
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {transaction.TransactionPost} TransactionPost
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TransactionPost.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.transaction.TransactionPost();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int64();
+                        break;
+                    }
+                case 2: {
+                        message.lineCode = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.cusCode = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.debt = reader.int32();
+                        break;
+                    }
+                case 5: {
+                        message.paid = reader.int32();
+                        break;
+                    }
+                case 6: {
+                        message.actualAmount = reader.int32();
+                        break;
+                    }
+                case 7: {
+                        message.saleAmount = reader.int32();
+                        break;
+                    }
+                case 8: {
+                        if (!(message.sales && message.sales.length))
+                            message.sales = [];
+                        message.sales.push($root.transaction.SaleItem.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TransactionPost message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {transaction.TransactionPost} TransactionPost
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TransactionPost.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TransactionPost message.
+         * @function verify
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TransactionPost.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                if (!$util.isString(message.lineCode))
+                    return "lineCode: string expected";
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                if (!$util.isString(message.cusCode))
+                    return "cusCode: string expected";
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (!$util.isInteger(message.debt))
+                    return "debt: integer expected";
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                if (!$util.isInteger(message.paid))
+                    return "paid: integer expected";
+            if (message.actualAmount != null && message.hasOwnProperty("actualAmount"))
+                if (!$util.isInteger(message.actualAmount))
+                    return "actualAmount: integer expected";
+            if (message.saleAmount != null && message.hasOwnProperty("saleAmount"))
+                if (!$util.isInteger(message.saleAmount))
+                    return "saleAmount: integer expected";
+            if (message.sales != null && message.hasOwnProperty("sales")) {
+                if (!Array.isArray(message.sales))
+                    return "sales: array expected";
+                for (let i = 0; i < message.sales.length; ++i) {
+                    let error = $root.transaction.SaleItem.verify(message.sales[i]);
+                    if (error)
+                        return "sales." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TransactionPost message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {transaction.TransactionPost} TransactionPost
+         */
+        TransactionPost.fromObject = function fromObject(object) {
+            if (object instanceof $root.transaction.TransactionPost)
+                return object;
+            let message = new $root.transaction.TransactionPost();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+            if (object.lineCode != null)
+                message.lineCode = String(object.lineCode);
+            if (object.cusCode != null)
+                message.cusCode = String(object.cusCode);
+            if (object.debt != null)
+                message.debt = object.debt | 0;
+            if (object.paid != null)
+                message.paid = object.paid | 0;
+            if (object.actualAmount != null)
+                message.actualAmount = object.actualAmount | 0;
+            if (object.saleAmount != null)
+                message.saleAmount = object.saleAmount | 0;
+            if (object.sales) {
+                if (!Array.isArray(object.sales))
+                    throw TypeError(".transaction.TransactionPost.sales: array expected");
+                message.sales = [];
+                for (let i = 0; i < object.sales.length; ++i) {
+                    if (typeof object.sales[i] !== "object")
+                        throw TypeError(".transaction.TransactionPost.sales: object expected");
+                    message.sales[i] = $root.transaction.SaleItem.fromObject(object.sales[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TransactionPost message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {transaction.TransactionPost} message TransactionPost
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TransactionPost.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.sales = [];
+            if (options.defaults) {
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+                object.lineCode = "";
+                object.cusCode = "";
+                object.debt = 0;
+                object.paid = 0;
+                object.actualAmount = 0;
+                object.saleAmount = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+            if (message.lineCode != null && message.hasOwnProperty("lineCode"))
+                object.lineCode = message.lineCode;
+            if (message.cusCode != null && message.hasOwnProperty("cusCode"))
+                object.cusCode = message.cusCode;
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                object.debt = message.debt;
+            if (message.paid != null && message.hasOwnProperty("paid"))
+                object.paid = message.paid;
+            if (message.actualAmount != null && message.hasOwnProperty("actualAmount"))
+                object.actualAmount = message.actualAmount;
+            if (message.saleAmount != null && message.hasOwnProperty("saleAmount"))
+                object.saleAmount = message.saleAmount;
+            if (message.sales && message.sales.length) {
+                object.sales = [];
+                for (let j = 0; j < message.sales.length; ++j)
+                    object.sales[j] = $root.transaction.SaleItem.toObject(message.sales[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TransactionPost to JSON.
+         * @function toJSON
+         * @memberof transaction.TransactionPost
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TransactionPost.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for TransactionPost
+         * @function getTypeUrl
+         * @memberof transaction.TransactionPost
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        TransactionPost.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/transaction.TransactionPost";
+        };
+
+        return TransactionPost;
+    })();
+
+    transaction.PostResponse = (function() {
+
+        /**
+         * Properties of a PostResponse.
+         * @memberof transaction
+         * @interface IPostResponse
+         * @property {number|Long|null} [id] PostResponse id
+         */
+
+        /**
+         * Constructs a new PostResponse.
+         * @memberof transaction
+         * @classdesc Represents a PostResponse.
+         * @implements IPostResponse
+         * @constructor
+         * @param {transaction.IPostResponse=} [properties] Properties to set
+         */
+        function PostResponse(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PostResponse id.
+         * @member {number|Long} id
+         * @memberof transaction.PostResponse
+         * @instance
+         */
+        PostResponse.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new PostResponse instance using the specified properties.
+         * @function create
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {transaction.IPostResponse=} [properties] Properties to set
+         * @returns {transaction.PostResponse} PostResponse instance
+         */
+        PostResponse.create = function create(properties) {
+            return new PostResponse(properties);
+        };
+
+        /**
+         * Encodes the specified PostResponse message. Does not implicitly {@link transaction.PostResponse.verify|verify} messages.
+         * @function encode
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {transaction.IPostResponse} message PostResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostResponse.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PostResponse message, length delimited. Does not implicitly {@link transaction.PostResponse.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {transaction.IPostResponse} message PostResponse message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PostResponse.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PostResponse message from the specified reader or buffer.
+         * @function decode
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {transaction.PostResponse} PostResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostResponse.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.transaction.PostResponse();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.id = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PostResponse message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {transaction.PostResponse} PostResponse
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PostResponse.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PostResponse message.
+         * @function verify
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PostResponse.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a PostResponse message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {transaction.PostResponse} PostResponse
+         */
+        PostResponse.fromObject = function fromObject(object) {
+            if (object instanceof $root.transaction.PostResponse)
+                return object;
+            let message = new $root.transaction.PostResponse();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PostResponse message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {transaction.PostResponse} message PostResponse
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PostResponse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+            return object;
+        };
+
+        /**
+         * Converts this PostResponse to JSON.
+         * @function toJSON
+         * @memberof transaction.PostResponse
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PostResponse.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for PostResponse
+         * @function getTypeUrl
+         * @memberof transaction.PostResponse
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PostResponse.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/transaction.PostResponse";
+        };
+
+        return PostResponse;
+    })();
+
+    transaction.TransactionList = (function() {
+
+        /**
+         * Properties of a TransactionList.
+         * @memberof transaction
+         * @interface ITransactionList
+         * @property {Array.<transaction.ITransactionPost>|null} [transactions] TransactionList transactions
+         */
+
+        /**
+         * Constructs a new TransactionList.
+         * @memberof transaction
+         * @classdesc Represents a TransactionList.
+         * @implements ITransactionList
+         * @constructor
+         * @param {transaction.ITransactionList=} [properties] Properties to set
+         */
+        function TransactionList(properties) {
+            this.transactions = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TransactionList transactions.
+         * @member {Array.<transaction.ITransactionPost>} transactions
+         * @memberof transaction.TransactionList
+         * @instance
+         */
+        TransactionList.prototype.transactions = $util.emptyArray;
+
+        /**
+         * Creates a new TransactionList instance using the specified properties.
+         * @function create
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {transaction.ITransactionList=} [properties] Properties to set
+         * @returns {transaction.TransactionList} TransactionList instance
+         */
+        TransactionList.create = function create(properties) {
+            return new TransactionList(properties);
+        };
+
+        /**
+         * Encodes the specified TransactionList message. Does not implicitly {@link transaction.TransactionList.verify|verify} messages.
+         * @function encode
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {transaction.ITransactionList} message TransactionList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TransactionList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.transactions != null && message.transactions.length)
+                for (let i = 0; i < message.transactions.length; ++i)
+                    $root.transaction.TransactionPost.encode(message.transactions[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TransactionList message, length delimited. Does not implicitly {@link transaction.TransactionList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {transaction.ITransactionList} message TransactionList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TransactionList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TransactionList message from the specified reader or buffer.
+         * @function decode
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {transaction.TransactionList} TransactionList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TransactionList.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.transaction.TransactionList();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.transactions && message.transactions.length))
+                            message.transactions = [];
+                        message.transactions.push($root.transaction.TransactionPost.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TransactionList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {transaction.TransactionList} TransactionList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TransactionList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TransactionList message.
+         * @function verify
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TransactionList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.transactions != null && message.hasOwnProperty("transactions")) {
+                if (!Array.isArray(message.transactions))
+                    return "transactions: array expected";
+                for (let i = 0; i < message.transactions.length; ++i) {
+                    let error = $root.transaction.TransactionPost.verify(message.transactions[i]);
+                    if (error)
+                        return "transactions." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TransactionList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {transaction.TransactionList} TransactionList
+         */
+        TransactionList.fromObject = function fromObject(object) {
+            if (object instanceof $root.transaction.TransactionList)
+                return object;
+            let message = new $root.transaction.TransactionList();
+            if (object.transactions) {
+                if (!Array.isArray(object.transactions))
+                    throw TypeError(".transaction.TransactionList.transactions: array expected");
+                message.transactions = [];
+                for (let i = 0; i < object.transactions.length; ++i) {
+                    if (typeof object.transactions[i] !== "object")
+                        throw TypeError(".transaction.TransactionList.transactions: object expected");
+                    message.transactions[i] = $root.transaction.TransactionPost.fromObject(object.transactions[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TransactionList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {transaction.TransactionList} message TransactionList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TransactionList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.transactions = [];
+            if (message.transactions && message.transactions.length) {
+                object.transactions = [];
+                for (let j = 0; j < message.transactions.length; ++j)
+                    object.transactions[j] = $root.transaction.TransactionPost.toObject(message.transactions[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TransactionList to JSON.
+         * @function toJSON
+         * @memberof transaction.TransactionList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TransactionList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for TransactionList
+         * @function getTypeUrl
+         * @memberof transaction.TransactionList
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        TransactionList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/transaction.TransactionList";
+        };
+
+        return TransactionList;
+    })();
+
+    return transaction;
 })();
 
 export { $root as default };
