@@ -15,7 +15,7 @@ export default function Stock() {
       const controller = new AbortController();
       (async () => {
         try {
-          const {products} = await protoGet("/products/10/0", product.ProductListResponse, controller)
+          const {products} = await protoGet("/products/1000/0", product.ProductListResponse, controller)
         //         const groups = categories.map(pg => ({
         //   ...pg,
         //   values: [],
@@ -59,7 +59,7 @@ export default function Stock() {
     setMounted(true);
   }, []);
 
-  const themeClass = mounted && resolvedTheme ? styles[resolvedTheme] : '';
+  const themeClass = mounted && resolvedTheme ? styles["light"] : '';
 
     return (
         <div className={`${styles.page} ${themeClass}`}>

@@ -79,33 +79,35 @@ const navGroups = [
           </svg>
         ),
       },
-      {
-        id: 'timeline',
-        label: 'Timeline',
-        icon: (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-        ),
-      },
-      {
-        id: 'messages',
-        label: 'Messages',
-        icon: (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        ),
-      },
+      // {
+      //   id: 'timeline',
+      //   label: 'Timeline',
+      //   icon: (
+      //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      //       <circle cx="12" cy="12" r="10" />
+      //       <polyline points="12 6 12 12 16 14" />
+      //     </svg>
+      //   ),
+      // },
+      // {
+      //   id: 'messages',
+      //   label: 'Messages',
+      //   icon: (
+      //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      //       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      //     </svg>
+      //   ),
+      // },
     ],
   },
   {
     label: 'System',
+    // path : "/home",
     items: [
       {
         id: 'settings',
         label: 'Settings',
+        path: "/home",
         icon: (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <circle cx="12" cy="12" r="3" />

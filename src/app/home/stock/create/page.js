@@ -378,7 +378,8 @@ const addCustomValue = async (groupKey) => {
         </div>
 
         {/* ── Variant Builder ── */}
-        { (editMode || !editItem) && <div>
+        {/* { (editMode || !editItem) && <div> */}
+        { (!editItem) && <div>
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <div className={styles.cardIcon}>🎨</div>

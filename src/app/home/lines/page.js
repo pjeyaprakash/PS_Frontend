@@ -251,7 +251,7 @@ export default function Lines() {
             ) : (
               rows.map((row, i) => (
                 <tr key={row.id}>
-                  <td><span className={styles.indexBadge}>{i + 1}</span></td>
+                  <td><span className={styles.indexBadge}>{row.lineCode}</span></td>
                   <td>{row.lineName}</td>
                   <td>{row.area}</td>
                   <td>{row.district}</td>

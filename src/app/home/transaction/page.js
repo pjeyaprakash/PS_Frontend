@@ -62,7 +62,6 @@ function SalesRow({ row, onChange, onRemove }) {
     setLoading(true);
     debounceRef.current = setTimeout(async () => {
       const results = await fetchSalesOptions(val);
-      console.log(results)
       setOptions(results);
       setLoading(false);
     }, 1000);
@@ -74,7 +73,6 @@ function SalesRow({ row, onChange, onRemove }) {
     setOpen(false);
     onChange({ ...row, name: opt.name, price: opt.price});
   };
-  // console.log("uhiu", row)
  
   return (
     <div className={styles.salesRow}>
@@ -237,7 +235,6 @@ function TransactionModal({ mode, initialData, onClose, onSave }) {
   },[form.sales])
  
   const handleSubmit = () => {
-    console.log(form)
     // if (!form.lineCode.trim() || !form.cusCode.trim() || !String(form.paid).trim()) return;
     onSave(form);
   };
@@ -463,7 +460,6 @@ export default function Transactions() {
 
 
   const [modal, setModal]       = useState(null); 
-  console.log(modal)
 
   const openCreate = () => setModal({ mode: 'create' });
   const openEdit   = (row) => setModal({ mode: 'edit', row });
@@ -475,7 +471,6 @@ export default function Transactions() {
       (async () => {
         try {
           const {transactions} = await protoGet("/transactions", transaction.TransactionList, controller)
-        console.log(transactions)
           setRows(transactions)
 
         } catch (error) {
@@ -489,7 +484,6 @@ export default function Transactions() {
 
 
   const handleSave = async(form) => {
-    console.log(form)
     if (modal.mode === 'create') {
         
       const {id} = await protoPost("/transaction", transaction.TransactionPost, transaction.PostResponse, form)
@@ -501,6 +495,37 @@ export default function Transactions() {
     closeModal();
   };
 
+  const[search, setSearch] = useState("")
+
+  useEffect( () => {
+const controller = new AbortController();
+
+  const fetchData = async () => {
+    try {
+    if (!search) {
+      const { transactions } = await protoGet(
+        "/transactions",
+        transaction.TransactionList, controller
+      )
+      setRows(transactions)
+    } else {
+      const { transactions } = await protoGet(
+        `/transactions/search/${`%${search.trim()}%`}`,
+        transaction.TransactionList, controller
+      )
+      setRows(transactions)
+    }
+    } catch (error) {
+        if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+        console.error(error);
+  
+        }
+  }
+
+  fetchData()
+  return () => controller.abort()
+
+  }, [search])
 
 
   return (
@@ -513,9 +538,19 @@ export default function Transactions() {
           <span className={styles.logoText}>Luminary</span> */}
         </div>
 
-        <div className={styles.pageTitle}>
+        {/* <div className={styles.pageTitle}>
           Transaction <span>Management</span>
-        </div>
+        </div> */}
+
+                  <div>
+            <input
+        className={styles.salesInput}
+        type="text"
+        placeholder="Search..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+          </div>
 
         <button className={styles.createBtn} onClick={openCreate}>
           <IconPlus /> Create Transaction

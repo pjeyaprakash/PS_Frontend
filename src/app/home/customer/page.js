@@ -197,7 +197,6 @@ export default function Customer() {
 
   const handleSave = async(form) => {
     if (modal.mode === 'create') {
-      console.log("ss", form)
       const response = await protoPost("/customer", customer.PostCustomer, customer.Customer, {id:0, cusCode: "code", ...form})
       setRows((prev) => [...prev, response ]);
     } else {

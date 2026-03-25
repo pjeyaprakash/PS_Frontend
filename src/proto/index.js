@@ -5101,6 +5101,337 @@ export const line = $root.line = (() => {
         return PostLineResponse;
     })();
 
+    line.Dashboard = (function() {
+
+        /**
+         * Properties of a Dashboard.
+         * @memberof line
+         * @interface IDashboard
+         * @property {number|Long|null} [sales] Dashboard sales
+         * @property {number|Long|null} [income] Dashboard income
+         * @property {number|Long|null} [debt] Dashboard debt
+         * @property {number|Long|null} [revenue] Dashboard revenue
+         */
+
+        /**
+         * Constructs a new Dashboard.
+         * @memberof line
+         * @classdesc Represents a Dashboard.
+         * @implements IDashboard
+         * @constructor
+         * @param {line.IDashboard=} [properties] Properties to set
+         */
+        function Dashboard(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Dashboard sales.
+         * @member {number|Long} sales
+         * @memberof line.Dashboard
+         * @instance
+         */
+        Dashboard.prototype.sales = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Dashboard income.
+         * @member {number|Long} income
+         * @memberof line.Dashboard
+         * @instance
+         */
+        Dashboard.prototype.income = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Dashboard debt.
+         * @member {number|Long} debt
+         * @memberof line.Dashboard
+         * @instance
+         */
+        Dashboard.prototype.debt = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Dashboard revenue.
+         * @member {number|Long} revenue
+         * @memberof line.Dashboard
+         * @instance
+         */
+        Dashboard.prototype.revenue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new Dashboard instance using the specified properties.
+         * @function create
+         * @memberof line.Dashboard
+         * @static
+         * @param {line.IDashboard=} [properties] Properties to set
+         * @returns {line.Dashboard} Dashboard instance
+         */
+        Dashboard.create = function create(properties) {
+            return new Dashboard(properties);
+        };
+
+        /**
+         * Encodes the specified Dashboard message. Does not implicitly {@link line.Dashboard.verify|verify} messages.
+         * @function encode
+         * @memberof line.Dashboard
+         * @static
+         * @param {line.IDashboard} message Dashboard message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Dashboard.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sales != null && Object.hasOwnProperty.call(message, "sales"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.sales);
+            if (message.income != null && Object.hasOwnProperty.call(message, "income"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.income);
+            if (message.debt != null && Object.hasOwnProperty.call(message, "debt"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.debt);
+            if (message.revenue != null && Object.hasOwnProperty.call(message, "revenue"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.revenue);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Dashboard message, length delimited. Does not implicitly {@link line.Dashboard.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof line.Dashboard
+         * @static
+         * @param {line.IDashboard} message Dashboard message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Dashboard.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Dashboard message from the specified reader or buffer.
+         * @function decode
+         * @memberof line.Dashboard
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {line.Dashboard} Dashboard
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Dashboard.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.line.Dashboard();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.sales = reader.int64();
+                        break;
+                    }
+                case 2: {
+                        message.income = reader.int64();
+                        break;
+                    }
+                case 3: {
+                        message.debt = reader.int64();
+                        break;
+                    }
+                case 4: {
+                        message.revenue = reader.int64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Dashboard message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof line.Dashboard
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {line.Dashboard} Dashboard
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Dashboard.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Dashboard message.
+         * @function verify
+         * @memberof line.Dashboard
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Dashboard.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sales != null && message.hasOwnProperty("sales"))
+                if (!$util.isInteger(message.sales) && !(message.sales && $util.isInteger(message.sales.low) && $util.isInteger(message.sales.high)))
+                    return "sales: integer|Long expected";
+            if (message.income != null && message.hasOwnProperty("income"))
+                if (!$util.isInteger(message.income) && !(message.income && $util.isInteger(message.income.low) && $util.isInteger(message.income.high)))
+                    return "income: integer|Long expected";
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (!$util.isInteger(message.debt) && !(message.debt && $util.isInteger(message.debt.low) && $util.isInteger(message.debt.high)))
+                    return "debt: integer|Long expected";
+            if (message.revenue != null && message.hasOwnProperty("revenue"))
+                if (!$util.isInteger(message.revenue) && !(message.revenue && $util.isInteger(message.revenue.low) && $util.isInteger(message.revenue.high)))
+                    return "revenue: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a Dashboard message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof line.Dashboard
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {line.Dashboard} Dashboard
+         */
+        Dashboard.fromObject = function fromObject(object) {
+            if (object instanceof $root.line.Dashboard)
+                return object;
+            let message = new $root.line.Dashboard();
+            if (object.sales != null)
+                if ($util.Long)
+                    (message.sales = $util.Long.fromValue(object.sales)).unsigned = false;
+                else if (typeof object.sales === "string")
+                    message.sales = parseInt(object.sales, 10);
+                else if (typeof object.sales === "number")
+                    message.sales = object.sales;
+                else if (typeof object.sales === "object")
+                    message.sales = new $util.LongBits(object.sales.low >>> 0, object.sales.high >>> 0).toNumber();
+            if (object.income != null)
+                if ($util.Long)
+                    (message.income = $util.Long.fromValue(object.income)).unsigned = false;
+                else if (typeof object.income === "string")
+                    message.income = parseInt(object.income, 10);
+                else if (typeof object.income === "number")
+                    message.income = object.income;
+                else if (typeof object.income === "object")
+                    message.income = new $util.LongBits(object.income.low >>> 0, object.income.high >>> 0).toNumber();
+            if (object.debt != null)
+                if ($util.Long)
+                    (message.debt = $util.Long.fromValue(object.debt)).unsigned = false;
+                else if (typeof object.debt === "string")
+                    message.debt = parseInt(object.debt, 10);
+                else if (typeof object.debt === "number")
+                    message.debt = object.debt;
+                else if (typeof object.debt === "object")
+                    message.debt = new $util.LongBits(object.debt.low >>> 0, object.debt.high >>> 0).toNumber();
+            if (object.revenue != null)
+                if ($util.Long)
+                    (message.revenue = $util.Long.fromValue(object.revenue)).unsigned = false;
+                else if (typeof object.revenue === "string")
+                    message.revenue = parseInt(object.revenue, 10);
+                else if (typeof object.revenue === "number")
+                    message.revenue = object.revenue;
+                else if (typeof object.revenue === "object")
+                    message.revenue = new $util.LongBits(object.revenue.low >>> 0, object.revenue.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Dashboard message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof line.Dashboard
+         * @static
+         * @param {line.Dashboard} message Dashboard
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Dashboard.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.sales = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.sales = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.income = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.income = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.debt = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.debt = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    let long = new $util.Long(0, 0, false);
+                    object.revenue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.revenue = options.longs === String ? "0" : 0;
+            }
+            if (message.sales != null && message.hasOwnProperty("sales"))
+                if (typeof message.sales === "number")
+                    object.sales = options.longs === String ? String(message.sales) : message.sales;
+                else
+                    object.sales = options.longs === String ? $util.Long.prototype.toString.call(message.sales) : options.longs === Number ? new $util.LongBits(message.sales.low >>> 0, message.sales.high >>> 0).toNumber() : message.sales;
+            if (message.income != null && message.hasOwnProperty("income"))
+                if (typeof message.income === "number")
+                    object.income = options.longs === String ? String(message.income) : message.income;
+                else
+                    object.income = options.longs === String ? $util.Long.prototype.toString.call(message.income) : options.longs === Number ? new $util.LongBits(message.income.low >>> 0, message.income.high >>> 0).toNumber() : message.income;
+            if (message.debt != null && message.hasOwnProperty("debt"))
+                if (typeof message.debt === "number")
+                    object.debt = options.longs === String ? String(message.debt) : message.debt;
+                else
+                    object.debt = options.longs === String ? $util.Long.prototype.toString.call(message.debt) : options.longs === Number ? new $util.LongBits(message.debt.low >>> 0, message.debt.high >>> 0).toNumber() : message.debt;
+            if (message.revenue != null && message.hasOwnProperty("revenue"))
+                if (typeof message.revenue === "number")
+                    object.revenue = options.longs === String ? String(message.revenue) : message.revenue;
+                else
+                    object.revenue = options.longs === String ? $util.Long.prototype.toString.call(message.revenue) : options.longs === Number ? new $util.LongBits(message.revenue.low >>> 0, message.revenue.high >>> 0).toNumber() : message.revenue;
+            return object;
+        };
+
+        /**
+         * Converts this Dashboard to JSON.
+         * @function toJSON
+         * @memberof line.Dashboard
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Dashboard.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for Dashboard
+         * @function getTypeUrl
+         * @memberof line.Dashboard
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Dashboard.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/line.Dashboard";
+        };
+
+        return Dashboard;
+    })();
+
     return line;
 })();
 

@@ -46,22 +46,27 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    setTheme("light" )
+  }, []
+)
+
   if (!mounted) return null
 
   return (
-    <div className={`${styles.page} ${styles[theme]}`}>
+    <div className={`${styles.page} ${styles["light"]}`}>
       {/* Ambient orbs */}
       <div className={styles.orb1} />
       <div className={styles.orb2} />
       <div className={styles.orb3} />
 
 
-      <div
+      {/* <div
         className={styles.theme}
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
         {theme}
-      </div>
+      </div> */}
 
       <div className={styles.card}>
         {/* Logo */}

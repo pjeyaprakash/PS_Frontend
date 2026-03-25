@@ -185,13 +185,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
+  width: 38px;
   height: 26px;
   background: rgba(127, 168, 216, 0.15);
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
-  color: #6b9fd4;
+  color: #003e7c;
 }
 
 .editBtn {
