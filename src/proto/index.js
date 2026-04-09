@@ -8999,6 +8999,7 @@ export const transaction = $root.transaction = (() => {
          * @property {number|null} [saleAmount] TransactionPost saleAmount
          * @property {Array.<transaction.ISaleItem>|null} [sales] TransactionPost sales
          * @property {string|null} [cusName] TransactionPost cusName
+         * @property {number|null} [pedingDebt] TransactionPost pedingDebt
          */
 
         /**
@@ -9090,6 +9091,14 @@ export const transaction = $root.transaction = (() => {
         TransactionPost.prototype.cusName = "";
 
         /**
+         * TransactionPost pedingDebt.
+         * @member {number} pedingDebt
+         * @memberof transaction.TransactionPost
+         * @instance
+         */
+        TransactionPost.prototype.pedingDebt = 0;
+
+        /**
          * Creates a new TransactionPost instance using the specified properties.
          * @function create
          * @memberof transaction.TransactionPost
@@ -9132,6 +9141,8 @@ export const transaction = $root.transaction = (() => {
                     $root.transaction.SaleItem.encode(message.sales[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             if (message.cusName != null && Object.hasOwnProperty.call(message, "cusName"))
                 writer.uint32(/* id 9, wireType 2 =*/74).string(message.cusName);
+            if (message.pedingDebt != null && Object.hasOwnProperty.call(message, "pedingDebt"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.pedingDebt);
             return writer;
         };
 
@@ -9206,6 +9217,10 @@ export const transaction = $root.transaction = (() => {
                         message.cusName = reader.string();
                         break;
                     }
+                case 10: {
+                        message.pedingDebt = reader.int32();
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -9274,6 +9289,9 @@ export const transaction = $root.transaction = (() => {
             if (message.cusName != null && message.hasOwnProperty("cusName"))
                 if (!$util.isString(message.cusName))
                     return "cusName: string expected";
+            if (message.pedingDebt != null && message.hasOwnProperty("pedingDebt"))
+                if (!$util.isInteger(message.pedingDebt))
+                    return "pedingDebt: integer expected";
             return null;
         };
 
@@ -9322,6 +9340,8 @@ export const transaction = $root.transaction = (() => {
             }
             if (object.cusName != null)
                 message.cusName = String(object.cusName);
+            if (object.pedingDebt != null)
+                message.pedingDebt = object.pedingDebt | 0;
             return message;
         };
 
@@ -9353,6 +9373,7 @@ export const transaction = $root.transaction = (() => {
                 object.actualAmount = 0;
                 object.saleAmount = 0;
                 object.cusName = "";
+                object.pedingDebt = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -9378,6 +9399,8 @@ export const transaction = $root.transaction = (() => {
             }
             if (message.cusName != null && message.hasOwnProperty("cusName"))
                 object.cusName = message.cusName;
+            if (message.pedingDebt != null && message.hasOwnProperty("pedingDebt"))
+                object.pedingDebt = message.pedingDebt;
             return object;
         };
 

@@ -19,6 +19,7 @@ message TransactionPost {
     int32 sale_amount = 7;
     repeated SaleItem sales = 8;
     string cus_name = 9;
+    int32 peding_debt = 10;
 }
 
 message PostResponse {
