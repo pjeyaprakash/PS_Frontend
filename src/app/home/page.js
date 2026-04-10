@@ -69,7 +69,7 @@ const [values, setValues] = useState({})
           <div key={i} className={`${styles.card} ${styles[`card_${m.key}`]}`}>
             <div className={`${styles.glow} ${styles[`glow_${i}`]}`} />
             <p className={styles.cardLabel}>{m.label}</p>
-            <p className={styles.cardValue}>{values[i].toLocaleString()}</p>
+            <p className={styles.cardValue}>{values[i]?.toLocaleString() || 0}</p>
           </div>
         ))}
       </div>
