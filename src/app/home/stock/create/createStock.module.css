@@ -177,8 +177,9 @@
   margin-bottom: 16px;
 }
 .variantCount {
-  font-size: 11px; color: var(--text-2);
-  background: var(--bg-hover); border: 1px solid rgba(212, 221, 255, 0.463);
+  display: flex;
+  font-size: 14px; color: var(--text-2);
+  background: rgba(47, 147, 255, 0.485); border: 1px solid rgba(212, 221, 255, 0.463);
   padding: 3px 10px; border-radius: 20px;
 }
 

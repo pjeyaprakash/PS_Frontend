@@ -34,8 +34,8 @@ function cartesian(arrays) {
 
 function variantKey(attrs) {
   return Object.entries(attrs)
-    .sort(([a],[b]) => a.localeCompare(b))
-    .map(([,v]) => v)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, v]) => v)
     .join(':');
 }
 
@@ -44,9 +44,9 @@ function variantKey(attrs) {
 export default function CreateStock({ editItem = null }) {
 
 
-    const [attrGroups, setAttrGroups] = useState([]);
+  const [attrGroups, setAttrGroups] = useState([]);
 
-    const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const router = useRouter();
 
@@ -54,24 +54,25 @@ export default function CreateStock({ editItem = null }) {
     const controller = new AbortController();
     (async () => {
       try {
-        const {categories} = await protoGet("/category", category.CategoryGetResponse, controller)
-              const groups = categories.map(pg => {
-                let values = []
-                if (editItem) {
-                  values = pg.value.filter(val =>
-                    editItem.variants.some(obj => obj.keys.includes(val))
-                  );
-                }
-                return {
-        ...pg,
-        values,
-        customInput: ''}
-      });
+        const { categories } = await protoGet("/category", category.CategoryGetResponse, controller)
+        const groups = categories.map(pg => {
+          let values = []
+          if (editItem) {
+            values = pg.value.filter(val =>
+              editItem.variants.some(obj => obj.keys.includes(val))
+            );
+          }
+          return {
+            ...pg,
+            values,
+            customInput: ''
+          }
+        });
 
-      setAttrGroups(groups);
+        setAttrGroups(groups);
       } catch (error) {
-      if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
-      console.error(error);
+        if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+        console.error(error);
 
       }
     })()
@@ -83,13 +84,31 @@ export default function CreateStock({ editItem = null }) {
 
   const [form, setForm] = useState({
     id: editItem?.id || '',
-    name: editItem?.name || '', 
-    category: editItem?.category || '', 
-     description: editItem?.description || '',
+    name: editItem?.name || '',
+    category: editItem?.category || '',
+    description: editItem?.description || '',
   });
 
 
-  const [variants, setVariants]     = useState(editItem?.variants || []);
+  const [variants, setVariants] = useState(editItem?.variants || []);
+
+
+  // =====================
+  // UPDATE VARIANTS
+  // =====================
+  const [existingVariants, setExistingVariants] = useState(null)
+
+  const handleEditVariant = () => {
+    if (existingVariants) {
+      setExistingVariants(null)
+    } else {
+      setExistingVariants(variants)
+    }
+    
+
+  }
+
+
 
   const [showAddGroup, setShowAddGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
@@ -99,78 +118,78 @@ export default function CreateStock({ editItem = null }) {
 
 
   /* ── recompute after every attribute change ── */
-const recompute = useCallback((groups) => {
+  const recompute = useCallback((groups) => {
 
-  const active = groups.filter(g => g.values.length > 0);
+    const active = groups.filter(g => g.values.length > 0);
 
 
-  if (active.length === 0) {
-    setVariants([]);
-    return;
-  }
-
-  const arrays = active.map(g => g.values);
-  const combos = cartesian(arrays);
-  setVariants(prev => {
-
-    const prevMap = new Map();
-
-    for (const v of prev) {
-      prevMap.set(variantKey(v.attrs), {...v, keys: Object.values(v.attrs)});
+    if (active.length === 0) {
+      setVariants([]);
+      return;
     }
 
-    const next = new Array(combos.length);
+    const arrays = active.map(g => g.values);
+    const combos = cartesian(arrays);
+    setVariants(prev => {
 
-    for (let i = 0; i < combos.length; i++) {
+      const prevMap = new Map();
 
-      const combo = combos[i];
-      const attrs = {};
-
-      for (let j = 0; j < active.length; j++) {
-        attrs[active[j].category] = combo[j];
+      for (const v of prev) {
+        prevMap.set(variantKey(v.attrs), { ...v, keys: Object.values(v.attrs) });
       }
 
-      const id = variantKey(attrs);
-      const newKeys = Object.values(attrs);
+      const next = new Array(combos.length);
+
+      for (let i = 0; i < combos.length; i++) {
+
+        const combo = combos[i];
+        const attrs = {};
+
+        for (let j = 0; j < active.length; j++) {
+          attrs[active[j].category] = combo[j];
+        }
+
+        const id = variantKey(attrs);
+        const newKeys = Object.values(attrs);
 
 
-      const result = Array.from(prevMap.keys()).reduce((best, key) => {
-        const count = newKeys.filter(v => prevMap.get(key).keys.includes(v)).length;
-        return count > best.count ? { key, count } : best;
-      }, { key: null, count: 0 });
+        const result = Array.from(prevMap.keys()).reduce((best, key) => {
+          const count = newKeys.filter(v => prevMap.get(key).keys.includes(v)).length;
+          return count > best.count ? { key, count } : best;
+        }, { key: null, count: 0 });
 
-      const available = result.count === 0 ? null : result.key;
+        const available = result.count === 0 ? null : result.key;
 
-      if(available) {
-        next[i] = {...prevMap.get(available), id: id, attrs: attrs, keys: newKeys};
-        prevMap.delete(available);
-      } else {
-        next[i] = {
-          id: id,
-          attrs,
-          qty: 0,
-          name: "",
-          price: 0,
-          value: 0,
-          keys: newKeys,
-        };
+        if (available) {
+          next[i] = { ...prevMap.get(available), id: id, attrs: attrs, keys: newKeys };
+          prevMap.delete(available);
+        } else {
+          next[i] = {
+            id: id,
+            attrs,
+            qty: 0,
+            name: "",
+            price: 0,
+            value: 0,
+            keys: newKeys,
+          };
+        }
+
       }
 
-    }
+      return next;
 
-    return next;
+    });
 
-  });
-
-}, []);
+  }, []);
 
   /* ── toggle a preset value in/out ── */
   const toggleValue = (groupKey, value) => {
     setAttrGroups(prev => {
       const next = prev.map(g => {
         if (g.id !== groupKey) return g;
-        const exists  = g.values.includes(value);
-        const values  = exists
+        const exists = g.values.includes(value);
+        const values = exists
           ? (g.values.filter(v => v !== value))
           : [...g.values, value];
         return { ...g, values };
@@ -182,40 +201,40 @@ const recompute = useCallback((groups) => {
 
 
   const apiCall = async (id, value) => {
-   const {success} = await protoPut("/add-category-value", category.AddCategoryValueRequest, {id, value} )
+    const { success } = await protoPut("/add-category-value", category.AddCategoryValueRequest, { id, value })
   }
 
   /* ── add typed custom value ── */
-const addCustomValue = async (groupKey) => {
+  const addCustomValue = async (groupKey) => {
 
-  let newVal = "";
+    let newVal = "";
 
-  await setAttrGroups(prev => {
+    await setAttrGroups(prev => {
 
-    const next = prev.map(g => {
+      const next = prev.map(g => {
 
-      if (g.id !== groupKey) return g;
+        if (g.id !== groupKey) return g;
 
-      newVal = g.customInput.trim().toLowerCase();
+        newVal = g.customInput.trim().toLowerCase();
 
-      if (!newVal) return g;
+        if (!newVal) return g;
 
-      if (g.values.includes(newVal))
-        return { ...g, customInput: '' };
+        if (g.values.includes(newVal))
+          return { ...g, customInput: '' };
 
-      return {
-        ...g,
-        values: [...g.values, newVal],
-        customInput: ''
-      };
+        return {
+          ...g,
+          values: [...g.values, newVal],
+          customInput: ''
+        };
+      });
+
+      recompute(next);
+
+      return next;
     });
-
-    recompute(next);
-
-    return next;
-  });
-  await apiCall(groupKey, newVal);
-};
+    await apiCall(groupKey, newVal);
+  };
 
   /* ── remove a selected value ── */
   const removeValue = (groupKey, value) => {
@@ -236,12 +255,12 @@ const addCustomValue = async (groupKey) => {
     if (!name) return;
     const values = newGroupInput.split(',').map(s => s.trim().toLocaleLowerCase()).filter(Boolean);
 
-    const {id} = await protoPost("/category", category.AddCategoryRequest, api.PostResponse, {category: name, value:values})
+    const { id } = await protoPost("/category", category.AddCategoryRequest, api.PostResponse, { category: name, value: values })
 
     const newGroup = {
-      id, category: name, 
+      id, category: name,
       value: values, values,
-      customInput: '', 
+      customInput: '',
     };
 
     setAttrGroups(prev => {
@@ -254,15 +273,15 @@ const addCustomValue = async (groupKey) => {
 
 
   const setQty = (id, val) =>
-    setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Number(val), value: val * v.price} : v));
+    setVariants(prev => prev.map(v => v.id === id ? { ...v, qty: Number(val), value: val * v.price } : v));
   const setName = (id, val) =>
     setVariants(prev => prev.map(v => v.id === id ? { ...v, name: val } : v));
 
   const setPrice = (id, val) =>
-    setVariants(prev => prev.map(v => v.id === id ? { ...v, price: Number(val) , value: val * v.qty} : v));
+    setVariants(prev => prev.map(v => v.id === id ? { ...v, price: Number(val), value: val * v.qty } : v));
 
-  const totalQty  = variants.reduce((s, v) => s + v.qty, 0);
-  const totalVal  = variants.reduce((s, v) => s + v.qty * v.price, 0) 
+  const totalQty = variants.reduce((s, v) => s + v.qty, 0);
+  const totalVal = variants.reduce((s, v) => s + v.qty * v.price, 0)
   const activeGrps = attrGroups.filter(g => g.values.length > 0);
 
 
@@ -283,8 +302,8 @@ const addCustomValue = async (groupKey) => {
     // };
     try {
       let res;
-      if (editItem) res = await protoPut("/product", product.UpdateProductRequest, {id: form.id, name: form.name, description: form.description, category: form.category})
-      else res = await protoPost("/product", product.Product, api.PostResponse, {...form, total_quantity:totalQty, total_value: totalVal, variant_count: variants.length, variants})
+      if (editItem) res = await protoPut("/product", product.UpdateProductRequest, { id: form.id, name: form.name, description: form.description, category: form.category })
+      else res = await protoPost("/product", product.Product, api.PostResponse, { ...form, total_quantity: totalQty, total_value: totalVal, variant_count: variants.length, variants })
     } catch (error) {
       console.error(error);
     }
@@ -297,9 +316,9 @@ const addCustomValue = async (groupKey) => {
   const saveEditedVariants = async () => {
     try {
       if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
-      const {success} = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
+      const { success } = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
       if (success) setSelectedVariantIndex(null);
-      else {console.error("erkkkror", error)}
+      else { console.error("erkkkror", error) }
     } catch (error) {
       console.error(error);
     }
@@ -318,22 +337,24 @@ const addCustomValue = async (groupKey) => {
         <div className={styles.headerActions}>
           <button className={styles.btnSecondary} onClick={() => router.push('/home/stock')}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+              <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
             </svg>
             Back
           </button>
-          {editMode && <button className={styles.btnSecondary} onClick={() => {setEditMode(false)
-             setSelectedVariantIndex(null)}}>
+          {editMode && <button className={styles.btnSecondary} onClick={() => {
+            setEditMode(false)
+            setSelectedVariantIndex(null)
+          }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+              <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
             </svg>
             Cancel
           </button>}
           <button className={styles.btnPrimary} onClick={handleSubmit}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="20 6 9 17 4 12"/>
+              <polyline points="20 6 9 17 4 12" />
             </svg>
-            {editItem ? editMode ? 'Update Stock':'Edit' : 'Save Stock'}
+            {editItem ? editMode ? 'Update Stock' : 'Edit' : 'Save Stock'}
           </button>
         </div>
       </div>
@@ -378,8 +399,8 @@ const addCustomValue = async (groupKey) => {
         </div>
 
         {/* ── Variant Builder ── */}
-        { (editMode || !editItem) && <div>
-        {/* { (!editItem) && <div> */}
+        {/* {(editMode || !editItem) && <div> */}
+          { existingVariants && <div>
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <div className={styles.cardIcon}>🎨</div>
@@ -406,7 +427,7 @@ const addCustomValue = async (groupKey) => {
                 <div className={styles.attrRow}>
                   {/* Preset options */}
                   {group.value.map(preset => {
-                    const isSelected =  group.values.includes(preset);
+                    const isSelected = group.values.includes(preset);
                     return (
                       <div key={preset}
                         className={`${styles.attrPill} ${isSelected ? styles.selected : ''}`}
@@ -426,7 +447,7 @@ const addCustomValue = async (groupKey) => {
                     .map(v => (
                       <div key={v}
                         className={`${styles.attrPill} ${styles.selected}`}>
-                        { v}
+                        {v}
                         <button className={styles.pillRemove}
                           onClick={() => removeValue(group.id, v)}>×</button>
                       </div>
@@ -443,7 +464,7 @@ const addCustomValue = async (groupKey) => {
                     />
                     <button className={styles.btnGhost} onClick={() => addCustomValue(group.id)}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                        <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
                       </svg>
                       Add
                     </button>
@@ -457,7 +478,7 @@ const addCustomValue = async (groupKey) => {
               {!showAddGroup ? (
                 <button className={styles.btnAddGroup} onClick={() => setShowAddGroup(true)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
                   </svg>
                   Add Custom Attribute
                   <span className={styles.addGroupHint}>e.g. Material, Warranty, Pattern, Occasion…</span>
@@ -468,7 +489,7 @@ const addCustomValue = async (groupKey) => {
                     <span className={styles.addGroupFormTitle}> New Attribute Group</span>
                     <button className={styles.btnDeleteGroup} onClick={() => setShowAddGroup(false)}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
                     </button>
                   </div>
@@ -492,7 +513,7 @@ const addCustomValue = async (groupKey) => {
                   <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
                     <button id="btn-create-grp" className={styles.btnPrimary} onClick={addCustomGroup} style={{ height: 38 }}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="20 6 9 17 4 12"/>
+                        <polyline points="20 6 9 17 4 12" />
                       </svg>
                       Create Attribute
                     </button>
@@ -520,7 +541,13 @@ const addCustomValue = async (groupKey) => {
                 </div>
               </div>
             </div>
-            {variants.length > 0 && <span className={styles.variantCount}>{variants.length} total</span>}
+            {variants.length > 0 && <button onClick={handleEditVariant} className={styles.variantCount}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20"
+                height="16">
+                <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" />
+                <path d="M14 6l2 2" />
+              </svg>
+              {existingVariants ? "Save" : "Edit Variant"}</button>}
           </div>
 
           {variants.length === 0 ? (
@@ -547,8 +574,8 @@ const addCustomValue = async (groupKey) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {variants.map((v, i )=> (
-                      
+                    {variants.map((v, i) => (
+
                       <tr key={v.id}>
                         <td>
                           <span className={styles.variantBadge}>
@@ -559,28 +586,29 @@ const addCustomValue = async (groupKey) => {
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.nameInput} type="text" min={0} disabled={ editItem && selectedVariantIndex !== i}
+                            <input className={styles.nameInput} type="text" min={0} disabled={editItem && selectedVariantIndex !== i}
                               value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.qtyInput} type="number" min={0} disabled={ editItem && selectedVariantIndex !== i}
-                              value={v.qty} onChange={e => setQty(v.id, e.target.value)} onClick={() =>  { 
+                            <input className={styles.qtyInput} type="number" min={0} disabled={editItem && selectedVariantIndex !== i}
+                              value={v.qty} onChange={e => setQty(v.id, e.target.value)} onClick={() => {
                                 if (v.qty != 0) return;
-                                setVariants(prev => prev.map(p => p.id === v.id ? { ...p, qty: "" } : p))} }/>
+                                setVariants(prev => prev.map(p => p.id === v.id ? { ...p, qty: "" } : p))
+                              }} />
                           </div>
                         </td>
 
                         <td>
-                            <input className={styles.qtyInput} type="number" min={0} disabled={ editItem && selectedVariantIndex !== i}
-                              value={v.price} onChange={e => setPrice(v.id, e.target.value)} />
+                          <input className={styles.qtyInput} type="number" min={0} disabled={editItem && selectedVariantIndex !== i}
+                            value={v.price} onChange={e => setPrice(v.id, e.target.value)} />
                         </td>
 
                         <td>
-                            <input className={styles.qtyInput} type="number" min={0}
-                              value={v.price *  v.qty} readOnly/>
+                          <input className={styles.qtyInput} type="number" min={0}
+                            value={v.price * v.qty} readOnly />
                         </td>
 
                         <td>
@@ -588,18 +616,18 @@ const addCustomValue = async (groupKey) => {
                             onClick={() => setVariants(prev => prev.filter(x => x.id !== v.id))}
                             title="Remove variant">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <polyline points="3 6 5 6 21 6"/>
-                              <path d="M19 6l-1 14H6L5 6"/>
-                              <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6l-1 14H6L5 6" />
+                              <path d="M10 11v6M14 11v6M9 6V4h6v2" />
                             </svg>
-                          </button>) : ( (editMode && selectedVariantIndex === i) ?
-                          (<div>
+                          </button>) : ((editMode && selectedVariantIndex === i) ?
+                            (<div>
                               <button className={styles.btnDanger}
                                 onClick={() => setSelectedVariantIndex(null)}
                                 title="Cancel Edit">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <line x1="18" y1="6" x2="6" y2="18"/>
-                                  <line x1="6" y1="6" x2="18" y2="18"/>
+                                  <line x1="18" y1="6" x2="6" y2="18" />
+                                  <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
                               </button>
                               <button className={styles.btnDanger}
@@ -607,24 +635,24 @@ const addCustomValue = async (groupKey) => {
                                 // onClick={() => {}}
                                 title="Save Changes">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <polyline points="20 6 9 17 4 12"/>
+                                  <polyline points="20 6 9 17 4 12" />
                                 </svg>
                               </button>
                             </div>
-                        ) : ( editMode &&
-                          <div>
-                              <button className={styles.btnDanger}
-                                onClick={() => setSelectedVariantIndex(i)}
-                                title="Edit Variant">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z"/>
-                                  <path d="M14 6l2 2"/>
-                                </svg>
-                              </button>
+                            ) : (editMode &&
+                              <div>
+                                <button className={styles.btnDanger}
+                                  onClick={() => setSelectedVariantIndex(i)}
+                                  title="Edit Variant">
+                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" />
+                                    <path d="M14 6l2 2" />
+                                  </svg>
+                                </button>
 
 
-                          </div>
-                        ))}
+                              </div>
+                            ))}
                         </td>
                       </tr>
                     ))}
