@@ -45,6 +45,7 @@ export default function CreateStock({ editItem = null }) {
 
 
   const [attrGroups, setAttrGroups] = useState([]);
+  // console.log("attrGroups", attrGroups)
 
   const [editMode, setEditMode] = useState(false);
 
@@ -97,14 +98,32 @@ export default function CreateStock({ editItem = null }) {
   // UPDATE VARIANTS
   // =====================
   const [existingVariants, setExistingVariants] = useState(null)
+  const [existingAttrGroups, setExistingAttrGroups] = useState(null)
 
   const handleEditVariant = () => {
     if (existingVariants) {
       setExistingVariants(null)
+      setExistingAttrGroups(null)
     } else {
       setExistingVariants(variants)
+      setExistingAttrGroups(attrGroups)
     }
-    
+  }
+
+  const cancelEditVariant = () => {
+
+    setVariants(existingVariants)
+
+    const attrMap = new Map(existingAttrGroups.map(item => [item.id, item.values]))
+
+    const updateAttr = attrGroups.map(item => ({
+      ...item, 
+      values: attrMap.has(item.id) ? [...attrMap.get(item.id)] : []
+    }))
+
+    setAttrGroups(updateAttr)
+    setExistingVariants(null)
+    setExistingAttrGroups(null)
 
   }
 
@@ -318,7 +337,7 @@ export default function CreateStock({ editItem = null }) {
       if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
       const { success } = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
       if (success) setSelectedVariantIndex(null);
-      else { console.error("erkkkror", error) }
+      else { console.error(error) }
     } catch (error) {
       console.error(error);
     }
@@ -345,8 +364,17 @@ export default function CreateStock({ editItem = null }) {
             setEditMode(false)
             setSelectedVariantIndex(null)
           }}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              width="20"
+              height="16"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
             </svg>
             Cancel
           </button>}
@@ -400,7 +428,7 @@ export default function CreateStock({ editItem = null }) {
 
         {/* ── Variant Builder ── */}
         {/* {(editMode || !editItem) && <div> */}
-          { existingVariants && <div>
+        {(existingVariants || !editItem) && <div>
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <div className={styles.cardIcon}>🎨</div>
@@ -541,23 +569,45 @@ export default function CreateStock({ editItem = null }) {
                 </div>
               </div>
             </div>
-            {variants.length > 0 && <button onClick={handleEditVariant} className={styles.variantCount}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20"
-                height="16">
-                <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" />
-                <path d="M14 6l2 2" />
-              </svg>
-              {existingVariants ? "Save" : "Edit Variant"}</button>}
+            <div className={styles.variantEditSection}>
+              {existingVariants && <button className={styles.cancel} onClick={cancelEditVariant} >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  width="20"
+                  height="16"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+                cancel
+              </button>}
+              {editItem && <button onClick={handleEditVariant} className={styles.variantCount}>
+                {existingVariants ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg> :
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20"
+                  height="16">
+                  <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" />
+                  <path d="M14 6l2 2" />
+                </svg>
+                }
+                {existingVariants ? "Save" : "Edit Variant"}
+              </button>}
+            </div>
           </div>
 
           {variants.length === 0 ? (
             <div className={styles.emptyVariants}>
               <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>🎛️</span>
               <strong>No variants generated yet</strong>
-              <p style={{ marginTop: 6, lineHeight: 1.6 }}>
+              {/* <p style={{ marginTop: 6, lineHeight: 1.6 }}>
                 Click any size, colour, or cloth value above.<br />
                 Even selecting <em>just sizes</em> will generate variants immediately.
-              </p>
+              </p> */}
             </div>
           ) : (
             <>
