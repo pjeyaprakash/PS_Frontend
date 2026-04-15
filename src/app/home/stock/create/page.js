@@ -2,18 +2,14 @@
 
 import { useState, useCallback, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-// import { useStock } from '../../app/StockContext';
 import styles from './createStock.module.css';
 
 import { category, api, product } from "@/proto/index";
 import { protoGet, protoPost, protoPut } from '@/utils/protoAPI';
-import { ClientPageRoot } from 'next/dist/client/components/client-page';
 
 
-// let k = 1;
 const CATEGORIES = ['Gown', 'Casual', 'Formal', 'Party Wear', 'Ethnic', 'Western', 'Bridal', 'Co-ord Set'];
 
-// function genId() { return Math.random().toString(36).slice(2, 9); }
 
 /* ── cartesian product of N arrays → all combinations ── */
 function cartesian(arrays) {
@@ -45,7 +41,6 @@ export default function CreateStock({ editItem = null }) {
 
 
   const [attrGroups, setAttrGroups] = useState([]);
-  // console.log("attrGroups", attrGroups)
 
   const [editMode, setEditMode] = useState(false);
 
@@ -124,16 +119,64 @@ export default function CreateStock({ editItem = null }) {
     setAttrGroups(updateAttr)
     setExistingVariants(null)
     setExistingAttrGroups(null)
-
   }
+
+
+
+  // =================================
+  // UPDATE SPECIFIC VARIANTS
+  // =================================
+
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
+  const [singleVariant, setSingleVariant] = useState(null)
+
+  const handleEditSingleVariant = (i) => {
+    if (selectedVariantIndex != null ) {
+      setVariants( prev => {
+        const updated = [...prev]
+        updated[selectedVariantIndex] = singleVariant
+        return updated
+      })
+      setSelectedVariantIndex(i)
+      setSingleVariant(variants[i])
+
+    } else {selectedVariantIndex
+      setSelectedVariantIndex(i)
+      setSingleVariant(variants[i])
+      
+    }
+  }
+
+  const cancelEditSingleVariant = () => {
+    setVariants( prev => {
+      const updated = [...prev]
+      updated[selectedVariantIndex] = singleVariant
+      return updated
+    })
+    setSelectedVariantIndex(null)
+    setSingleVariant(null)
+  }
+
+  const saveEditedVariants = async () => {
+    try {
+      if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
+      const { success } = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
+      if (success) {
+        setSelectedVariantIndex(null)
+        setSingleVariant(null)
+      }
+      else { console.error(error) }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
 
 
   const [showAddGroup, setShowAddGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [newGroupInput, setNewGroupInput] = useState('');
-
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
 
 
   /* ── recompute after every attribute change ── */
@@ -313,35 +356,18 @@ export default function CreateStock({ editItem = null }) {
     }
 
     if (!form.name || !form.category) return alert('Name and Category are required.');
-    // const item = {
-    //   ...form, price: Number(form.price), cost: Number(form.cost), variants,
-    //   status: variants.length === 0 ? 'draft'
-    //     : variants.some(v => v.qty > 0 && v.qty < 5) ? 'low'
-    //     : variants.every(v => v.qty === 0) ? 'draft' : 'active',
-    // };
+
     try {
       let res;
       if (editItem) res = await protoPut("/product", product.UpdateProductRequest, { id: form.id, name: form.name, description: form.description, category: form.category })
       else res = await protoPost("/product", product.Product, api.PostResponse, { ...form, total_quantity: totalQty, total_value: totalVal, variant_count: variants.length, variants })
-    } catch (error) {
-      console.error(error);
-    }
-    // if (editItem) updateItem(editItem.id, item);
-    // else addItem(item);
-    // setToast(true);
-    // setTimeout(() => { setToast(false); router.push('/stock'); }, 1600);
-  };
 
-  const saveEditedVariants = async () => {
-    try {
-      if (selectedVariantIndex === null || selectedVariantIndex === undefined) return;
-      const { success } = await protoPut("/variants", product.Variant, variants[selectedVariantIndex])
-      if (success) setSelectedVariantIndex(null);
-      else { console.error(error) }
+      if(!editItem && res.id) router.push('/home/stock')
     } catch (error) {
       console.error(error);
     }
   }
+
 
   return (
     <div className={styles.page}>
@@ -620,7 +646,8 @@ export default function CreateStock({ editItem = null }) {
                       <th>Quantity</th>
                       <th>Price</th>
                       <th>Value</th>
-                      {(!editItem || editMode) && <th>Actions</th>}
+                      <th>Actions</th>
+                      {/* {(!editItem || editMode) && <th>Actions</th>} */}
                     </tr>
                   </thead>
                   <tbody>
@@ -670,10 +697,11 @@ export default function CreateStock({ editItem = null }) {
                               <path d="M19 6l-1 14H6L5 6" />
                               <path d="M10 11v6M14 11v6M9 6V4h6v2" />
                             </svg>
-                          </button>) : ((editMode && selectedVariantIndex === i) ?
+                          </button>) : ((selectedVariantIndex === i) ?
+                          // </button>) : ((editMode && selectedVariantIndex === i) ?
                             (<div>
                               <button className={styles.btnDanger}
-                                onClick={() => setSelectedVariantIndex(null)}
+                                onClick={cancelEditSingleVariant}
                                 title="Cancel Edit">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -689,10 +717,11 @@ export default function CreateStock({ editItem = null }) {
                                 </svg>
                               </button>
                             </div>
-                            ) : (editMode &&
+                            // ) : (editMode &&
+                            ) : (
                               <div>
                                 <button className={styles.btnDanger}
-                                  onClick={() => setSelectedVariantIndex(i)}
+                                  onClick={() => handleEditSingleVariant(i)}
                                   title="Edit Variant">
                                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" />
@@ -715,26 +744,12 @@ export default function CreateStock({ editItem = null }) {
                 {totalVal > 0 && (
                   <div className={styles.summaryItem}>Value: <strong style={{ color: 'var(--accent)' }}>₹ {totalVal.toLocaleString('en-IN')}</strong></div>
                 )}
-                {/* {variants.some(v => v.qty > 0 && v.qty < 5) && (
-                  <div className={styles.summaryItem} style={{ color: 'var(--accent-o)' }}>
-                    ⚠ {variants.filter(v => v.qty > 0 && v.qty < 5).length} low stock
-                  </div>
-                )} */}
               </div>
             </>
           )}
         </div>
 
-        {/* Footer */}
-        {/* <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, paddingBottom: 32 }}>
-          <button className={styles.btnSecondary} onClick={() => router.push('/stock')}>Cancel</button>
-          <button className={styles.btnPrimary} onClick={handleSubmit}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            {editItem ? 'Update Stock' : 'Save Stock'}
-          </button>
-        </div> */}
+
       </div>
 
 
