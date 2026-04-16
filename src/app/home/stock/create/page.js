@@ -96,7 +96,9 @@ export default function CreateStock({ editItem = null }) {
   const [existingAttrGroups, setExistingAttrGroups] = useState(null)
 
   const handleEditVariant = () => {
+
     if (existingVariants) {
+      console.log(variants)
       setExistingVariants(null)
       setExistingAttrGroups(null)
     } else {
@@ -646,8 +648,8 @@ export default function CreateStock({ editItem = null }) {
                       <th>Quantity</th>
                       <th>Price</th>
                       <th>Value</th>
-                      <th>Actions</th>
-                      {/* {(!editItem || editMode) && <th>Actions</th>} */}
+                      {/* <th>Actions</th> */}
+                      {!existingVariants && <th>Actions</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -663,14 +665,14 @@ export default function CreateStock({ editItem = null }) {
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.nameInput} type="text" min={0} disabled={editItem && selectedVariantIndex !== i}
+                            <input className={styles.nameInput} type="text" min={0} disabled={!existingVariants && selectedVariantIndex !== i}
                               value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.qtyInput} type="number" min={0} disabled={editItem && selectedVariantIndex !== i}
+                            <input className={styles.qtyInput} type="number" min={0} disabled={!existingVariants && selectedVariantIndex !== i}
                               value={v.qty} onChange={e => setQty(v.id, e.target.value)} onClick={() => {
                                 if (v.qty != 0) return;
                                 setVariants(prev => prev.map(p => p.id === v.id ? { ...p, qty: "" } : p))
@@ -679,7 +681,7 @@ export default function CreateStock({ editItem = null }) {
                         </td>
 
                         <td>
-                          <input className={styles.qtyInput} type="number" min={0} disabled={editItem && selectedVariantIndex !== i}
+                          <input className={styles.qtyInput} type="number" min={0} disabled={!existingVariants && selectedVariantIndex !== i}
                             value={v.price} onChange={e => setPrice(v.id, e.target.value)} />
                         </td>
 
@@ -688,7 +690,8 @@ export default function CreateStock({ editItem = null }) {
                             value={v.price * v.qty} readOnly />
                         </td>
 
-                        <td>
+                        {!existingVariants && <td>
+                          
                           {!editItem ? (<button className={styles.btnDanger}
                             onClick={() => setVariants(prev => prev.filter(x => x.id !== v.id))}
                             title="Remove variant">
@@ -732,7 +735,7 @@ export default function CreateStock({ editItem = null }) {
 
                               </div>
                             ))}
-                        </td>
+                        </td> }
                       </tr>
                     ))}
                   </tbody>
@@ -748,11 +751,7 @@ export default function CreateStock({ editItem = null }) {
             </>
           )}
         </div>
-
-
       </div>
-
-
     </div>
   );
 }

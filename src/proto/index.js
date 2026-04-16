@@ -8697,6 +8697,232 @@ export const product = $root.product = (() => {
         return SearchProductNameResponse;
     })();
 
+    product.EditedVariants = (function() {
+
+        /**
+         * Properties of an EditedVariants.
+         * @memberof product
+         * @interface IEditedVariants
+         * @property {Array.<product.IProductVariants>|null} [editedVariants] EditedVariants editedVariants
+         */
+
+        /**
+         * Constructs a new EditedVariants.
+         * @memberof product
+         * @classdesc Represents an EditedVariants.
+         * @implements IEditedVariants
+         * @constructor
+         * @param {product.IEditedVariants=} [properties] Properties to set
+         */
+        function EditedVariants(properties) {
+            this.editedVariants = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * EditedVariants editedVariants.
+         * @member {Array.<product.IProductVariants>} editedVariants
+         * @memberof product.EditedVariants
+         * @instance
+         */
+        EditedVariants.prototype.editedVariants = $util.emptyArray;
+
+        /**
+         * Creates a new EditedVariants instance using the specified properties.
+         * @function create
+         * @memberof product.EditedVariants
+         * @static
+         * @param {product.IEditedVariants=} [properties] Properties to set
+         * @returns {product.EditedVariants} EditedVariants instance
+         */
+        EditedVariants.create = function create(properties) {
+            return new EditedVariants(properties);
+        };
+
+        /**
+         * Encodes the specified EditedVariants message. Does not implicitly {@link product.EditedVariants.verify|verify} messages.
+         * @function encode
+         * @memberof product.EditedVariants
+         * @static
+         * @param {product.IEditedVariants} message EditedVariants message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        EditedVariants.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.editedVariants != null && message.editedVariants.length)
+                for (let i = 0; i < message.editedVariants.length; ++i)
+                    $root.product.ProductVariants.encode(message.editedVariants[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified EditedVariants message, length delimited. Does not implicitly {@link product.EditedVariants.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof product.EditedVariants
+         * @static
+         * @param {product.IEditedVariants} message EditedVariants message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        EditedVariants.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an EditedVariants message from the specified reader or buffer.
+         * @function decode
+         * @memberof product.EditedVariants
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {product.EditedVariants} EditedVariants
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        EditedVariants.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.product.EditedVariants();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        if (!(message.editedVariants && message.editedVariants.length))
+                            message.editedVariants = [];
+                        message.editedVariants.push($root.product.ProductVariants.decode(reader, reader.uint32()));
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an EditedVariants message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof product.EditedVariants
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {product.EditedVariants} EditedVariants
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        EditedVariants.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an EditedVariants message.
+         * @function verify
+         * @memberof product.EditedVariants
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        EditedVariants.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.editedVariants != null && message.hasOwnProperty("editedVariants")) {
+                if (!Array.isArray(message.editedVariants))
+                    return "editedVariants: array expected";
+                for (let i = 0; i < message.editedVariants.length; ++i) {
+                    let error = $root.product.ProductVariants.verify(message.editedVariants[i]);
+                    if (error)
+                        return "editedVariants." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an EditedVariants message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof product.EditedVariants
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {product.EditedVariants} EditedVariants
+         */
+        EditedVariants.fromObject = function fromObject(object) {
+            if (object instanceof $root.product.EditedVariants)
+                return object;
+            let message = new $root.product.EditedVariants();
+            if (object.editedVariants) {
+                if (!Array.isArray(object.editedVariants))
+                    throw TypeError(".product.EditedVariants.editedVariants: array expected");
+                message.editedVariants = [];
+                for (let i = 0; i < object.editedVariants.length; ++i) {
+                    if (typeof object.editedVariants[i] !== "object")
+                        throw TypeError(".product.EditedVariants.editedVariants: object expected");
+                    message.editedVariants[i] = $root.product.ProductVariants.fromObject(object.editedVariants[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an EditedVariants message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof product.EditedVariants
+         * @static
+         * @param {product.EditedVariants} message EditedVariants
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        EditedVariants.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.editedVariants = [];
+            if (message.editedVariants && message.editedVariants.length) {
+                object.editedVariants = [];
+                for (let j = 0; j < message.editedVariants.length; ++j)
+                    object.editedVariants[j] = $root.product.ProductVariants.toObject(message.editedVariants[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this EditedVariants to JSON.
+         * @function toJSON
+         * @memberof product.EditedVariants
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        EditedVariants.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for EditedVariants
+         * @function getTypeUrl
+         * @memberof product.EditedVariants
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        EditedVariants.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/product.EditedVariants";
+        };
+
+        return EditedVariants;
+    })();
+
     return product;
 })();
 

@@ -92,3 +92,7 @@ message SearchProductName {
 message SearchProductNameResponse {
   repeated SearchProductName product_names = 1;
 }
+
+message EditedVariants {
+  repeated ProductVariants edited_variants = 1;
+}
