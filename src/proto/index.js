@@ -8704,6 +8704,8 @@ export const product = $root.product = (() => {
          * @memberof product
          * @interface IEditedVariants
          * @property {Array.<product.IProductVariants>|null} [editedVariants] EditedVariants editedVariants
+         * @property {number|null} [productId] EditedVariants productId
+         * @property {string|null} [productName] EditedVariants productName
          */
 
         /**
@@ -8729,6 +8731,22 @@ export const product = $root.product = (() => {
          * @instance
          */
         EditedVariants.prototype.editedVariants = $util.emptyArray;
+
+        /**
+         * EditedVariants productId.
+         * @member {number} productId
+         * @memberof product.EditedVariants
+         * @instance
+         */
+        EditedVariants.prototype.productId = 0;
+
+        /**
+         * EditedVariants productName.
+         * @member {string} productName
+         * @memberof product.EditedVariants
+         * @instance
+         */
+        EditedVariants.prototype.productName = "";
 
         /**
          * Creates a new EditedVariants instance using the specified properties.
@@ -8757,6 +8775,10 @@ export const product = $root.product = (() => {
             if (message.editedVariants != null && message.editedVariants.length)
                 for (let i = 0; i < message.editedVariants.length; ++i)
                     $root.product.ProductVariants.encode(message.editedVariants[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.productId != null && Object.hasOwnProperty.call(message, "productId"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.productId);
+            if (message.productName != null && Object.hasOwnProperty.call(message, "productName"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.productName);
             return writer;
         };
 
@@ -8797,6 +8819,14 @@ export const product = $root.product = (() => {
                         if (!(message.editedVariants && message.editedVariants.length))
                             message.editedVariants = [];
                         message.editedVariants.push($root.product.ProductVariants.decode(reader, reader.uint32()));
+                        break;
+                    }
+                case 2: {
+                        message.productId = reader.int32();
+                        break;
+                    }
+                case 3: {
+                        message.productName = reader.string();
                         break;
                     }
                 default:
@@ -8843,6 +8873,12 @@ export const product = $root.product = (() => {
                         return "editedVariants." + error;
                 }
             }
+            if (message.productId != null && message.hasOwnProperty("productId"))
+                if (!$util.isInteger(message.productId))
+                    return "productId: integer expected";
+            if (message.productName != null && message.hasOwnProperty("productName"))
+                if (!$util.isString(message.productName))
+                    return "productName: string expected";
             return null;
         };
 
@@ -8868,6 +8904,10 @@ export const product = $root.product = (() => {
                     message.editedVariants[i] = $root.product.ProductVariants.fromObject(object.editedVariants[i]);
                 }
             }
+            if (object.productId != null)
+                message.productId = object.productId | 0;
+            if (object.productName != null)
+                message.productName = String(object.productName);
             return message;
         };
 
@@ -8886,11 +8926,19 @@ export const product = $root.product = (() => {
             let object = {};
             if (options.arrays || options.defaults)
                 object.editedVariants = [];
+            if (options.defaults) {
+                object.productId = 0;
+                object.productName = "";
+            }
             if (message.editedVariants && message.editedVariants.length) {
                 object.editedVariants = [];
                 for (let j = 0; j < message.editedVariants.length; ++j)
                     object.editedVariants[j] = $root.product.ProductVariants.toObject(message.editedVariants[j], options);
             }
+            if (message.productId != null && message.hasOwnProperty("productId"))
+                object.productId = message.productId;
+            if (message.productName != null && message.hasOwnProperty("productName"))
+                object.productName = message.productName;
             return object;
         };
 

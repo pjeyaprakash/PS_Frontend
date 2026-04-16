@@ -95,4 +95,6 @@ message SearchProductNameResponse {
 
 message EditedVariants {
   repeated ProductVariants edited_variants = 1;
+  int32 product_id = 2;
+  string product_name = 3;
 }

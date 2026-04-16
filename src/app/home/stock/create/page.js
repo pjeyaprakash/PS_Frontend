@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './createStock.module.css';
-
+import { toast } from "sonner";
 import { category, api, product } from "@/proto/index";
 import { protoGet, protoPost, protoPut } from '@/utils/protoAPI';
 
@@ -88,19 +88,25 @@ export default function CreateStock({ editItem = null }) {
 
   const [variants, setVariants] = useState(editItem?.variants || []);
 
-
   // =====================
   // UPDATE VARIANTS
   // =====================
   const [existingVariants, setExistingVariants] = useState(null)
+
   const [existingAttrGroups, setExistingAttrGroups] = useState(null)
 
-  const handleEditVariant = () => {
+  const handleEditVariant = async () => {
 
     if (existingVariants) {
-      console.log(variants)
-      setExistingVariants(null)
-      setExistingAttrGroups(null)
+      
+      const {success} = await protoPut("/update-all-variants", product.EditedVariants, {editedVariants: variants, productId: form.id, productName: form.name})
+      if (success) {
+        setExistingVariants(null)
+        setExistingAttrGroups(null)
+        toast.success("Varinats Updated Successfully")
+      } else {
+        toast.error("Failed to Update Variants!")
+      }
     } else {
       setExistingVariants(variants)
       setExistingAttrGroups(attrGroups)
@@ -665,7 +671,7 @@ export default function CreateStock({ editItem = null }) {
 
                         <td>
                           <div className={styles.qtyWrap}>
-                            <input className={styles.nameInput} type="text" min={0} disabled={!existingVariants && selectedVariantIndex !== i}
+                            <input className={styles.nameInput} type="text" min={0} disabled={existingVariants? v.sn : selectedVariantIndex !== i}
                               value={v.name} onChange={e => setName(v.id, e.target.value)} />
                           </div>
                         </td>
