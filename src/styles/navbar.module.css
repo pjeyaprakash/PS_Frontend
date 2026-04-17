@@ -38,7 +38,6 @@
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border-bottom: 1px solid var(--border);
   display: flex;
-  /* align-items: justify; */
   justify-content: space-between;
   padding: 0 28px;
   gap: 16px;

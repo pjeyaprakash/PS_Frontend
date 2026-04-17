@@ -1,8 +1,6 @@
 
 "use client";
-// import { cookies } from "next/headers";
 import Sidebar from "@/components/Sidebar";
-// import styles from '@/styles/sidebar.module.css';
 import styles from "./page.module.css";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";

@@ -16,12 +16,7 @@ export default function Stock() {
       (async () => {
         try {
           const {products} = await protoGet("/products/1000/0", product.ProductListResponse, controller)
-        //         const groups = categories.map(pg => ({
-        //   ...pg,
-        //   values: [],
-        //   customInput: ''
-        // }));
-        // setAttrGroups(groups);
+
         setProducts(products)
 
         } catch (error) {
@@ -33,21 +28,6 @@ export default function Stock() {
       return () => controller.abort()
     }, [])
 
-//   const [variants, setVariants[];
-
-  // const totalUnits = products.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty, 0), 0);
-  // const totalVal   = products.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty * (i.cost || 0), 0), 0);
-  // const lowItems   = products.filter(i => i.status === 'low').length;
-  // const totalUnits = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty, 0), 0);
-  // const totalVal   = items.reduce((s, i) => s + i.variants.reduce((a, v) => a + v.qty * (i.cost || 0), 0), 0);
-  // const lowItems   = items.filter(i => i.status === 'low').length;
-
-  // const filtered = products.filter(item => {
-  //   const q = search.toLowerCase();
-  //   const matchQ = !q || item.name.toLowerCase().includes(q) || (item.sku || '').toLowerCase().includes(q);
-  //   const matchF = filter === 'all' || item.status === filter;
-  //   return matchQ && matchF;
-  // });
 
       const { resolvedTheme , setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -126,7 +106,6 @@ export default function Stock() {
             <tr>
               <th>Product</th>
               <th>Category</th>
-              {/* <th>Variants</th> */}
               <th>Units</th>
               <th>Value</th>
               <th>Variants</th>
@@ -142,9 +121,6 @@ export default function Stock() {
                 </td>
               </tr>
             ) : products.map(item => {
-              // const totalQty = item.variants.reduce((s, v) => s + v.qty, 0);
-              // const sizes  = [...new Set(item.variants.map(v => v.size))];
-              // const colors = [...new Set(item.variants.map(v => v.color))];
 
               return (
                 <tr key={item.id} onClick={() => router.push(`/home/stock/${item.id}`)}>
@@ -153,13 +129,6 @@ export default function Stock() {
                     {item.sku && <div className={styles.itemSku}>{item.sku}</div>}
                   </td>
                   <td><span className={styles.itemCategory}>{item.category}</span></td>
-                  {/* <td>
-                    <div className={styles.variantMinis}>
-                      {sizes.slice(0,4).map(s => <span key={s} className={styles.mini}>{s}</span>)}
-                      {sizes.length > 4 && <span className={styles.mini}>+{sizes.length - 4}</span>}
-                      {colors.slice(0,2).map(c => <span key={c} className={styles.mini}>🎨 {c.split(' ')[0]}</span>)}
-                    </div>
-                  </td> */}
                   <td style={{ fontWeight: 600, color: 'var(--text)', fontSize: 14 }}>{item.totalQuantity}</td>
                   <td>
                     {item.totalValue ? (
@@ -182,14 +151,6 @@ export default function Stock() {
                         </svg>
                         Edit
                       </button>
-                      {/* <button className={`${styles.actBtn} ${styles.del}`}
-                        onClick={() => { if (confirm('Delete this item?')) console.error('deleted'); }}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
-                          <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
-                        </svg>
-                        Del
-                      </button> */}
                     </div>
                   </td>
                 </tr>
