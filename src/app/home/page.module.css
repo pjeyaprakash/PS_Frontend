@@ -48,7 +48,10 @@
 
 .home {
   flex: 1;
+  display: flex;
   overflow-y: auto;
+  flex-direction: column;
+  height: 100vh;
 }
 
 
