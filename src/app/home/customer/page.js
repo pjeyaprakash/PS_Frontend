@@ -1,17 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import styles from './page.module.css';
 import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
 import { customer } from '@/proto';
 
 
-const emptyForm = {id:"", cusCode: '', cusName: '', lineCode: '', address: '' };
+const emptyForm = { id: "", cusCode: '', cusName: '', lineCode: '', address: '' };
 
 function IconEdit() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
     </svg>
@@ -20,7 +20,7 @@ function IconEdit() {
 function IconPlus() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
       <line x1="12" y1="5" x2="12" y2="19" />
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
@@ -29,16 +29,16 @@ function IconPlus() {
 function IconX() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
       <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6"  y1="6" x2="18" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
   );
 }
 function IconUser() {
   return (
     <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -47,7 +47,7 @@ function IconUser() {
 function IconMap() {
   return (
     <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
       <line x1="8" y1="2" x2="8" y2="18" />
       <line x1="16" y1="6" x2="16" y2="22" />
@@ -57,7 +57,7 @@ function IconMap() {
 function IconBuilding() {
   return (
     <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
       <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
     </svg>
@@ -66,7 +66,7 @@ function IconBuilding() {
 function IconRows() {
   return (
     <svg width="38" height="38" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
       <rect x="3" y="3" width="18" height="18" rx="2" />
       <path d="M3 9h18M3 15h18M9 3v18" />
     </svg>
@@ -168,37 +168,40 @@ function CustomerModal({ mode, initialData, onClose, onSave }) {
 /* ────────────========== Main page ===========──────────── */
 /* ──────────── Main page ──────────── */
 export default function Customer() {
-  const [rows, setRows]         = useState([]);
+  const [rows, setRows] = useState([]);
+  const [modal, setModal] = useState(null);
 
-
-  const [modal, setModal]       = useState(null); 
+  const [total, setTotal] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
 
   const openCreate = () => setModal({ mode: 'create' });
-  const openEdit   = (row) => setModal({ mode: 'edit', row });
+  const openEdit = (row) => setModal({ mode: 'edit', row });
   const closeModal = () => setModal(null);
 
 
-    useEffect(() => {
-      const controller = new AbortController();
-      (async () => {
-        try {
-          const {customers} = await protoGet("/customer/1000/0", customer.CustomerList, controller)
+  useEffect(() => {
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const { customers } = await protoGet("/customer/1000/0", customer.CustomerList, controller)
+        // setRows([])
         setRows(customers)
 
-        } catch (error) {
+      } catch (error) {
         if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
         console.error(error);
-  
-        }
-      })()
-      return () => controller.abort()
-    }, [])
+
+      }
+    })()
+    return () => controller.abort()
+  }, [])
 
 
-  const handleSave = async(form) => {
+  const handleSave = async (form) => {
     if (modal.mode === 'create') {
-      const response = await protoPost("/customer", customer.PostCustomer, customer.Customer, {id:0, cusCode: "code", ...form})
-      setRows((prev) => [...prev, response ]);
+      const response = await protoPost("/customer", customer.PostCustomer, customer.Customer, { id: 0, cusCode: "code", ...form })
+      setRows((prev) => [...prev, response]);
     } else {
       const response = await protoPutt(`/customer/${modal.row.id}`, customer.PostCustomer, customer.Customer, form)
       setRows((prev) => prev.map((r) => (r.id === modal.row.id ? response : r)));
@@ -243,17 +246,19 @@ export default function Customer() {
             </tr>
           </thead>
           <tbody>
+
             {rows.length === 0 ? (
               <tr>
                 <td colSpan={5}>
                   <div className={styles.emptyState}>
-                    <IconRows />
+                    {/* <IconRows /> */}
                     <div>No Customer yet. Click <strong>Add Customer</strong> to add one.</div>
                   </div>
                 </td>
               </tr>
             ) : (
               rows.map((row, i) => (
+
                 <tr key={row.id}>
                   <td><span className={styles.indexBadge}>{row.cusCode}</span></td>
                   <td>{row.cusName}</td>
@@ -271,9 +276,42 @@ export default function Customer() {
                 </tr>
               ))
             )}
+
           </tbody>
         </table>
+        <div className={styles.pagination}>
+
+          <div> showng {rowsPerPage * (currentPage - 1) + 1} to {currentPage * rowsPerPage > rows.length ? rows.length : currentPage * rowsPerPage} of {total} customer</div>
+          <div className={styles.pageNumbers}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg> 
+              {currentPage} 
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          {/* {Array.from({ length: total }, (_, index) => (
+              <div key={index}>
+                Div {index + 1}
+              </div>
+            ))} */}
+
+        </div>
       </div>
+
 
       {/* Modal */}
       {modal && (
