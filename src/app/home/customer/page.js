@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
 import { customer } from '@/proto';
 import usePaginationStore from '@/zustand/usePaginationStore';
+import { toast } from 'sonner';
 
 
 const emptyForm = { id: "", cusCode: '', cusName: '', lineCode: '', address: '' };
@@ -174,7 +175,6 @@ export default function Customer() {
   const { cusCurPage, cusRowPerPage, setCusCurPage, setCusRowPerPage } = usePaginationStore()
 
   const [rows, setRows] = useState([]);
-  console.log("rows", rows)
   const [modal, setModal] = useState(null);
 
 
@@ -184,24 +184,23 @@ export default function Customer() {
   const closeModal = () => setModal(null);
 
 
-  useEffect(() => {
-    const controller = new AbortController();
-    (async () => {
-      try {
-        const { customers } = await protoGet(`/customer/${cusRowPerPage}/${cusCurPage * cusRowPerPage - cusRowPerPage}`, customer.CustomerList, controller)
-        // setRows([])
-        setRows(customers)
-        console.log(customers[0].total)
-        setTotal(customers.length ? customers[0].total : 0)
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   (async () => {
+  //     try {
+  //       const { customers } = await protoGet(`/customer/${cusRowPerPage}/${cusCurPage * cusRowPerPage - cusRowPerPage}`, customer.CustomerList, controller)
+  //       setRows([])
+  //       // setRows(customers)
+  //       setTotal(customers.length ? customers[0].total : 0)
 
-      } catch (error) {
-        if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
-        console.error(error);
+  //     } catch (error) {
+  //       if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+  //       console.error(error);
 
-      }
-    })()
-    return () => controller.abort()
-  }, [])
+  //     }
+  //   })()
+  //   return () => controller.abort()
+  // }, [])
 
 
   const handleSave = async (form) => {
@@ -223,7 +222,7 @@ export default function Customer() {
   // ========================================
 
   const [total, setTotal] = useState(0)
-  // console.log(total)
+
 
   // const [cusCurPage, setCusCurPage] = useState(1)
   // const [cusRowPerPage, setCusRowPerPage] = useState(10)
@@ -241,27 +240,28 @@ export default function Customer() {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
     (async () => {
       try {
         if (searchTerm) {
           // search API
         } else {
-          // limi offset api
           const { customers } = await protoGet(`/customer/${cusRowPerPage}/${cusCurPage * cusRowPerPage - cusRowPerPage}`, customer.CustomerList, controller)
           setRows(customers)
           setTotal(customers.length ? customers[0].total : 0)
         }
       } catch (error) {
+        if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+        console.error(error)
         setRows([])
         setTotal(0)
+        toast("erro","Something went wrong")
       }
     })()
 
+    return () => controller.abort()
 
-  }, [cusCurPage, cusRowPerPage, searchTerm])
-
-
-
+  }, [cusCurPage, searchTerm])
 
 
   return (
@@ -335,7 +335,7 @@ export default function Customer() {
         </table>
         <div className={styles.pagination}>
 
-          <div> showng {cusRowPerPage * (cusCurPage - 1) + 1} to {cusCurPage * cusRowPerPage > rows.length ? rows.length : cusCurPage * cusRowPerPage} of {total} customer</div>
+          <div> showng {cusRowPerPage * (cusCurPage - 1) + 1} to {(cusCurPage -1) * cusRowPerPage + rows.length} of {total} customer</div>
           <div className={styles.pageNumbers}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" onClick={handleLeftPageClick}>
               <path
@@ -347,7 +347,7 @@ export default function Customer() {
               />
             </svg> 
               {cusCurPage} 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" onClick={handleRightPageClick}>
               <path
                 d="M9 6L15 12L9 18"
                 stroke="currentColor"
@@ -358,13 +358,6 @@ export default function Customer() {
             </svg>
             <div>Total Pages: {Math.ceil(total / cusRowPerPage)}</div>
           </div>
-          
-          {/* {Array.from({ length: total }, (_, index) => (
-              <div key={index}>
-                Div {index + 1}
-              </div>
-            ))} */}
-
         </div>
       </div>
 
