@@ -16,13 +16,28 @@ message Customer {
   int64 profit = 11;
 }
 
+message GetCustomer {
+    int32 id = 1;
+    string cus_code = 2;
+    string cus_name = 3;
+    string line_code = 4;
+    string address = 5;
+  int64 total_value = 6;
+  int64 actual_value = 7;
+  int64 paid = 8;
+  int64 debt = 9;
+  int64 revenue = 10;
+  int64 profit = 11;
+  int64 total = 12;
+}
+
 message CustomerList {
-  repeated Customer customers = 1;
+  repeated GetCustomer customers = 1;
 }
 
 message PostCustomer {
     int32 id = 1;
-    string cust_code = 2;
+    string cus_code = 2;
     string cus_name = 3;
     string line_code = 4;
     string address = 5;
