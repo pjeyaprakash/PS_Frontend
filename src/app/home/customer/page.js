@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 import { protoGet, protoPost, protoPutt } from '@/utils/protoAPI';
 import { customer } from '@/proto';
@@ -215,25 +215,42 @@ export default function Customer() {
   };
 
 
-  const [searchTerm, setSearchTerm] = useState("")
+  
 
   // ========================================
   // Pagination
   // ========================================
 
   const [total, setTotal] = useState(0)
+  // const [searchTotal, setSearchTotal] = useState(0)
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [search, setSearch] = useState("")
+  const debounceRef = useRef(null);
 
-  // const [cusCurPage, setCusCurPage] = useState(1)
-  // const [cusRowPerPage, setCusRowPerPage] = useState(10)
+  const [searchCusCurPage, setSearchCusCurPage] = useState(1)
+  const [searchCusRowPerPage, setSearchCusRowPerPage] = useState(10)
+
 
   const handleLeftPageClick = () => {
+    if (searchTerm.trim()) {
+      if (searchCusCurPage > 1) {
+        setSearchCusCurPage(searchCusCurPage - 1)
+      }
+      return
+    }
     if (cusCurPage > 1) {
       setCusCurPage(cusCurPage - 1)
     }
   }
 
   const handleRightPageClick = () => {
+    if (searchTerm.trim()) {
+      if (searchCusCurPage < Math.ceil(total / searchCusRowPerPage)) {
+        setSearchCusCurPage(searchCusCurPage + 1)
+      }
+      return
+    }
     if (cusCurPage < Math.ceil(total / cusRowPerPage)) {
       setCusCurPage(cusCurPage + 1)
     }
@@ -243,8 +260,10 @@ export default function Customer() {
     const controller = new AbortController();
     (async () => {
       try {
-        if (searchTerm) {
-          // search API
+        if (searchTerm.trim()) {
+          const { customers } = await protoGet(`/customer/search/${searchTerm}/${searchCusRowPerPage}/${searchCusCurPage * searchCusRowPerPage - searchCusRowPerPage}`, customer.CustomerList, controller)
+          setRows(customers)
+          setTotal(customers.length ? customers[0].total : 0)
         } else {
           const { customers } = await protoGet(`/customer/${cusRowPerPage}/${cusCurPage * cusRowPerPage - cusRowPerPage}`, customer.CustomerList, controller)
           setRows(customers)
@@ -261,7 +280,7 @@ export default function Customer() {
 
     return () => controller.abort()
 
-  }, [cusCurPage, searchTerm])
+  }, [cusCurPage, searchTerm, searchCusCurPage])
 
 
   return (
@@ -269,15 +288,27 @@ export default function Customer() {
 
       {/* Header */}
       <div className={styles.header}>
-        <div className={styles.logo}>
-          {/* <div className={styles.logoIcon}><IconTarget /></div>
-          <span className={styles.logoText}>Luminary</span> */}
-        </div>
+
 
         <div className={styles.pageTitle}>
           Customer <span>Management</span>
         </div>
 
+
+        
+        <input className={styles.searchBox} type="search" placeholder="Search..." value={search}
+        onChange={(e) => {
+          const value = e.target.value
+          setSearch(value)
+          if (debounceRef.current) clearTimeout(debounceRef.current);
+          debounceRef.current = setTimeout(() => {
+            setSearchTerm(value); // API/search trigger
+          }, 1000);
+
+
+      }} />
+        
+         
         <button className={styles.createBtn} onClick={openCreate}>
           <IconPlus /> Add Customer
         </button>
