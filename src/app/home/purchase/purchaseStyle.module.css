@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-around;
     height: 100vh;
+
     
 }
 
@@ -17,6 +18,7 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    position: relative;
 
 }
 
@@ -26,6 +28,26 @@
     background: rgba(176, 255, 255, 0.551);
     border-radius: 1.3vw;
 }
+
+.dashboard button {
+    position: absolute;
+    background: linear-gradient(45deg,rgb(221, 176, 255), rgb(119, 237, 255));
+    border: 1px solid whitesmoke;
+    padding: 5 40;
+    top: -50;
+    right: 20;
+    font-size: 20px;
+    border-radius: 1.2vh ;
+    font-weight: 500;
+    box-shadow: 0 6px 8px rgb(186, 186, 186);
+
+}
+
+.dashboard button:hover {
+    background: linear-gradient(45deg,rgb(182, 253, 255), rgb(200, 71, 255));
+    box-shadow: 0 6px 20px rgb(128, 187, 189);
+    transform: translateY(-2px);
+}   
 
 
 /* 
@@ -47,6 +69,6 @@
 =========================
 */
 
-.table {
+/* .table {
     
-}
+} */
