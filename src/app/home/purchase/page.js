@@ -11,7 +11,20 @@ export default function Purchase() {
         {id:4, amount: 3000, date:"2026.12.11", type: "Dress"},
         {id:5, amount: 3000, date:"2026.12.11", type: "Dress"},
         {id:6, amount: 3000, date:"2026.12.11", type: "Dress"},
-        {id:7, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:7, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:8, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:9, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:10, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:11, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:12, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:13, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:14, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:15, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:16, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:17, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:18, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:19, amount: 3000, date:"2026.12.11", type: "Dress"},
+        // {id:20, amount: 3000, date:"2026.12.11", type: "Dress"},
     ]
 
     return (
@@ -25,14 +38,18 @@ export default function Purchase() {
                 <div>Amount</div>
             </div>
 
-            {/* Middle */}
-            <div className={styles.middle}>
-                <div>Filter</div>
-                <div>Search</div>
-            </div>
+
 
             {/* Table */}
             <div className={styles.table}>
+
+                {/* Middle */}
+                <div className={styles.middle}>
+                    <div>Filter</div>
+                    <div>Search</div>
+                </div>
+
+
                 <table>
                     <thead>
                         <tr>
@@ -41,24 +58,23 @@ export default function Purchase() {
                             <th>Date</th>
                             <th>Type</th> 
                         </tr>
-                    </thead>
-                </table>
-                <tbody>
-                    {a.length ?
-                        (a.map((row, i) => 
-                            <tr key = {i}>
-                                <td>row.id</td>
-                                <td>row.amount</td>
-                                <td>row.date</td>
-                                <td>row.type</td>
-                            </tr>
+                    </thead>       
+                    <tbody>
+                        {a.length ?
+                            (a.map((row, i) => 
+                                <tr key = {i}>
+                                    <td>{row.id}</td>
+                                    <td>{row.amount}</td>
+                                    <td>{row.date}</td>
+                                    <td>{row.type}</td>
+                                </tr>
+                                )
                             )
-                        )
-                        :
-                        <div>No Purchase</div>
-                    }
-
-                </tbody>
+                            :
+                            <div>No Purchase</div>
+                        }
+                    </tbody>
+                </table>
             </div>
 
         </div>
