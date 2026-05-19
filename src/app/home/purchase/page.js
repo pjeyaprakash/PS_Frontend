@@ -11,10 +11,10 @@ export default function Purchase() {
         {id:4, amount: 3000, date:"2026.12.11", type: "Dress"},
         {id:5, amount: 3000, date:"2026.12.11", type: "Dress"},
         {id:6, amount: 3000, date:"2026.12.11", type: "Dress"},
-        // {id:7, amount: 3000, date:"2026.12.11", type: "Dress"},
-        // {id:8, amount: 3000, date:"2026.12.11", type: "Dress"},
-        // {id:9, amount: 3000, date:"2026.12.11", type: "Dress"},
-        // {id:10, amount: 3000, date:"2026.12.11", type: "Dress"},
+        {id:7, amount: 3000, date:"2026.12.11", type: "Dress"},
+        {id:8, amount: 3000, date:"2026.12.11", type: "Dress"},
+        {id:9, amount: 3000, date:"2026.12.11", type: "Dress"},
+        {id:10, amount: 3000, date:"2026.12.11", type: "Dress"},
         // {id:11, amount: 3000, date:"2026.12.11", type: "Dress"},
         // {id:12, amount: 3000, date:"2026.12.11", type: "Dress"},
         // {id:13, amount: 3000, date:"2026.12.11", type: "Dress"},
@@ -41,14 +41,16 @@ export default function Purchase() {
 
 
             {/* Table */}
-            <div className={styles.table}>
+            <div className={styles.list}>
 
                 {/* Middle */}
                 <div className={styles.middle}>
                     <div>Filter</div>
                     <div>Search</div>
+                    <button>+ Add Purchase</button>
                 </div>
 
+                <div>
 
                 <table>
                     <thead>
@@ -75,6 +77,7 @@ export default function Purchase() {
                         }
                     </tbody>
                 </table>
+                </div>
             </div>
 
         </div>

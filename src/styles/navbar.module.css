@@ -32,7 +32,7 @@
 
 
 .navbar {
-  height: 70px;
+  height: 10vh;
   background: var(--bg);
   backdrop-filter: blur(24px) saturate(1.4);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
