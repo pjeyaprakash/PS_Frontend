@@ -49,18 +49,7 @@
 }   
 
 
-/* 
-=========================
- Middle
-=========================
-*/
 
-.middle {
-    background-color: antiquewhite;
-    display: flex;
-    height: 5vh ;
-
-}
 
 
 
@@ -77,11 +66,30 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
     
 }
 
+/* 
+=========================
+ Middle
+=========================
+*/
+
+.middle {
+    background-color: antiquewhite;
+    width: 94%;
+    display: flex;
+    gap: 10;
+    height: 5vh ;
+    padding: 4;
+    justify-content: end;
+
+
+}
+
 .list table {
-    width: 85%;
+    /* background: rgb(0, 0, 0); */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     border-collapse: collapse;
     overflow: scroll;
@@ -104,8 +112,16 @@
 }
 
 .list td {
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
-    padding: 0 8vw;
+    padding: 0 9vw;
     height: 5vh;
+}
+
+
+
+/* SEARCHBOX */
+
+.searchBox{
+    
 }
