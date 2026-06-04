@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styles from './purchaseStyle.module.css'
 
 
@@ -27,6 +28,8 @@ export default function Purchase() {
         // {id:20, amount: 3000, date:"2026.12.11", type: "Dress"},
     ]
 
+    const [search, setSearch] = useState("")
+
     return (
         <div className={styles.main}>
 
@@ -46,7 +49,7 @@ export default function Purchase() {
                 {/* Middle */}
                 <div className={styles.middle}>
 
-                    <input className={styles.searchBox} type="search" placeholder="Search..." value={"search"}
+                    <input className={styles.searchBox} type="search" placeholder="Search..." value={search}
                         onChange={(e) => {
                             // const value = e.target.value
                             // setSearch(value)
@@ -57,11 +60,11 @@ export default function Purchase() {
 
 
                         }} />
-                    <div>Filter</div>
-                    <button>+ Add Purchase</button>
+                    <div className={styles.filter}>Filter</div>
+                    <button className={styles.addPurchase}>+ Add Purchase</button>
                 </div>
 
-                <div>
+                <div className={styles.tab}>
 
                     <table>
                         <thead>
@@ -88,6 +91,10 @@ export default function Purchase() {
                             }
                         </tbody>
                     </table>
+                    <div className={styles.pagination}>
+                        <div>dd</div>
+                        <div>dd</div>
+                    </div>
                 </div>
             </div>
 

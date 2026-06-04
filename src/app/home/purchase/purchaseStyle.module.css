@@ -77,10 +77,10 @@
 */
 
 .middle {
-    background-color: antiquewhite;
+
     width: 94%;
     display: flex;
-    gap: 10;
+    gap: 20;
     height: 5vh ;
     padding: 4;
     justify-content: end;
@@ -88,14 +88,17 @@
 
 }
 
-.list table {
-    /* background: rgb(0, 0, 0); */
+.tab {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     border-collapse: collapse;
-    overflow: scroll;
     border-radius: 10px;
-
 }
+
+/* .list table {
+
+
+
+} */
 
 .list thead {
     background: linear-gradient(45deg, #ffffff, #e6d8ff);
@@ -123,5 +126,36 @@
 /* SEARCHBOX */
 
 .searchBox{
-    
+    border-radius: 10px;
+    border: 1px solid rgb(0, 65, 185);
+    padding-left: 10px;
+    background: rgb(239, 251, 255);
+}
+
+.filter {
+    background: linear-gradient(215deg, rgb(220, 241, 255), rgb(119, 246, 255));
+    border-radius: 10px;
+    padding:4px 15px;
+    border: 1px solid rgb(0, 197, 197);
+    font-size: large;
+    font-weight: 900;
+}
+
+.addPurchase {
+    background: linear-gradient(215deg, rgb(154, 67, 255), rgb(24, 124, 255));
+    border-radius: 10px;
+    padding:4px 15px;
+    border: 1px solid rgb(0, 69, 197);
+    color: white;
+    font-size: large;
+    font-weight: 900;
+}
+
+.pagination {
+    height: 5vh;
+    background-color: rgb(219, 127, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
 }
